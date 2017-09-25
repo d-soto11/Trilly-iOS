@@ -1,0 +1,416 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04E789C8E10DB47D858FEA37 /* Pods_Trilly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8F71A74C1416D7A1459799 /* Pods_Trilly.framework */; };
+		433007781F796A5B000A454D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433007771F796A5B000A454D /* AppDelegate.swift */; };
+		4330077A1F796A5B000A454D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433007791F796A5B000A454D /* ViewController.swift */; };
+		4330077D1F796A5B000A454D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4330077B1F796A5B000A454D /* Main.storyboard */; };
+		4330077F1F796A5B000A454D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4330077E1F796A5B000A454D /* Assets.xcassets */; };
+		433007821F796A5B000A454D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433007801F796A5B000A454D /* LaunchScreen.storyboard */; };
+		43E1CC771F796B73002B0CF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43E1CC761F796B73002B0CF6 /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		433007741F796A5B000A454D /* Trilly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trilly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		433007771F796A5B000A454D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		433007791F796A5B000A454D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4330077C1F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4330077E1F796A5B000A454D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		433007811F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		433007831F796A5B000A454D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43E1CC761F796B73002B0CF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9BB5C8BC189A01193A46FC2C /* Pods-Trilly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trilly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Trilly/Pods-Trilly.debug.xcconfig"; sourceTree = "<group>"; };
+		BC8F71A74C1416D7A1459799 /* Pods_Trilly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trilly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB1557B87C60CF961F98CE2D /* Pods-Trilly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trilly.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trilly/Pods-Trilly.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		433007711F796A5B000A454D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				04E789C8E10DB47D858FEA37 /* Pods_Trilly.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2626FF9A30B4D6A56807D772 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9BB5C8BC189A01193A46FC2C /* Pods-Trilly.debug.xcconfig */,
+				DB1557B87C60CF961F98CE2D /* Pods-Trilly.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		4330076B1F796A5B000A454D = {
+			isa = PBXGroup;
+			children = (
+				433007761F796A5B000A454D /* Trilly */,
+				433007751F796A5B000A454D /* Products */,
+				2626FF9A30B4D6A56807D772 /* Pods */,
+				FBA339265EECBFCE483C44A7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		433007751F796A5B000A454D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				433007741F796A5B000A454D /* Trilly.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		433007761F796A5B000A454D /* Trilly */ = {
+			isa = PBXGroup;
+			children = (
+				433007771F796A5B000A454D /* AppDelegate.swift */,
+				433007791F796A5B000A454D /* ViewController.swift */,
+				4330077B1F796A5B000A454D /* Main.storyboard */,
+				4330077E1F796A5B000A454D /* Assets.xcassets */,
+				433007801F796A5B000A454D /* LaunchScreen.storyboard */,
+				433007831F796A5B000A454D /* Info.plist */,
+				43E1CC761F796B73002B0CF6 /* GoogleService-Info.plist */,
+			);
+			path = Trilly;
+			sourceTree = "<group>";
+		};
+		FBA339265EECBFCE483C44A7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BC8F71A74C1416D7A1459799 /* Pods_Trilly.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		433007731F796A5B000A454D /* Trilly */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 433007861F796A5B000A454D /* Build configuration list for PBXNativeTarget "Trilly" */;
+			buildPhases = (
+				B3F00F05658819C4FC6AC677 /* [CP] Check Pods Manifest.lock */,
+				433007701F796A5B000A454D /* Sources */,
+				433007711F796A5B000A454D /* Frameworks */,
+				433007721F796A5B000A454D /* Resources */,
+				6B151A1E6C9A3BB6BF18C44E /* [CP] Embed Pods Frameworks */,
+				CE8C01CFEEA74CBA08AD95D3 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Trilly;
+			productName = Trilly;
+			productReference = 433007741F796A5B000A454D /* Trilly.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4330076C1F796A5B000A454D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0900;
+				LastUpgradeCheck = 0900;
+				ORGANIZATIONNAME = "Tres Astronautas";
+				TargetAttributes = {
+					433007731F796A5B000A454D = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4330076F1F796A5B000A454D /* Build configuration list for PBXProject "Trilly" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4330076B1F796A5B000A454D;
+			productRefGroup = 433007751F796A5B000A454D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				433007731F796A5B000A454D /* Trilly */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		433007721F796A5B000A454D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				433007821F796A5B000A454D /* LaunchScreen.storyboard in Resources */,
+				43E1CC771F796B73002B0CF6 /* GoogleService-Info.plist in Resources */,
+				4330077F1F796A5B000A454D /* Assets.xcassets in Resources */,
+				4330077D1F796A5B000A454D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6B151A1E6C9A3BB6BF18C44E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Trilly/Pods-Trilly-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Trilly/Pods-Trilly-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3F00F05658819C4FC6AC677 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Trilly-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE8C01CFEEA74CBA08AD95D3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Trilly/Pods-Trilly-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		433007701F796A5B000A454D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4330077A1F796A5B000A454D /* ViewController.swift in Sources */,
+				433007781F796A5B000A454D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4330077B1F796A5B000A454D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4330077C1F796A5B000A454D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		433007801F796A5B000A454D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				433007811F796A5B000A454D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		433007841F796A5B000A454D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		433007851F796A5B000A454D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		433007871F796A5B000A454D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9BB5C8BC189A01193A46FC2C /* Pods-Trilly.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QBLL74FJC6;
+				INFOPLIST_FILE = Trilly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tresastronautas.ios.trilly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		433007881F796A5B000A454D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB1557B87C60CF961F98CE2D /* Pods-Trilly.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QBLL74FJC6;
+				INFOPLIST_FILE = Trilly/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tresastronautas.ios.trilly;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4330076F1F796A5B000A454D /* Build configuration list for PBXProject "Trilly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				433007841F796A5B000A454D /* Debug */,
+				433007851F796A5B000A454D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		433007861F796A5B000A454D /* Build configuration list for PBXNativeTarget "Trilly" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				433007871F796A5B000A454D /* Debug */,
+				433007881F796A5B000A454D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4330076C1F796A5B000A454D /* Project object */;
+}
