@@ -16,10 +16,38 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.695804396782-f0fkum3ia3el0ob5s9hg5oqj6e28h82n</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>googlechromes</string>
+		<string>comgooglemaps</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Trilly te acompaña durante tu viaje para darte información útil y para que puedas aportar al medio ambiente con esos pedalazos</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Trilly te acompaña durante tu viaje para darte información útil y para que puedas aportar al medio ambiente con esos pedalazos</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Trilly te acompaña durante tu viaje para darte información útil y para que puedas aportar al medio ambiente con esos pedalazos</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Trilly te acompaña durante tu viaje para darte información útil y para que puedas aportar al medio ambiente con esos pedalazos</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
