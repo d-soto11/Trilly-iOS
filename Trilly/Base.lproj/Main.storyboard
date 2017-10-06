@@ -12,8 +12,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="JosefinSans-Bold.ttf">
+            <string>JosefinSans-Bold</string>
+        </array>
         <array key="Oxygen-Bold.ttf">
             <string>Oxygen-Bold</string>
+        </array>
+        <array key="Oxygen-Light.ttf">
+            <string>Oxygen-Light</string>
         </array>
         <array key="Rubik-Medium.ttf">
             <string>Rubik-Medium</string>
@@ -98,6 +104,7 @@
                     <connections>
                         <segue destination="3DA-QC-IhA" kind="custom" identifier="1" customClass="MaterialViewSegue" customModule="MaterialTB" id="eP7-zf-6iT"/>
                         <segue destination="9ro-Zy-DzB" kind="show" identifier="Login" id="Fkg-YF-Sud"/>
+                        <segue destination="zJd-D2-tif" kind="custom" identifier="2" customClass="MaterialViewSegue" customModule="MaterialTB" id="Mpf-Cg-vEd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -168,6 +175,220 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eSu-3c-4fX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="578.39999999999998" y="-623.83808095952031"/>
+        </scene>
+        <!--Events View Controller-->
+        <scene sceneID="jiW-Tm-Nh7">
+            <objects>
+                <viewController id="zJd-D2-tif" customClass="EventsViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GLH-DP-iBD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EVENTOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrc-kP-hhj">
+                                <rect key="frame" x="138.5" y="40" width="98.5" height="20"/>
+                                <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="20"/>
+                                <color key="textColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6mJ-lL-6VQ">
+                                <rect key="frame" x="15" y="80" width="345" height="567"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GreenEvent" rowHeight="250" id="k3Y-Nb-MdN" customClass="TrillyCell" customModule="Trilly" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="345" height="250"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k3Y-Nb-MdN" id="cZ8-xW-Jt3">
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vt4-FR-W2Y">
+                                                    <rect key="frame" x="0.0" y="8" width="345" height="219"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vAk-5g-bT6">
+                                                            <rect key="frame" x="10" y="0.0" width="190.5" height="114"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="vAk-5g-bT6" secondAttribute="height" multiplier="10:6" id="0eo-zh-ZS1"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rodada Trilly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPa-Gi-Jf3">
+                                                            <rect key="frame" x="10" y="129" width="159" height="25"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="25"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Este viernes estaremos inagurando Trilly con la rodad más grande de la ciudad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSs-wT-40I">
+                                                            <rect key="frame" x="10" y="159" width="225" height="49.5"/>
+                                                            <fontDescription key="fontDescription" name="Oxygen-Light" family="Oxygen" pointSize="13"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqB-q7-8W9">
+                                                            <rect key="frame" x="266" y="27" width="29" height="16"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="16"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Itu-fk-ena">
+                                                            <rect key="frame" x="300" y="20" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="5Mh-v2-hoK"/>
+                                                                <constraint firstAttribute="width" secondItem="Itu-fk-ena" secondAttribute="height" multiplier="1:1" id="Jh9-Sd-24p"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01/10/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLg-Pw-CDM">
+                                                            <rect key="frame" x="247.5" y="133" width="82.5" height="17"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPa-p4-39P">
+                                                            <rect key="frame" x="253" y="155" width="77" height="17"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="Itu-fk-ena" firstAttribute="leading" secondItem="NqB-q7-8W9" secondAttribute="trailing" constant="5" id="0sH-C6-HIx"/>
+                                                        <constraint firstItem="vAk-5g-bT6" firstAttribute="top" secondItem="Vt4-FR-W2Y" secondAttribute="top" id="11c-Po-5HS"/>
+                                                        <constraint firstItem="Itu-fk-ena" firstAttribute="trailing" secondItem="bLg-Pw-CDM" secondAttribute="trailing" id="Bf4-Ss-ITI"/>
+                                                        <constraint firstItem="TSs-wT-40I" firstAttribute="width" secondItem="Vt4-FR-W2Y" secondAttribute="width" multiplier="0.65" id="BtW-Oz-ZpJ"/>
+                                                        <constraint firstItem="TSs-wT-40I" firstAttribute="leading" secondItem="gPa-Gi-Jf3" secondAttribute="leading" id="Hm1-1K-Gmv"/>
+                                                        <constraint firstItem="Itu-fk-ena" firstAttribute="top" secondItem="Vt4-FR-W2Y" secondAttribute="top" constant="20" id="K9f-m1-w5z"/>
+                                                        <constraint firstItem="EPa-p4-39P" firstAttribute="top" secondItem="bLg-Pw-CDM" secondAttribute="bottom" constant="5" id="Xip-ZP-s9a"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Itu-fk-ena" secondAttribute="trailing" constant="15" id="cRL-Oq-2ZL"/>
+                                                        <constraint firstItem="gPa-Gi-Jf3" firstAttribute="leading" secondItem="vAk-5g-bT6" secondAttribute="leading" id="p9J-1M-HJh"/>
+                                                        <constraint firstItem="EPa-p4-39P" firstAttribute="trailing" secondItem="bLg-Pw-CDM" secondAttribute="trailing" id="pdz-4a-0uX"/>
+                                                        <constraint firstItem="bLg-Pw-CDM" firstAttribute="centerY" secondItem="gPa-Gi-Jf3" secondAttribute="centerY" id="rdU-4e-AKV"/>
+                                                        <constraint firstItem="vAk-5g-bT6" firstAttribute="leading" secondItem="Vt4-FR-W2Y" secondAttribute="leading" constant="10" id="uDw-XC-1Sr"/>
+                                                        <constraint firstItem="vAk-5g-bT6" firstAttribute="width" secondItem="Vt4-FR-W2Y" secondAttribute="width" multiplier="0.55" id="vGD-sP-PeJ"/>
+                                                        <constraint firstItem="gPa-Gi-Jf3" firstAttribute="top" secondItem="vAk-5g-bT6" secondAttribute="bottom" constant="15" id="vM0-Hc-5x9"/>
+                                                        <constraint firstItem="Itu-fk-ena" firstAttribute="centerY" secondItem="NqB-q7-8W9" secondAttribute="centerY" id="wF6-b1-YdX"/>
+                                                        <constraint firstItem="TSs-wT-40I" firstAttribute="top" secondItem="gPa-Gi-Jf3" secondAttribute="bottom" constant="5" id="wKu-F3-avu"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Vt4-FR-W2Y" firstAttribute="leading" secondItem="cZ8-xW-Jt3" secondAttribute="leading" id="Aka-en-xQM"/>
+                                                <constraint firstItem="Vt4-FR-W2Y" firstAttribute="top" secondItem="cZ8-xW-Jt3" secondAttribute="topMargin" id="S49-t4-1Ba"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vt4-FR-W2Y" secondAttribute="trailing" id="gxw-ch-e4c"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Vt4-FR-W2Y" secondAttribute="bottom" constant="15" id="tzK-Mo-jqC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RedEvent" rowHeight="250" id="6kK-XI-8Nv" customClass="TrillyCell" customModule="Trilly" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="278" width="345" height="250"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6kK-XI-8Nv" id="g2Y-OX-VG5">
+                                            <rect key="frame" x="0.0" y="0.0" width="345" height="250"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iis-d7-g4E">
+                                                    <rect key="frame" x="0.0" y="8" width="345" height="219"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OSU-8i-iPO">
+                                                            <rect key="frame" x="10" y="0.0" width="190.5" height="114"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="OSU-8i-iPO" secondAttribute="height" multiplier="10:6" id="bpW-dr-nDW"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rodada Trilly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caC-tx-XkH">
+                                                            <rect key="frame" x="10" y="129" width="159" height="25"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="25"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Este viernes estaremos inagurando Trilly con la rodad más grande de la ciudad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHI-RG-1yq">
+                                                            <rect key="frame" x="10" y="159" width="225" height="49.5"/>
+                                                            <fontDescription key="fontDescription" name="Oxygen-Light" family="Oxygen" pointSize="13"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="500" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0b9-dx-FNT">
+                                                            <rect key="frame" x="266" y="27" width="29" height="16"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="16"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pv5-R4-PeH">
+                                                            <rect key="frame" x="300" y="20" width="30" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="Pv5-R4-PeH" secondAttribute="height" multiplier="1:1" id="Ysj-Iu-fLx"/>
+                                                                <constraint firstAttribute="width" constant="30" id="bTL-Sh-SfC"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01/10/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoK-e5-ueE">
+                                                            <rect key="frame" x="247.5" y="133" width="82.5" height="17"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEb-OA-lER">
+                                                            <rect key="frame" x="253" y="155" width="77" height="17"/>
+                                                            <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="1" green="0.80392156859999997" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="wHI-RG-1yq" firstAttribute="leading" secondItem="caC-tx-XkH" secondAttribute="leading" id="85g-kJ-mLR"/>
+                                                        <constraint firstItem="Pv5-R4-PeH" firstAttribute="centerY" secondItem="0b9-dx-FNT" secondAttribute="centerY" id="E85-NX-bEg"/>
+                                                        <constraint firstItem="OSU-8i-iPO" firstAttribute="width" secondItem="iis-d7-g4E" secondAttribute="width" multiplier="0.55" id="FsG-gm-jR7"/>
+                                                        <constraint firstItem="OSU-8i-iPO" firstAttribute="leading" secondItem="iis-d7-g4E" secondAttribute="leading" constant="10" id="Hah-Jk-ctm"/>
+                                                        <constraint firstItem="caC-tx-XkH" firstAttribute="leading" secondItem="OSU-8i-iPO" secondAttribute="leading" id="MH6-a0-LfS"/>
+                                                        <constraint firstItem="Pv5-R4-PeH" firstAttribute="leading" secondItem="0b9-dx-FNT" secondAttribute="trailing" constant="5" id="OqY-t0-h3f"/>
+                                                        <constraint firstItem="caC-tx-XkH" firstAttribute="top" secondItem="OSU-8i-iPO" secondAttribute="bottom" constant="15" id="SbS-Qp-r52"/>
+                                                        <constraint firstItem="wHI-RG-1yq" firstAttribute="top" secondItem="caC-tx-XkH" secondAttribute="bottom" constant="5" id="TPa-KL-mcy"/>
+                                                        <constraint firstItem="Pv5-R4-PeH" firstAttribute="top" secondItem="iis-d7-g4E" secondAttribute="top" constant="20" id="ZO2-PZ-3Oq"/>
+                                                        <constraint firstAttribute="trailing" secondItem="Pv5-R4-PeH" secondAttribute="trailing" constant="15" id="crf-2W-qi9"/>
+                                                        <constraint firstItem="BoK-e5-ueE" firstAttribute="centerY" secondItem="caC-tx-XkH" secondAttribute="centerY" id="hC3-l4-cPd"/>
+                                                        <constraint firstItem="eEb-OA-lER" firstAttribute="trailing" secondItem="BoK-e5-ueE" secondAttribute="trailing" id="iqD-f4-qVK"/>
+                                                        <constraint firstItem="OSU-8i-iPO" firstAttribute="top" secondItem="iis-d7-g4E" secondAttribute="top" id="ly3-Bv-0BR"/>
+                                                        <constraint firstItem="eEb-OA-lER" firstAttribute="top" secondItem="BoK-e5-ueE" secondAttribute="bottom" constant="5" id="rLN-Na-UDN"/>
+                                                        <constraint firstItem="Pv5-R4-PeH" firstAttribute="trailing" secondItem="BoK-e5-ueE" secondAttribute="trailing" id="thG-wx-2X4"/>
+                                                        <constraint firstItem="wHI-RG-1yq" firstAttribute="width" secondItem="iis-d7-g4E" secondAttribute="width" multiplier="0.65" id="x4z-q6-a1G"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="iis-d7-g4E" firstAttribute="top" secondItem="g2Y-OX-VG5" secondAttribute="topMargin" id="EXu-qZ-odd"/>
+                                                <constraint firstItem="iis-d7-g4E" firstAttribute="leading" secondItem="g2Y-OX-VG5" secondAttribute="leading" id="Uvg-q0-Ugg"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="iis-d7-g4E" secondAttribute="bottom" constant="15" id="d3h-pJ-hO3"/>
+                                                <constraint firstAttribute="trailing" secondItem="iis-d7-g4E" secondAttribute="trailing" id="daT-s6-6a8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="zJd-D2-tif" id="Bs2-P8-57R"/>
+                                    <outlet property="delegate" destination="zJd-D2-tif" id="10F-cs-MHY"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Lrc-kP-hhj" firstAttribute="top" secondItem="njh-al-vS4" secondAttribute="top" constant="20" id="9f8-fo-fEM"/>
+                            <constraint firstItem="6mJ-lL-6VQ" firstAttribute="leading" secondItem="njh-al-vS4" secondAttribute="leading" constant="15" id="M1G-T1-CNJ"/>
+                            <constraint firstItem="njh-al-vS4" firstAttribute="bottom" secondItem="6mJ-lL-6VQ" secondAttribute="bottom" constant="20" id="apV-23-umW"/>
+                            <constraint firstItem="Lrc-kP-hhj" firstAttribute="centerX" secondItem="GLH-DP-iBD" secondAttribute="centerX" id="b2f-Um-dNq"/>
+                            <constraint firstItem="njh-al-vS4" firstAttribute="trailing" secondItem="6mJ-lL-6VQ" secondAttribute="trailing" constant="15" id="iIl-xb-8pm"/>
+                            <constraint firstItem="6mJ-lL-6VQ" firstAttribute="top" secondItem="Lrc-kP-hhj" secondAttribute="bottom" constant="20" id="xee-hL-CWk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="njh-al-vS4"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="idleImage" value="tab3.png"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="tabTitle" value="Events"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="eventsTable" destination="6mJ-lL-6VQ" id="uRx-OH-txk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hps-kd-7KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="576.79999999999995" y="130.88455772113943"/>
         </scene>
         <!--Set Up View Controller-->
         <scene sceneID="gVH-30-cbJ">
@@ -252,13 +473,13 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Correo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="fW0-WK-Muj">
-                                        <rect key="frame" x="0.0" y="70" width="46" height="18"/>
+                                        <rect key="frame" x="0.0" y="70" width="46" height="17.5"/>
                                         <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="15"/>
                                         <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="juan@micorreo.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="emv-4t-Kll">
-                                        <rect key="frame" x="0.0" y="96" width="313" height="36.5"/>
+                                        <rect key="frame" x="0.0" y="95.5" width="313" height="36.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
@@ -267,13 +488,13 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Celular" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="7O7-SW-Of4">
-                                        <rect key="frame" x="0.0" y="140.5" width="47" height="18"/>
+                                        <rect key="frame" x="0.0" y="140" width="47" height="17.5"/>
                                         <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="15"/>
                                         <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="300898972" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dhn-BH-Z7c">
-                                        <rect key="frame" x="0.0" y="166.5" width="313" height="36"/>
+                                        <rect key="frame" x="0.0" y="165.5" width="313" height="36.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
@@ -282,7 +503,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha de Nacimiento" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="MSM-pu-cSE">
-                                        <rect key="frame" x="0.0" y="210.5" width="143" height="17.5"/>
+                                        <rect key="frame" x="0.0" y="210" width="143" height="18"/>
                                         <fontDescription key="fontDescription" name="Rubik-Regular" family="Rubik" pointSize="15"/>
                                         <color key="textColor" red="0.55294117649999996" green="0.55294117649999996" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -384,5 +605,6 @@
         <image name="google_c_b.png" width="1000" height="211"/>
         <image name="iconNoPhoto.png" width="16" height="16"/>
         <image name="tab2.png" width="30" height="30"/>
+        <image name="tab3.png" width="30" height="30"/>
     </resources>
 </document>

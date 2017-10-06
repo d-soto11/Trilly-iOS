@@ -16,6 +16,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     // Location
     private var locationManager: CLLocationManager!
     private(set) public var location: CLLocationCoordinate2D?
+    private var lastLocation: CLLocation?
     // Motion
     private var motionManager: CMMotionManager!
     private var motionActivityManager: CMMotionActivityManager!
@@ -24,6 +25,8 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     private var speed: Double = 0
     private var time: Int = 0
     private var hashTag: String = ""
+    private var hashTagKM: [String:Double] = [:]
+    private var currentKM: Double = 0
     // Path
     private(set) public var trackingPath: GMSMutablePath! = GMSMutablePath()
     // Logic
@@ -77,14 +80,18 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         current!.hashTag = lastHashtag!
         current!.load()
         current!.tripListener = listener
+        
+        current!.startManagers()
+        
         encodedGMSPath = nil
         time = nil
         lastHashtag = nil
     }
     // Clear
     public class func clear() {
-        current = nil
         encodedGMSPath = nil
+        time = nil
+        lastHashtag = nil
     }
     // Stop
     public func stop() {
@@ -94,21 +101,32 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     }
     // Pause
     public func pause() {
+        
         shakingTimer?.invalidate()
         shakingTimer = nil
+        
         timer?.invalidate()
         timer = nil
+        
         initialLocationTimer?.invalidate()
         initialLocationTimer = nil
+        
         stopVerifiers()
+        
+        locationManager.delegate = nil
         locationManager!.stopUpdatingHeading()
         locationManager!.stopUpdatingLocation()
+        locationManager = nil
+        
         motionActivityManager!.stopActivityUpdates()
+        motionActivityManager = nil
+        
         motionManager!.stopAccelerometerUpdates()
+        motionManager = nil
+        
         TripManager.encodedGMSPath = self.trackingPath.encodedPath()
         TripManager.time = time
         TripManager.lastHashtag = hashTag
-        TripManager.current = nil
     }
     
     // Load
@@ -117,6 +135,22 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         self.shakingTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(verifyShaking), userInfo: nil, repeats: true)
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
         
+        startManagers()
+        
+        // Request permission
+        let status = CLLocationManager.authorizationStatus()
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+        } else {
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+        }
+    }
+    
+    private func startManagers() {
         // Start Location
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
@@ -168,18 +202,6 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 }
             }
         }
-        
-        // Request permission
-        let status = CLLocationManager.authorizationStatus()
-        if status == .authorizedAlways || status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-        } else {
-            locationManager.requestAlwaysAuthorization()
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-        }
     }
     
     // Trip logic
@@ -191,7 +213,10 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 } else {
                     if let address = response?.firstResult() {
                         DispatchQueue.main.async {
-                            self.tripListener?.hashtagUpdated(address.subLocality ?? address.locality ?? address.administrativeArea ?? address.country ?? "trilly")
+                            self.hashTag = address.subLocality ?? address.locality ?? address.administrativeArea ?? address.country ?? "trilly"
+                            self.hashTagKM[self.hashTag] = (self.hashTagKM[self.hashTag] ?? 0) + self.currentKM
+                            self.currentKM = 0
+                            self.tripListener?.hashtagUpdated(self.hashTag)
                         }
                     } else {
                         print("Error getting hashtag from MAPS")
@@ -277,8 +302,14 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             trackingPath.add(locations.last!.coordinate)
         }
         
+        if lastLocation != nil {
+            currentKM = currentKM + locations.last!.distance(from: lastLocation!)
+        }
+        
         trackingPath.add(locations.last!.coordinate)
         self.location = locations.last!.coordinate
+        self.lastLocation = locations.last!
+        
         self.speed = locations.last!.speed < 0 ? 0 : locations.last!.speed
         if onForeground && tripListener != nil {
             DispatchQueue.main.async {

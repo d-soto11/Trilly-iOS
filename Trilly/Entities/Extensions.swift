@@ -110,6 +110,27 @@ extension UIView {
         
         self.layer.insertSublayer(gradientLayer, at: 0)
     }
+    
+    func setGradientBackground(_ first: UIColor, _ second: UIColor, start: NSNumber = 0.0, end: NSNumber = 1.0, horizontal: Bool = false, diagonal: Bool = false) -> CALayer {
+        let colorTop =  first.cgColor
+        let colorBottom = second.cgColor
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [ colorTop, colorBottom]
+        gradientLayer.locations = [start, end]
+        gradientLayer.frame = self.bounds
+        
+        if horizontal {
+            gradientLayer.startPoint = diagonal ? CGPoint(x: 1, y: 0) : CGPoint(x: 0, y: 0.5)
+            gradientLayer.endPoint   = diagonal ? CGPoint(x: 0, y: 1) : CGPoint(x: 1, y: 0.5)
+        } else {
+            gradientLayer.startPoint = diagonal ? CGPoint(x: 0, y: 0) : CGPoint(x: 0.5, y: 0)
+            gradientLayer.endPoint   = diagonal ? CGPoint(x: 1, y: 1) : CGPoint(x: 0.5, y: 1)
+        }
+        
+        self.layer.insertSublayer(gradientLayer, at: 0)
+        return gradientLayer
+    }
 }
 
 extension UIViewController {

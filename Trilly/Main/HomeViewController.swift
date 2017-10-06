@@ -49,7 +49,7 @@ class HomeViewController: MaterialViewController {
                 MaterialTB.currentTabBar!.performSegue(withIdentifier: "Login", sender: nil)
             }
             
-            self.tripB.addGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
+            let _ = self.tripB.addGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
             
             MBProgressHUD.hide(for: self.view, animated: true)
         }
@@ -70,7 +70,8 @@ class HomeViewController: MaterialViewController {
     }
     
     @IBAction func startTrip(_ sender: Any) {
-        TripViewController.startTrip()
+//        TripViewController.startTrip()
+        HashtagViewController.showHashtag(parent: self)
     }
     
 }

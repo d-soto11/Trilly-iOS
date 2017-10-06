@@ -32,8 +32,6 @@ struct Trilly {
         static let roundPx: CGFloat = 20.0
         static let specialRoundPx: CGFloat = 15.0
         static let lightRoundPx: CGFloat = 5.0
-        
-        // Modals3AConfig.
     }
     
     struct Database {

@@ -12,9 +12,27 @@
 		4330077D1F796A5B000A454D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4330077B1F796A5B000A454D /* Main.storyboard */; };
 		4330077F1F796A5B000A454D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4330077E1F796A5B000A454D /* Assets.xcassets */; };
 		433007821F796A5B000A454D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433007801F796A5B000A454D /* LaunchScreen.storyboard */; };
+		43A8E05D1F86E23000418CDF /* Hashtag.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A8E05C1F86E23000418CDF /* Hashtag.storyboard */; };
+		43A8E05F1F86E25400418CDF /* HashtagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8E05E1F86E25400418CDF /* HashtagViewController.swift */; };
+		43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8E0611F86FA6E00418CDF /* TrillyCell.swift */; };
+		43A8E0631F86FD6700418CDF /* Oxygen-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E191F857A5100250475 /* Oxygen-Bold.ttf */; };
+		43A8E0641F86FD6700418CDF /* Oxygen-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E181F857A5000250475 /* Oxygen-Light.ttf */; };
+		43A8E0651F86FD6700418CDF /* Oxygen-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E1A1F857A5100250475 /* Oxygen-Regular.ttf */; };
+		43A8E0661F86FD6700418CDF /* JosefinSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E231F857A7B00250475 /* JosefinSans-Bold.ttf */; };
+		43A8E0671F86FD6700418CDF /* JosefinSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E1B1F857A7300250475 /* JosefinSans-BoldItalic.ttf */; };
+		43A8E0681F86FD6700418CDF /* JosefinSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E1C1F857A7400250475 /* JosefinSans-Italic.ttf */; };
+		43A8E0691F86FD6700418CDF /* JosefinSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E1E1F857A7600250475 /* JosefinSans-Light.ttf */; };
+		43A8E06A1F86FD6700418CDF /* JosefinSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E1F1F857A7700250475 /* JosefinSans-LightItalic.ttf */; };
+		43A8E06B1F86FD6700418CDF /* JosefinSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E1D1F857A7500250475 /* JosefinSans-Regular.ttf */; };
+		43A8E06C1F86FD6700418CDF /* JosefinSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E221F857A7A00250475 /* JosefinSans-SemiBold.ttf */; };
+		43A8E06D1F86FD6700418CDF /* JosefinSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E201F857A7800250475 /* JosefinSans-SemiBoldItalic.ttf */; };
+		43A8E06E1F86FD6700418CDF /* JosefinSans-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E241F857A7C00250475 /* JosefinSans-Thin.ttf */; };
+		43A8E06F1F86FD6700418CDF /* JosefinSans-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E211F857A7900250475 /* JosefinSans-ThinItalic.ttf */; };
+		43A8E0711F87314F00418CDF /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8E0701F87314F00418CDF /* EventsViewController.swift */; };
 		43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ABCC381F7D2E8A00FA49B2 /* SetUpViewController.swift */; };
 		43ABCC3D1F7D4E4D00FA49B2 /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ABCC3C1F7D4E4D00FA49B2 /* TripViewController.swift */; };
 		43ABCC3F1F7D4E5D00FA49B2 /* Trip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43ABCC3E1F7D4E5D00FA49B2 /* Trip.storyboard */; };
+		43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */; };
 		43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C131F7BCF03000C4C20 /* Extensions.swift */; };
 		43E04C2E1F7BD3E4000C4C20 /* google_c_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E04C221F7BD28A000C4C20 /* google_c_b.png */; };
 		43E04C2F1F7BD3E4000C4C20 /* fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E04C231F7BD28A000C4C20 /* fb.png */; };
@@ -39,9 +57,14 @@
 		4330077E1F796A5B000A454D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		433007811F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		433007831F796A5B000A454D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43A8E05C1F86E23000418CDF /* Hashtag.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hashtag.storyboard; sourceTree = "<group>"; };
+		43A8E05E1F86E25400418CDF /* HashtagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewController.swift; sourceTree = "<group>"; };
+		43A8E0611F86FA6E00418CDF /* TrillyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrillyCell.swift; sourceTree = "<group>"; };
+		43A8E0701F87314F00418CDF /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		43ABCC381F7D2E8A00FA49B2 /* SetUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUpViewController.swift; sourceTree = "<group>"; };
 		43ABCC3C1F7D4E4D00FA49B2 /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		43ABCC3E1F7D4E5D00FA49B2 /* Trip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trip.storyboard; sourceTree = "<group>"; };
+		43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripBriefViewController.swift; sourceTree = "<group>"; };
 		43E04C131F7BCF03000C4C20 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		43E04C221F7BD28A000C4C20 /* google_c_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_c_b.png; sourceTree = "<group>"; };
 		43E04C231F7BD28A000C4C20 /* fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb.png; sourceTree = "<group>"; };
@@ -118,6 +141,7 @@
 		433007761F796A5B000A454D /* Trilly */ = {
 			isa = PBXGroup;
 			children = (
+				43A8E0601F86FA5300418CDF /* Other */,
 				43E04C6A1F7C256F000C4C20 /* Main */,
 				43E04C301F7BD400000C4C20 /* Auth */,
 				43E04C151F7BD28A000C4C20 /* Assets */,
@@ -132,11 +156,29 @@
 			path = Trilly;
 			sourceTree = "<group>";
 		};
+		43A8E05B1F86E21B00418CDF /* Hashtag */ = {
+			isa = PBXGroup;
+			children = (
+				43A8E05C1F86E23000418CDF /* Hashtag.storyboard */,
+				43A8E05E1F86E25400418CDF /* HashtagViewController.swift */,
+			);
+			path = Hashtag;
+			sourceTree = "<group>";
+		};
+		43A8E0601F86FA5300418CDF /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				43A8E0611F86FA6E00418CDF /* TrillyCell.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		43ABCC3B1F7D4E2500FA49B2 /* Trip */ = {
 			isa = PBXGroup;
 			children = (
 				43ABCC3E1F7D4E5D00FA49B2 /* Trip.storyboard */,
 				43ABCC3C1F7D4E4D00FA49B2 /* TripViewController.swift */,
+				43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -192,8 +234,10 @@
 		43E04C6A1F7C256F000C4C20 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				43A8E05B1F86E21B00418CDF /* Hashtag */,
 				43ABCC3B1F7D4E2500FA49B2 /* Trip */,
 				43E04C6B1F7C25B8000C4C20 /* HomeViewController.swift */,
+				43A8E0701F87314F00418CDF /* EventsViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -307,7 +351,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43A8E0631F86FD6700418CDF /* Oxygen-Bold.ttf in Resources */,
+				43A8E0641F86FD6700418CDF /* Oxygen-Light.ttf in Resources */,
+				43A8E0651F86FD6700418CDF /* Oxygen-Regular.ttf in Resources */,
+				43A8E0661F86FD6700418CDF /* JosefinSans-Bold.ttf in Resources */,
+				43A8E0671F86FD6700418CDF /* JosefinSans-BoldItalic.ttf in Resources */,
+				43A8E0681F86FD6700418CDF /* JosefinSans-Italic.ttf in Resources */,
+				43A8E0691F86FD6700418CDF /* JosefinSans-Light.ttf in Resources */,
+				43A8E06A1F86FD6700418CDF /* JosefinSans-LightItalic.ttf in Resources */,
+				43A8E06B1F86FD6700418CDF /* JosefinSans-Regular.ttf in Resources */,
+				43A8E06C1F86FD6700418CDF /* JosefinSans-SemiBold.ttf in Resources */,
+				43A8E06D1F86FD6700418CDF /* JosefinSans-SemiBoldItalic.ttf in Resources */,
+				43A8E06E1F86FD6700418CDF /* JosefinSans-Thin.ttf in Resources */,
+				43A8E06F1F86FD6700418CDF /* JosefinSans-ThinItalic.ttf in Resources */,
 				43F60E141F846CF100250475 /* tab3.png in Resources */,
+				43A8E05D1F86E23000418CDF /* Hashtag.storyboard in Resources */,
 				43F60E151F846CF100250475 /* tab2.png in Resources */,
 				43F60E161F846CF100250475 /* tab5.png in Resources */,
 				43F60E171F846CF100250475 /* tab4.png in Resources */,
@@ -420,6 +478,7 @@
 				43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */,
 				43ABCC3D1F7D4E4D00FA49B2 /* TripViewController.swift in Sources */,
 				43E04C321F7BD416000C4C20 /* LoginViewController.swift in Sources */,
+				43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */,
 				43E04C341F7BD501000C4C20 /* TrillyObject.swift in Sources */,
 				43E04C361F7BD55B000C4C20 /* User.swift in Sources */,
 				433007781F796A5B000A454D /* AppDelegate.swift in Sources */,
@@ -427,7 +486,10 @@
 				43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */,
 				43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */,
 				43F60E0B1F83B5CB00250475 /* TripManager.swift in Sources */,
+				43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */,
+				43A8E05F1F86E25400418CDF /* HashtagViewController.swift in Sources */,
 				43E1CC7F1F7991B7002B0CF6 /* Constants.swift in Sources */,
+				43A8E0711F87314F00418CDF /* EventsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

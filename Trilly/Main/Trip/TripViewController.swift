@@ -42,7 +42,6 @@ class TripViewController: UIViewController, TripListener {
     override func viewDidAppear(_ animated: Bool) {
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 16)
         mapView.animate(to: camera)
-        mapView.animate(toViewingAngle: 45)
         mapView.isMyLocationEnabled = true
         
         trackingPolyline = GMSPolyline()
@@ -61,8 +60,8 @@ class TripViewController: UIViewController, TripListener {
         
         if !overlayAdded {
             overlayAdded = true
-            self.overlay.addGradientBackground(UIColor(white: 1, alpha: 0), .white, start: 0.5)
-            self.overlay.addGradientBackground(.white, UIColor(white: 1, alpha: 0), start: 0.07, end: 0.5)
+            self.overlay.addGradientBackground(UIColor(white: 1, alpha: 0), .white, start: 0.4)
+            self.overlay.addGradientBackground(.white, UIColor(white: 1, alpha: 0), start: 0.06, end: 0.5)
         }
     }
 
@@ -72,12 +71,15 @@ class TripViewController: UIViewController, TripListener {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        TripManager.current!.clearTripListener()
+        TripManager.current?.clearTripListener()
     }
     
     @IBAction func endTrip(_ sender: Any) {
         TripManager.current!.stop()
         self.showAlert(title: "Felicitaciones", message: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", closeButtonTitle: "Genial")
+        Alert3A.show(withTitle: "Felicitaciones", body: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", accpetTitle: "Genial", confirmation: {
+            self.performSegue(withIdentifier: "tripBrief", sender: nil)
+        }, parent: self)
     }
     
     // Tracking
@@ -114,6 +116,7 @@ class TripViewController: UIViewController, TripListener {
         }, cancelation: {
             // Save paused path to firebase and clean encoded path
             TripManager.clear()
+            self.performSegue(withIdentifier: "tripBrief", sender: nil)
         }, parent: self)
     }
     

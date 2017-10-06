@@ -41,7 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GMSPlacesClient.provideAPIKey(Trilly.googleApiKey)
         // Configure Modals3A
         Modals3AConfig.foregroundColor = Trilly.UI.mainColor
-        Modals3AConfig.fontFamily = "Rubik"
+        Modals3AConfig.fontFamily = "Oxygen"
+        Modals3AConfig.titleFontSize = 30
         // Configuracion Stripe
         // STPPaymentConfiguration.shared().publishableKey = K.Hometap.stripe_key
         // Private configurations
