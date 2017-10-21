@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MaterialTB
 
 class TripBriefViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
 
@@ -27,7 +28,9 @@ class TripBriefViewController: UIViewController, UITableViewDataSource, UITableV
         self.smallStat1.addNormalShadow()
         self.smallStat2.addNormalShadow()
         self.bigStat1.addNormalShadow()
-        let _ = self.doneB.addGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
+        self.doneB.addGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
+        
+        self.statsPageControll.numberOfPages = Int(ceil(self.statsScroll.contentSize.width / self.statsScroll.bounds.width))
     }
 
     override func didReceiveMemoryWarning() {
@@ -76,5 +79,12 @@ class TripBriefViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         HashtagViewController.showHashtag(parent: self)
     }
-
+    
+    @IBAction func share(_ sender: Any) {
+        
+    }
+    
+    @IBAction func done(_ sender: Any) {
+        MaterialTB.currentTabBar!.reloadViewController()
+    }
 }

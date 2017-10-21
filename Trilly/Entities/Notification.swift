@@ -9,14 +9,18 @@
 import Foundation
 
 class Notification: TrillyObject {
-    public override init(_ dict: [String : AnyObject]) {
+    
+    var type: Int?
+    
+    
+    public override init(_ dict: [String : Any]) {
         super.init(dict)
         
-        if let type = dict["type"] {
-            self.type = (type as? Int)
+        if let type = dict["type"] as? Int {
+            self.type = type
         }
     }
     
-    var type: Int?
+    
     
 }

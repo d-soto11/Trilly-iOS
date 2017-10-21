@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		04E789C8E10DB47D858FEA37 /* Pods_Trilly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC8F71A74C1416D7A1459799 /* Pods_Trilly.framework */; };
+		4323403C1F88151A00E1703C /* Event.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4323403B1F88151A00E1703C /* Event.storyboard */; };
+		4323403E1F8815BA00E1703C /* EventDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4323403D1F8815BA00E1703C /* EventDetailViewController.swift */; };
 		433007781F796A5B000A454D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433007771F796A5B000A454D /* AppDelegate.swift */; };
 		4330077D1F796A5B000A454D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4330077B1F796A5B000A454D /* Main.storyboard */; };
 		4330077F1F796A5B000A454D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4330077E1F796A5B000A454D /* Assets.xcassets */; };
 		433007821F796A5B000A454D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433007801F796A5B000A454D /* LaunchScreen.storyboard */; };
+		43A8A3561F8BDC3900E6FF3C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */; };
+		43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */; };
 		43A8E05D1F86E23000418CDF /* Hashtag.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A8E05C1F86E23000418CDF /* Hashtag.storyboard */; };
 		43A8E05F1F86E25400418CDF /* HashtagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8E05E1F86E25400418CDF /* HashtagViewController.swift */; };
 		43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8E0611F86FA6E00418CDF /* TrillyCell.swift */; };
@@ -51,12 +55,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4323403B1F88151A00E1703C /* Event.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Event.storyboard; sourceTree = "<group>"; };
+		4323403D1F8815BA00E1703C /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
 		433007741F796A5B000A454D /* Trilly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trilly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		433007771F796A5B000A454D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4330077C1F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4330077E1F796A5B000A454D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		433007811F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		433007831F796A5B000A454D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagsViewController.swift; sourceTree = "<group>"; };
 		43A8E05C1F86E23000418CDF /* Hashtag.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hashtag.storyboard; sourceTree = "<group>"; };
 		43A8E05E1F86E25400418CDF /* HashtagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagViewController.swift; sourceTree = "<group>"; };
 		43A8E0611F86FA6E00418CDF /* TrillyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrillyCell.swift; sourceTree = "<group>"; };
@@ -120,6 +128,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		4323403A1F88143D00E1703C /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				4323403B1F88151A00E1703C /* Event.storyboard */,
+				43A8E0701F87314F00418CDF /* EventsViewController.swift */,
+				4323403D1F8815BA00E1703C /* EventDetailViewController.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 		4330076B1F796A5B000A454D = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +179,7 @@
 			children = (
 				43A8E05C1F86E23000418CDF /* Hashtag.storyboard */,
 				43A8E05E1F86E25400418CDF /* HashtagViewController.swift */,
+				43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */,
 			);
 			path = Hashtag;
 			sourceTree = "<group>";
@@ -234,10 +253,11 @@
 		43E04C6A1F7C256F000C4C20 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				4323403A1F88143D00E1703C /* Event */,
 				43A8E05B1F86E21B00418CDF /* Hashtag */,
 				43ABCC3B1F7D4E2500FA49B2 /* Trip */,
 				43E04C6B1F7C25B8000C4C20 /* HomeViewController.swift */,
-				43A8E0701F87314F00418CDF /* EventsViewController.swift */,
+				43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -376,6 +396,7 @@
 				43E1CC771F796B73002B0CF6 /* GoogleService-Info.plist in Resources */,
 				4330077F1F796A5B000A454D /* Assets.xcassets in Resources */,
 				4330077D1F796A5B000A454D /* Main.storyboard in Resources */,
+				4323403C1F88151A00E1703C /* Event.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +411,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Trilly/Pods-Trilly-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKShareKit/FBSDKShareKit.framework",
@@ -403,12 +425,17 @@
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RestEssentials/RestEssentials.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKShareKit.framework",
@@ -422,6 +449,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RestEssentials.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -476,6 +507,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */,
+				43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */,
 				43ABCC3D1F7D4E4D00FA49B2 /* TripViewController.swift in Sources */,
 				43E04C321F7BD416000C4C20 /* LoginViewController.swift in Sources */,
 				43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */,
@@ -489,6 +521,8 @@
 				43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */,
 				43A8E05F1F86E25400418CDF /* HashtagViewController.swift in Sources */,
 				43E1CC7F1F7991B7002B0CF6 /* Constants.swift in Sources */,
+				4323403E1F8815BA00E1703C /* EventDetailViewController.swift in Sources */,
+				43A8A3561F8BDC3900E6FF3C /* HistoryViewController.swift in Sources */,
 				43A8E0711F87314F00418CDF /* EventsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,6 +665,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBLL74FJC6;
 				INFOPLIST_FILE = Trilly/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tresastronautas.ios.trilly;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -650,6 +685,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBLL74FJC6;
 				INFOPLIST_FILE = Trilly/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tresastronautas.ios.trilly;
 				PRODUCT_NAME = "$(TARGET_NAME)";

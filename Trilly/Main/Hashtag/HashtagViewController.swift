@@ -35,7 +35,7 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // Testing purpose
     private var count = 20
-    private let userRanking = 5
+    private let userRanking = 15
     
     
     public class func showHashtag(hashtag: AnyClass? = nil, parent: UIViewController) {

@@ -11,28 +11,29 @@ import Firebase
 
 class TrillyObject: NSObject {
     
-    public init(_ dict: [String: AnyObject]) {
-        original_dictionary = dict
+    // Trilly object fields
+    var originalDictionary: [String:Any]
+    var uid: String?
+    
+    // Constructor
+    public init(_ dict: [String: Any]) {
+        originalDictionary = dict
         
-        if let uid = dict["id"] {
-            self.uid = (uid as? String)!
+        if let uid = dict["id"] as? String {
+            self.uid = uid
         }
-        
     }
     
     public func save(route: String) {
         if uid == nil {
-            let saving_ref = Trilly.Database.ref().child(route).childByAutoId()
-            original_dictionary["id"] = saving_ref.key as AnyObject
-            saving_ref.setValue(original_dictionary)
-            uid = saving_ref.key
+            let saving_ref = Trilly.Database.ref().collection(route).addDocument(data: originalDictionary)
+            saving_ref.updateData(["lastUpdated": FieldValue.serverTimestamp()])
+            uid = saving_ref.documentID
         } else {
-            original_dictionary["id"] = uid as AnyObject
-            Trilly.Database.ref().child(route).child(uid!).setValue(original_dictionary)
+            originalDictionary["id"] = uid
+            Trilly.Database.ref().collection(route).document(uid!).setData(originalDictionary, options: SetOptions.merge())
+            Trilly.Database.ref().collection(route).document(uid!).updateData(["lastUpdated": FieldValue.serverTimestamp()])
         }
     }
-    
-    var original_dictionary: [String:AnyObject]
-    var uid: String?
     
 }

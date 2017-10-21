@@ -7,34 +7,34 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>695804396782-f0fkum3ia3el0ob5s9hg5oqj6e28h82n.apps.googleusercontent.com</string>
+	<string>877222551784-tgf99895dudbr1u8qu0vuam60d0a6gs1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.695804396782-f0fkum3ia3el0ob5s9hg5oqj6e28h82n</string>
+	<string>com.googleusercontent.apps.877222551784-tgf99895dudbr1u8qu0vuam60d0a6gs1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDXXTcx9c4uLQwVH8cX64o-hAPCznFmzQI</string>
+	<string>AIzaSyBmR69_Jqzy7Tyw68Qp4SBhdEKV_mhc94E</string>
 	<key>GCM_SENDER_ID</key>
-	<string>695804396782</string>
+	<string>877222551784</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.tresastronautas.ios.trilly</string>
 	<key>PROJECT_ID</key>
-	<string>trilly-ab00c</string>
+	<string>trilly-3a</string>
 	<key>STORAGE_BUCKET</key>
-	<string>trilly-ab00c.appspot.com</string>
+	<string>trilly-3a.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:695804396782:ios:ca141704d370a262</string>
+	<string>1:877222551784:ios:ca141704d370a262</string>
 	<key>DATABASE_URL</key>
-	<string>https://trilly-ab00c.firebaseio.com</string>
+	<string>https://trilly-3a.firebaseio.com</string>
 </dict>
 </plist>

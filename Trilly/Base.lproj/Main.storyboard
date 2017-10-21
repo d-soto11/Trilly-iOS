@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -100,21 +101,45 @@
                         <userDefinedRuntimeAttribute type="color" keyPath="selectedTint">
                             <color key="value" red="0.20784313725490194" green="0.91764705882352937" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="initialViewController">
+                            <integer key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="3DA-QC-IhA" kind="custom" identifier="1" customClass="MaterialViewSegue" customModule="MaterialTB" id="eP7-zf-6iT"/>
+                        <segue destination="3DA-QC-IhA" kind="custom" identifier="2" customClass="MaterialViewSegue" customModule="MaterialTB" id="eP7-zf-6iT"/>
                         <segue destination="9ro-Zy-DzB" kind="show" identifier="Login" id="Fkg-YF-Sud"/>
-                        <segue destination="zJd-D2-tif" kind="custom" identifier="2" customClass="MaterialViewSegue" customModule="MaterialTB" id="Mpf-Cg-vEd"/>
+                        <segue destination="zJd-D2-tif" kind="custom" identifier="3" customClass="MaterialViewSegue" customModule="MaterialTB" id="Mpf-Cg-vEd"/>
+                        <segue destination="TX2-Cf-idO" kind="custom" identifier="1" customClass="MaterialViewSegue" customModule="MaterialTB" id="dPD-KO-qn6"/>
+                        <segue destination="Dih-os-y9g" kind="custom" identifier="4" customClass="MaterialViewSegue" customModule="MaterialTB" id="Mx5-0K-Eet"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-466" y="-612"/>
         </scene>
+        <!--History View Controller-->
+        <scene sceneID="Ok6-97-ph5">
+            <objects>
+                <viewController id="TX2-Cf-idO" customClass="HistoryViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CKw-T2-TS1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Qi6-WL-bEK"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="idleImage" value="tab5.png"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="tabTitle" value="History"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="clb-4m-ZB7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="577" y="-1367"/>
+        </scene>
         <!--Home View Controller-->
         <scene sceneID="1XC-bu-y9N">
             <objects>
-                <viewController id="3DA-QC-IhA" customClass="HomeViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Home" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3DA-QC-IhA" customClass="HomeViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yWM-00-7Zz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -194,30 +219,27 @@
                                 <rect key="frame" x="15" y="80" width="345" height="567"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GreenEvent" rowHeight="250" id="k3Y-Nb-MdN" customClass="TrillyCell" customModule="Trilly" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="GreenEvent" rowHeight="250" id="k3Y-Nb-MdN" customClass="TrillyCell" customModule="Trilly" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="345" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="k3Y-Nb-MdN" id="cZ8-xW-Jt3">
                                             <rect key="frame" x="0.0" y="0.0" width="345" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vt4-FR-W2Y">
+                                                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vt4-FR-W2Y">
                                                     <rect key="frame" x="0.0" y="8" width="345" height="219"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vAk-5g-bT6">
-                                                            <rect key="frame" x="10" y="0.0" width="190.5" height="114"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="vAk-5g-bT6" secondAttribute="height" multiplier="10:6" id="0eo-zh-ZS1"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="10" y="0.0" width="190.5" height="109.5"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rodada Trilly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPa-Gi-Jf3">
-                                                            <rect key="frame" x="10" y="129" width="159" height="25"/>
+                                                            <rect key="frame" x="10" y="124.5" width="159" height="25"/>
                                                             <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="25"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Este viernes estaremos inagurando Trilly con la rodad más grande de la ciudad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSs-wT-40I">
-                                                            <rect key="frame" x="10" y="159" width="225" height="49.5"/>
+                                                            <rect key="frame" x="10" y="154.5" width="225" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Oxygen-Light" family="Oxygen" pointSize="13"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -236,13 +258,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01/10/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLg-Pw-CDM">
-                                                            <rect key="frame" x="247.5" y="133" width="82.5" height="17"/>
+                                                            <rect key="frame" x="247.5" y="128.5" width="82.5" height="17"/>
                                                             <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPa-p4-39P">
-                                                            <rect key="frame" x="253" y="155" width="77" height="17"/>
+                                                            <rect key="frame" x="253" y="150.5" width="77" height="17"/>
                                                             <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -252,6 +274,7 @@
                                                     <constraints>
                                                         <constraint firstItem="Itu-fk-ena" firstAttribute="leading" secondItem="NqB-q7-8W9" secondAttribute="trailing" constant="5" id="0sH-C6-HIx"/>
                                                         <constraint firstItem="vAk-5g-bT6" firstAttribute="top" secondItem="Vt4-FR-W2Y" secondAttribute="top" id="11c-Po-5HS"/>
+                                                        <constraint firstItem="vAk-5g-bT6" firstAttribute="height" secondItem="Vt4-FR-W2Y" secondAttribute="height" multiplier="0.5" id="6AY-fM-Jgr"/>
                                                         <constraint firstItem="Itu-fk-ena" firstAttribute="trailing" secondItem="bLg-Pw-CDM" secondAttribute="trailing" id="Bf4-Ss-ITI"/>
                                                         <constraint firstItem="TSs-wT-40I" firstAttribute="width" secondItem="Vt4-FR-W2Y" secondAttribute="width" multiplier="0.65" id="BtW-Oz-ZpJ"/>
                                                         <constraint firstItem="TSs-wT-40I" firstAttribute="leading" secondItem="gPa-Gi-Jf3" secondAttribute="leading" id="Hm1-1K-Gmv"/>
@@ -277,30 +300,27 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RedEvent" rowHeight="250" id="6kK-XI-8Nv" customClass="TrillyCell" customModule="Trilly" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="RedEvent" rowHeight="250" id="6kK-XI-8Nv" customClass="TrillyCell" customModule="Trilly" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="278" width="345" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6kK-XI-8Nv" id="g2Y-OX-VG5">
                                             <rect key="frame" x="0.0" y="0.0" width="345" height="250"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iis-d7-g4E">
+                                                <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iis-d7-g4E">
                                                     <rect key="frame" x="0.0" y="8" width="345" height="219"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OSU-8i-iPO">
-                                                            <rect key="frame" x="10" y="0.0" width="190.5" height="114"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="OSU-8i-iPO" secondAttribute="height" multiplier="10:6" id="bpW-dr-nDW"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="10" y="0.0" width="190.5" height="109.5"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rodada Trilly" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="caC-tx-XkH">
-                                                            <rect key="frame" x="10" y="129" width="159" height="25"/>
+                                                            <rect key="frame" x="10" y="124.5" width="159" height="25"/>
                                                             <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="25"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Este viernes estaremos inagurando Trilly con la rodad más grande de la ciudad" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wHI-RG-1yq">
-                                                            <rect key="frame" x="10" y="159" width="225" height="49.5"/>
+                                                            <rect key="frame" x="10" y="154.5" width="225" height="16.5"/>
                                                             <fontDescription key="fontDescription" name="Oxygen-Light" family="Oxygen" pointSize="13"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -319,13 +339,13 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01/10/2017" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoK-e5-ueE">
-                                                            <rect key="frame" x="247.5" y="133" width="82.5" height="17"/>
+                                                            <rect key="frame" x="247.5" y="128.5" width="82.5" height="17"/>
                                                             <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04:00 PM" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEb-OA-lER">
-                                                            <rect key="frame" x="253" y="155" width="77" height="17"/>
+                                                            <rect key="frame" x="253" y="150.5" width="77" height="17"/>
                                                             <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="17"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
@@ -345,6 +365,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="Pv5-R4-PeH" secondAttribute="trailing" constant="15" id="crf-2W-qi9"/>
                                                         <constraint firstItem="BoK-e5-ueE" firstAttribute="centerY" secondItem="caC-tx-XkH" secondAttribute="centerY" id="hC3-l4-cPd"/>
                                                         <constraint firstItem="eEb-OA-lER" firstAttribute="trailing" secondItem="BoK-e5-ueE" secondAttribute="trailing" id="iqD-f4-qVK"/>
+                                                        <constraint firstItem="OSU-8i-iPO" firstAttribute="height" secondItem="iis-d7-g4E" secondAttribute="height" multiplier="0.5" id="l73-ZI-eg4"/>
                                                         <constraint firstItem="OSU-8i-iPO" firstAttribute="top" secondItem="iis-d7-g4E" secondAttribute="top" id="ly3-Bv-0BR"/>
                                                         <constraint firstItem="eEb-OA-lER" firstAttribute="top" secondItem="BoK-e5-ueE" secondAttribute="bottom" constant="5" id="rLN-Na-UDN"/>
                                                         <constraint firstItem="Pv5-R4-PeH" firstAttribute="trailing" secondItem="BoK-e5-ueE" secondAttribute="trailing" id="thG-wx-2X4"/>
@@ -389,6 +410,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hps-kd-7KS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="576.79999999999995" y="130.88455772113943"/>
+        </scene>
+        <!--Hashtags View Controller-->
+        <scene sceneID="aRp-7P-fjn">
+            <objects>
+                <viewController id="Dih-os-y9g" customClass="HashtagsViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="o7J-le-2xm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="hcH-uZ-lAb"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="idleImage" value="tab4.png"/>
+                        <userDefinedRuntimeAttribute type="string" keyPath="tabTitle" value="Hashtags"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OdQ-a4-v9V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="579" y="823"/>
         </scene>
         <!--Set Up View Controller-->
         <scene sceneID="gVH-30-cbJ">
@@ -606,5 +646,7 @@
         <image name="iconNoPhoto.png" width="16" height="16"/>
         <image name="tab2.png" width="30" height="30"/>
         <image name="tab3.png" width="30" height="30"/>
+        <image name="tab4.png" width="30" height="30"/>
+        <image name="tab5.png" width="30" height="30"/>
     </resources>
 </document>

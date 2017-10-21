@@ -14,8 +14,7 @@ import CoreLocation
 import MBProgressHUD
 
 class TripViewController: UIViewController, TripListener {
-
-    @IBOutlet weak var mapView: GMSMapView!
+    
     @IBOutlet weak var hashtagLabel: UILabel!
     @IBOutlet weak var endTripB: UIButton!
     @IBOutlet weak var overlay: UIView!
@@ -27,6 +26,8 @@ class TripViewController: UIViewController, TripListener {
     private var overlayAdded: Bool = false
     
     private var hud: MBProgressHUD?
+    private var mapView: GMSMapView!
+    private var paused = false
     
     public class func startTrip() {
         let st = UIStoryboard(name: "Trip", bundle: nil)
@@ -40,6 +41,19 @@ class TripViewController: UIViewController, TripListener {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        mapView = GMSMapView(frame: self.view.frame)
+        self.view.insertSubview(mapView, belowSubview: overlay)
+        
+        let c1 = NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
+        let c2 = NSLayoutConstraint(item: mapView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+        let c3 = NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
+        let c4 = NSLayoutConstraint(item: mapView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
+        
+        self.view.addConstraints([c1, c2, c3, c4])
+        self.view.layoutIfNeeded()
+        
+        
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 16)
         mapView.animate(to: camera)
         mapView.isMyLocationEnabled = true
@@ -60,11 +74,11 @@ class TripViewController: UIViewController, TripListener {
         
         if !overlayAdded {
             overlayAdded = true
-            self.overlay.addGradientBackground(UIColor(white: 1, alpha: 0), .white, start: 0.4)
-            self.overlay.addGradientBackground(.white, UIColor(white: 1, alpha: 0), start: 0.06, end: 0.5)
+            self.overlay.addGradientBackground(UIColor(white: 1, alpha: 0), .white, start: 0.4, end: 0.8)
+            self.overlay.addGradientBackground(.white, UIColor(white: 1, alpha: 0), start: 0.07, end: 0.5)
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,18 +86,25 @@ class TripViewController: UIViewController, TripListener {
     
     override func viewWillDisappear(_ animated: Bool) {
         TripManager.current?.clearTripListener()
+        self.mapView = nil
     }
     
     @IBAction func endTrip(_ sender: Any) {
+        print("Received")
+        paused = true
+        MBProgressHUD.showAdded(to: self.mapView, animated: true)
         TripManager.current!.stop()
-        self.showAlert(title: "Felicitaciones", message: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", closeButtonTitle: "Genial")
         Alert3A.show(withTitle: "Felicitaciones", body: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", accpetTitle: "Genial", confirmation: {
+            MBProgressHUD.hide(for: self.mapView, animated: true)
             self.performSegue(withIdentifier: "tripBrief", sender: nil)
         }, parent: self)
     }
     
     // Tracking
     func tripUpdated(path: GMSPath) {
+        guard TripManager.current != nil && !paused else {
+            return
+        }
         mapView.clear()
         trackingPolyline.path = path
         trackingPolyline.map = mapView
@@ -101,13 +122,18 @@ class TripViewController: UIViewController, TripListener {
     }
     
     func headingUpdated(heading: CLLocationDirection) {
+        guard TripManager.current != nil && !paused else {
+            return
+        }
         self.mapView.animate(toBearing: heading)
     }
     
     func noLocation() {
         hud?.hide(animated: true)
         hud = nil
-        self.showAlert(title: "Lo sentimos", message: "No hemos podido recibir tu ubicación. Revisa que tengas el GPS prendido y que hayas autorizado a Trilly para usarlo.", closeButtonTitle: "OK")
+        Alert3A.show(withTitle: "Lo sentimos", body: "No hemos podido recibir tu ubicación. Revisa que tengas el GPS prendido y que hayas autorizado a Trilly para usarlo.", accpetTitle: "OK", confirmation: {
+            self.dismiss(animated: true, completion: nil)
+        }, parent: self)
     }
     
     func tripPaused(message: String, path: GMSPath) {
@@ -131,5 +157,5 @@ class TripViewController: UIViewController, TripListener {
     func hashtagUpdated(_ hashtag: String) {
         self.hashtagLabel.text = "\(hashtag.lowercased())"
     }
-
+    
 }

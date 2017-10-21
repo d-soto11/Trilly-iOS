@@ -70,8 +70,11 @@ class HomeViewController: MaterialViewController {
     }
     
     @IBAction func startTrip(_ sender: Any) {
-//        TripViewController.startTrip()
-        HashtagViewController.showHashtag(parent: self)
+        TripViewController.startTrip()
+    }
+    
+    override func refreshViewController() -> MaterialViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "Home") as! MaterialViewController
     }
     
 }

@@ -54,6 +54,8 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     private static var encodedGMSPath: String?
     private static var lastHashtag: String?
     private static var time: Int?
+    // Queue
+    private let backgroundQueue: DispatchQueue = DispatchQueue(label: "com.trilly.tripqueue", qos: .utility)
     // Start
     public class func start(_ listener: TripListener?) {
         guard current == nil else {
@@ -81,8 +83,6 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         current!.load()
         current!.tripListener = listener
         
-        current!.startManagers()
-        
         encodedGMSPath = nil
         time = nil
         lastHashtag = nil
@@ -101,52 +101,58 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     }
     // Pause
     public func pause() {
-        
-        shakingTimer?.invalidate()
-        shakingTimer = nil
-        
-        timer?.invalidate()
-        timer = nil
-        
-        initialLocationTimer?.invalidate()
-        initialLocationTimer = nil
-        
-        stopVerifiers()
-        
-        locationManager.delegate = nil
-        locationManager!.stopUpdatingHeading()
-        locationManager!.stopUpdatingLocation()
-        locationManager = nil
-        
-        motionActivityManager!.stopActivityUpdates()
-        motionActivityManager = nil
-        
-        motionManager!.stopAccelerometerUpdates()
-        motionManager = nil
-        
-        TripManager.encodedGMSPath = self.trackingPath.encodedPath()
-        TripManager.time = time
-        TripManager.lastHashtag = hashTag
+        clearTripListener()
+        backgroundQueue.async {
+            self.shakingTimer?.invalidate()
+            self.shakingTimer = nil
+            
+            self.timer?.invalidate()
+            self.timer = nil
+            
+            self.initialLocationTimer?.invalidate()
+            self.initialLocationTimer = nil
+            
+            self.stopVerifiers()
+            
+            self.locationManager!.stopUpdatingHeading()
+            self.locationManager!.stopUpdatingLocation()
+            self.locationManager.delegate = nil
+            self.locationManager = nil
+            
+            self.motionActivityManager!.stopActivityUpdates()
+            self.motionActivityManager = nil
+            
+            self.motionManager!.stopAccelerometerUpdates()
+            self.motionManager = nil
+            
+            TripManager.encodedGMSPath = self.trackingPath.encodedPath()
+            TripManager.time = self.time
+            TripManager.lastHashtag = self.hashTag
+        }
     }
     
     // Load
     private func load() {
         self.initialLocationTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector:  #selector(noLocation), userInfo: nil, repeats: false)
-        self.shakingTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(verifyShaking), userInfo: nil, repeats: true)
+//        self.shakingTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(verifyShaking), userInfo: nil, repeats: true)
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
         
-        startManagers()
-        
-        // Request permission
-        let status = CLLocationManager.authorizationStatus()
-        if status == .authorizedAlways || status == .authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
-        } else {
-            locationManager.requestAlwaysAuthorization()
-            locationManager.requestWhenInUseAuthorization()
-            locationManager.startUpdatingLocation()
-            locationManager.startUpdatingHeading()
+        backgroundQueue.sync {
+            self.startManagers()
+            
+            DispatchQueue.main.async {
+                // Request permission
+                let status = CLLocationManager.authorizationStatus()
+                if status == .authorizedAlways || status == .authorizedWhenInUse {
+                    self.locationManager.startUpdatingLocation()
+                    self.locationManager.startUpdatingHeading()
+                } else {
+                    self.locationManager.requestAlwaysAuthorization()
+                    self.locationManager.requestWhenInUseAuthorization()
+                    self.locationManager.startUpdatingLocation()
+                    self.locationManager.startUpdatingHeading()
+                }
+            }
         }
     }
     
@@ -237,7 +243,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 slowMovementTimer = Timer.scheduledTimer(timeInterval: slowMovementInterval, target: self, selector: #selector(verifySlowMovement), userInfo: nil, repeats: false)
             }
         } else if speed < TripManager.bycicleSpeed {
-            stopVerifiers()
+            self.stopVerifiers()
         } else {
             if fastMovementTimer == nil {
                 fastMovementTimer = Timer.scheduledTimer(timeInterval: fastMovementInterval, target: self, selector: #selector(verifyFastMovement), userInfo: nil, repeats: false)
@@ -292,38 +298,40 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if initialLocationTimer != nil {
-            initialLocationTimer!.invalidate()
-            initialLocationTimer = nil
-        }
-        
-        if trackingPath.count() == 1 {
-            trackingPath.removeAllCoordinates()
-            trackingPath.add(locations.last!.coordinate)
-        }
-        
-        if lastLocation != nil {
-            currentKM = currentKM + locations.last!.distance(from: lastLocation!)
-        }
-        
-        trackingPath.add(locations.last!.coordinate)
-        self.location = locations.last!.coordinate
-        self.lastLocation = locations.last!
-        
-        self.speed = locations.last!.speed < 0 ? 0 : locations.last!.speed
-        if onForeground && tripListener != nil {
-            DispatchQueue.main.async {
-                self.tripListener!.tripUpdated(path: self.trackingPath)
+        backgroundQueue.sync {
+            if self.initialLocationTimer != nil {
+                self.initialLocationTimer!.invalidate()
+                self.initialLocationTimer = nil
             }
-        }
-        updateTripMotion()
-        if hardwareAvailable {
-            if (!deferringUpdates) {
-                locationManager.allowDeferredLocationUpdates(untilTraveled: 100, timeout: 120)
-                deferringUpdates = true;
+            
+            if self.trackingPath.count() == 1 {
+                self.trackingPath.removeAllCoordinates()
+                self.trackingPath.add(locations.last!.coordinate)
             }
-        } else {
-            // Use custom method to defer updates
+            
+            if self.lastLocation != nil {
+                self.currentKM = currentKM + locations.last!.distance(from: lastLocation!)
+            }
+            
+            self.trackingPath.add(locations.last!.coordinate)
+            self.location = locations.last!.coordinate
+            self.lastLocation = locations.last!
+            
+            self.speed = locations.last!.speed < 0 ? 0 : locations.last!.speed
+            if self.onForeground && self.tripListener != nil {
+                DispatchQueue.main.async {
+                    self.tripListener!.tripUpdated(path: self.trackingPath)
+                }
+            }
+            self.updateTripMotion()
+            if self.hardwareAvailable {
+                if (!self.deferringUpdates) {
+                    self.locationManager.allowDeferredLocationUpdates(untilTraveled: 100, timeout: 60)
+                    self.deferringUpdates = true;
+                }
+            } else {
+                // Use custom method to defer updates
+            }
         }
     }
     

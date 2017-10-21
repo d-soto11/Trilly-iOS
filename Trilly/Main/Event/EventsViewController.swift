@@ -34,13 +34,15 @@ class EventsViewController: MaterialViewController, UITableViewDataSource, UITab
         case 0:
             let cellUI = tableView.dequeueReusableCell(withIdentifier: "GreenEvent", for: indexPath) as! TrillyCell
             cellUI.uiUpdates = {(cell) in
-                cell.viewWithTag(2)?.addGradientBackground(Trilly.UI.secondColor, Trilly.UI.mainColor, horizontal: true, diagonal: true)
+                cell.viewWithTag(1)?.addNormalShadow()
+                cell.viewWithTag(1)?.addGradientBackground(Trilly.UI.secondColor, Trilly.UI.mainColor, horizontal: true, diagonal: true)
             }
             return cellUI
         case 1:
             let cellUI = tableView.dequeueReusableCell(withIdentifier: "RedEvent", for: indexPath) as! TrillyCell
             cellUI.uiUpdates = {(cell) in
-                cell.viewWithTag(2)?.addGradientBackground(Trilly.UI.secondColor, Trilly.UI.mainColor, horizontal: true, diagonal: true)
+                cell.viewWithTag(1)?.addNormalShadow()
+                cell.viewWithTag(1)?.addGradientBackground(Trilly.UI.contrastColor, Trilly.UI.secondContrastColor, horizontal: true, diagonal: true)
             }
             return cellUI
         default:
@@ -50,6 +52,10 @@ class EventsViewController: MaterialViewController, UITableViewDataSource, UITab
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        EventDetailViewController.showEventDetail(parent: self)
     }
 
 }

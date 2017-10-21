@@ -43,6 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Modals3AConfig.foregroundColor = Trilly.UI.mainColor
         Modals3AConfig.fontFamily = "Oxygen"
         Modals3AConfig.titleFontSize = 30
+        Modals3AConfig.roundedCorners = false
+        Modals3AConfig.flatMode = true
         // Configuracion Stripe
         // STPPaymentConfiguration.shared().publishableKey = K.Hometap.stripe_key
         // Private configurations
@@ -67,6 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         application.registerForRemoteNotifications()
         application.applicationIconBadgeNumber = 0
+        
+        UITableViewCell.appearance().backgroundColor = UIColor.clear
         
         return true
         

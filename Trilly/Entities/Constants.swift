@@ -11,7 +11,7 @@ import Firebase
 import Modals3A
 
 struct Trilly {
-    static let googleApiKey = "AIzaSyCaNTGg4ALjVFOxNqrLsOP1g-dYkyo5re8"
+    static let googleApiKey = "AIzaSyBmR69_Jqzy7Tyw68Qp4SBhdEKV_mhc94E"
     static let newRelicKey = ""
     
     static func call() {
@@ -29,14 +29,15 @@ struct Trilly {
         static let alertColor: UIColor = UIColor(0xff0844)
         static let secondColor: UIColor = UIColor(0x1cdac6)
         static let contrastColor: UIColor = UIColor(0xffcd01)
+        static let secondContrastColor: UIColor = UIColor(0xff6f89)
         static let roundPx: CGFloat = 20.0
         static let specialRoundPx: CGFloat = 15.0
         static let lightRoundPx: CGFloat = 5.0
     }
     
     struct Database {
-        public static func ref() -> DatabaseReference {
-            return Firebase.Database.database().reference()
+        public static func ref() -> Firestore {
+            return Firestore.firestore()
         }
         private static let storageURL: String = "gs://trilly-ab00c.appspot.com/"
         public static func storageRef() -> StorageReference {

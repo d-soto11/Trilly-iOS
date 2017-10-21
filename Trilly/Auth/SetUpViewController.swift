@@ -48,7 +48,7 @@ class SetUpViewController: UIViewController, UITextFieldDelegate, DatePickerDele
                 self.mailField.isEnabled = false
             }
             self.phoneField.text = user.phone
-            self.birthField.text = user.birth?.toString(format: .Short)
+            self.birthField.text = (user.birth! as Date).toString(format: .Short)
             self.genreField.text = gender_options[user.gender ?? 2]
         }
         
