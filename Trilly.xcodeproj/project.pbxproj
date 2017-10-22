@@ -14,6 +14,12 @@
 		4330077D1F796A5B000A454D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4330077B1F796A5B000A454D /* Main.storyboard */; };
 		4330077F1F796A5B000A454D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4330077E1F796A5B000A454D /* Assets.xcassets */; };
 		433007821F796A5B000A454D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 433007801F796A5B000A454D /* LaunchScreen.storyboard */; };
+		4337498D1F9CED8300E50DB3 /* Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337498C1F9CED8300E50DB3 /* Inbox.swift */; };
+		433749901F9CEDFC00E50DB3 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4337498F1F9CEDFC00E50DB3 /* Trip.swift */; };
+		433749921F9CF03800E50DB3 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749911F9CF03800E50DB3 /* Stats.swift */; };
+		433749941F9CF29E00E50DB3 /* HashtagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749931F9CF29E00E50DB3 /* HashtagInfo.swift */; };
+		433749961F9D020E00E50DB3 /* Accident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749951F9D020E00E50DB3 /* Accident.swift */; };
+		433749991F9D0EB400E50DB3 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749981F9D0EB400E50DB3 /* Event.swift */; };
 		43A8A3561F8BDC3900E6FF3C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */; };
 		43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */; };
 		43A8E05D1F86E23000418CDF /* Hashtag.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A8E05C1F86E23000418CDF /* Hashtag.storyboard */; };
@@ -44,7 +50,6 @@
 		43E04C341F7BD501000C4C20 /* TrillyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C331F7BD501000C4C20 /* TrillyObject.swift */; };
 		43E04C361F7BD55B000C4C20 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C351F7BD55B000C4C20 /* User.swift */; };
 		43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C6B1F7C25B8000C4C20 /* HomeViewController.swift */; };
-		43E04C6E1F7C2717000C4C20 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C6D1F7C2717000C4C20 /* Notification.swift */; };
 		43E1CC771F796B73002B0CF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43E1CC761F796B73002B0CF6 /* GoogleService-Info.plist */; };
 		43E1CC7F1F7991B7002B0CF6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E1CC7E1F7991B7002B0CF6 /* Constants.swift */; };
 		43F60E0B1F83B5CB00250475 /* TripManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F60E0A1F83B5CB00250475 /* TripManager.swift */; };
@@ -63,6 +68,12 @@
 		4330077E1F796A5B000A454D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		433007811F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		433007831F796A5B000A454D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4337498C1F9CED8300E50DB3 /* Inbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inbox.swift; sourceTree = "<group>"; };
+		4337498F1F9CEDFC00E50DB3 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		433749911F9CF03800E50DB3 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		433749931F9CF29E00E50DB3 /* HashtagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagInfo.swift; sourceTree = "<group>"; };
+		433749951F9D020E00E50DB3 /* Accident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accident.swift; sourceTree = "<group>"; };
+		433749981F9D0EB400E50DB3 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagsViewController.swift; sourceTree = "<group>"; };
 		43A8E05C1F86E23000418CDF /* Hashtag.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hashtag.storyboard; sourceTree = "<group>"; };
@@ -80,7 +91,6 @@
 		43E04C331F7BD501000C4C20 /* TrillyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrillyObject.swift; sourceTree = "<group>"; };
 		43E04C351F7BD55B000C4C20 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		43E04C6B1F7C25B8000C4C20 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		43E04C6D1F7C2717000C4C20 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		43E1CC761F796B73002B0CF6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		43E1CC7B1F799137002B0CF6 /* Trilly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trilly-Bridging-Header.h"; sourceTree = "<group>"; };
 		43E1CC7E1F7991B7002B0CF6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -174,6 +184,23 @@
 			path = Trilly;
 			sourceTree = "<group>";
 		};
+		4337498E1F9CEDBF00E50DB3 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				43E04C351F7BD55B000C4C20 /* User.swift */,
+				4337498C1F9CED8300E50DB3 /* Inbox.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		433749971F9D0C6A00E50DB3 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				433749981F9D0EB400E50DB3 /* Event.swift */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
 		43A8E05B1F86E21B00418CDF /* Hashtag */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,13 +292,13 @@
 		43E1CC791F7990FF002B0CF6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				43F60E0C1F83CDDA00250475 /* Trip */,
-				43E1CC7B1F799137002B0CF6 /* Trilly-Bridging-Header.h */,
-				43E1CC7E1F7991B7002B0CF6 /* Constants.swift */,
 				43E04C131F7BCF03000C4C20 /* Extensions.swift */,
+				43E1CC7E1F7991B7002B0CF6 /* Constants.swift */,
 				43E04C331F7BD501000C4C20 /* TrillyObject.swift */,
-				43E04C351F7BD55B000C4C20 /* User.swift */,
-				43E04C6D1F7C2717000C4C20 /* Notification.swift */,
+				4337498E1F9CEDBF00E50DB3 /* User */,
+				43F60E0C1F83CDDA00250475 /* Trip */,
+				433749971F9D0C6A00E50DB3 /* Event */,
+				43E1CC7B1F799137002B0CF6 /* Trilly-Bridging-Header.h */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -280,6 +307,10 @@
 			isa = PBXGroup;
 			children = (
 				43F60E0A1F83B5CB00250475 /* TripManager.swift */,
+				4337498F1F9CEDFC00E50DB3 /* Trip.swift */,
+				433749911F9CF03800E50DB3 /* Stats.swift */,
+				433749931F9CF29E00E50DB3 /* HashtagInfo.swift */,
+				433749951F9D020E00E50DB3 /* Accident.swift */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -507,18 +538,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */,
+				433749921F9CF03800E50DB3 /* Stats.swift in Sources */,
 				43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */,
 				43ABCC3D1F7D4E4D00FA49B2 /* TripViewController.swift in Sources */,
 				43E04C321F7BD416000C4C20 /* LoginViewController.swift in Sources */,
 				43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */,
 				43E04C341F7BD501000C4C20 /* TrillyObject.swift in Sources */,
 				43E04C361F7BD55B000C4C20 /* User.swift in Sources */,
+				433749991F9D0EB400E50DB3 /* Event.swift in Sources */,
 				433007781F796A5B000A454D /* AppDelegate.swift in Sources */,
-				43E04C6E1F7C2717000C4C20 /* Notification.swift in Sources */,
 				43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */,
 				43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */,
+				433749901F9CEDFC00E50DB3 /* Trip.swift in Sources */,
 				43F60E0B1F83B5CB00250475 /* TripManager.swift in Sources */,
 				43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */,
+				433749941F9CF29E00E50DB3 /* HashtagInfo.swift in Sources */,
+				4337498D1F9CED8300E50DB3 /* Inbox.swift in Sources */,
+				433749961F9D020E00E50DB3 /* Accident.swift in Sources */,
 				43A8E05F1F86E25400418CDF /* HashtagViewController.swift in Sources */,
 				43E1CC7F1F7991B7002B0CF6 /* Constants.swift in Sources */,
 				4323403E1F8815BA00E1703C /* EventDetailViewController.swift in Sources */,

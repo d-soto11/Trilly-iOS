@@ -48,7 +48,9 @@ class SetUpViewController: UIViewController, UITextFieldDelegate, DatePickerDele
                 self.mailField.isEnabled = false
             }
             self.phoneField.text = user.phone
-            self.birthField.text = (user.birth! as Date).toString(format: .Short)
+            if user.birth != nil {
+                self.birthField.text = (user.birth! as Date).toString(format: .Short)
+            }
             self.genreField.text = gender_options[user.gender ?? 2]
         }
         
@@ -133,22 +135,22 @@ class SetUpViewController: UIViewController, UITextFieldDelegate, DatePickerDele
                 
                 mb.label.text = "Finalizando"
                 
-                let local = Auth.auth().currentUser!
-                let req = Auth.auth().currentUser!.createProfileChangeRequest()
-                if local.displayName != self.nameField.text {
-                    req.displayName = self.nameField.text
+                if let local = Auth.auth().currentUser {
+                    let req = local.createProfileChangeRequest()
+                    if local.displayName != self.nameField.text {
+                        req.displayName = self.nameField.text
+                    }
+                    req.commitChanges(completion: nil)
                 }
-                req.commitChanges(completion: nil)
-                
                 
                 User.current!.name = self.nameField.text
                 User.current!.email = self.mailField.text
                 User.current!.phone = self.phoneField.text
-                User.current!.birth = Date(fromString: self.birthField.text!)
-                User.current!.joined = Date()
-                User.current!.points = 0
+                User.current!.birth = Date(fromString: self.birthField.text!)! as NSDate
+                User.current!.joined = NSDate()
+                User.current!.nextTree = 0
+                User.current!.blocked = false
                 User.current!.gender = self.gender_options.index(of: self.genreField.text!)
-                User.current!.uid = local.uid
                 
                 User.current!.save()
                 

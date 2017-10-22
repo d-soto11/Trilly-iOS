@@ -39,7 +39,7 @@ struct Trilly {
         public static func ref() -> Firestore {
             return Firestore.firestore()
         }
-        private static let storageURL: String = "gs://trilly-ab00c.appspot.com/"
+        private static let storageURL: String = "gs://trilly-3a.appspot.com"
         public static func storageRef() -> StorageReference {
             return Storage.storage().reference(forURL: storageURL)
         }

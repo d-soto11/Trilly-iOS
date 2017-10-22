@@ -28,14 +28,24 @@ class User: TrillyObject {
         Trilly.Database.ref().collection(User.collectionName).document(id).getDocument { (document, error) in
             if error != nil {
                 print(error!.localizedDescription)
-            } else {
+            } else if document != nil && document!.exists {
                 if let documentData = document?.data() {
                     callback(User(documentData))
                 } else {
                     callback(nil)
                 }
+            } else {
+                callback(nil)
             }
         }
+    }
+    // Init from Firebase User
+    public convenience init(user: Firebase.User) {
+        var dict: [String:Any] = ["name": user.displayName ?? "", "email":user.email ?? "", "id": user.uid]
+        if let pp = user.photoURL {
+            dict["photo"] = pp.absoluteString
+        }
+        self.init(dict)
     }
     
     // Object fields
@@ -86,15 +96,6 @@ class User: TrillyObject {
         }
     }
     
-    
-    public convenience init(user: Firebase.User) {
-        var dict = ["name": user.displayName, "email":user.email, "id": user.uid]
-        if let pp = user.photoURL {
-            dict["photo"] = pp.absoluteString
-        }
-        self.init(dict as [String : AnyObject])
-    }
-    
     // Reference functions
     public func events() {
         
@@ -116,6 +117,11 @@ class User: TrillyObject {
         
     }
     
+    public func notifications() {
+        
+    }
+    
+    // Saving functions
     public func save() {
         if self.name != nil {
             originalDictionary["name"] = self.name
@@ -148,23 +154,10 @@ class User: TrillyObject {
             originalDictionary["tokens"] = self.tokens
         }
         
-        super.save(route: "users")
+        super.save(route: User.collectionName)
     }
     
-    public func notifications() -> [Notification]? {
-        var notifications:[Notification] = []
-        if let not = originalDictionary["notifications"] {
-            if let notDict = not as? [String:Any] {
-                for (_, notification) in notDict {
-                    if let notificationDict = notification as? [String:Any] {
-                        notifications.append(Notification(notificationDict))
-                    }
-                }
-                return notifications
-            }
-        }
-        return nil
-    }
+    
     
     public func saveNotificationToken(token: String) {
         if self.tokens != nil {
@@ -179,15 +172,15 @@ class User: TrillyObject {
     }
     
     public func checkNotifications() {
-        if let pending = self.notifications() {
-            for notification in pending {
-                switch notification.type! {
-                default:
-                    break
-                }
-            }
-            self.clearNotifications()
-        }
+//        if let pending = self.notifications() {
+//            for notification in pending {
+//                switch notification.type! {
+//                default:
+//                    break
+//                }
+//            }
+//            self.clearNotifications()
+//        }
     }
     
     public func clearNotifications() {
