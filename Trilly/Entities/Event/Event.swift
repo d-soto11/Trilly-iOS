@@ -81,12 +81,18 @@ class Event: TrillyObject {
             for userID in self.users! {
                 User.withID(id: userID, callback: { (user) in
                     if user != nil {
-                        response.append(user)
+                        response.append(user!)
+                        if response.count == max {
+                            callback(response)
+                        }
                     } else {
                         max = max - 1
+                        self.users!.remove(object: userID)
                     }
                 })
             }
+        } else {
+            callback(nil)
         }
         
     }
