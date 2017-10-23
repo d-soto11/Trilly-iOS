@@ -6,6 +6,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 target 'Trilly' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
+  inhibit_all_warnings!
 
   # Pods for Trilly
   # pod 'AFNetworking'
@@ -34,7 +35,7 @@ target 'Trilly' do
   pod 'Crashlytics'
   pod 'NewRelicAgent'
   
-  pod 'MaterialTB', :path => '/Users/danielsoto/Documents/3A/Swift/MaterialTapBar'
+  pod 'MaterialTB', :path => '/Users/danielsoto/Documents/3A/Swift/MaterialTB'
   pod 'Modals3A', :path => '/Users/danielsoto/Documents/3A/Swift/Modals3A'
 
 end

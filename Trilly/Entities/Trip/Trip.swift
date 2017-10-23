@@ -38,11 +38,10 @@ class Trip: TrillyObject {
     var destination: GeoPoint?
     var time: Int?
     var stats: Stats?
-    
+    var userID: String?
     // Cahce fields
     private var loadedHashtags: [HashtagInfo]?
     private var loadedAccidents: [Accident]?
-    private var userID: String?
     // Constructor
     public override init(_ dict: [String: Any]){
         super.init(dict)

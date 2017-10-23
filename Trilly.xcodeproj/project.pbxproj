@@ -43,6 +43,9 @@
 		43ABCC3D1F7D4E4D00FA49B2 /* TripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43ABCC3C1F7D4E4D00FA49B2 /* TripViewController.swift */; };
 		43ABCC3F1F7D4E5D00FA49B2 /* Trip.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43ABCC3E1F7D4E5D00FA49B2 /* Trip.storyboard */; };
 		43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */; };
+		43BCD48B1F9D957200DEB2EC /* Hashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BCD48A1F9D957200DEB2EC /* Hashtag.swift */; };
+		43BCD48D1F9D969700DEB2EC /* UserContribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BCD48C1F9D969700DEB2EC /* UserContribution.swift */; };
+		43BCD48F1F9D988000DEB2EC /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BCD48E1F9D988000DEB2EC /* Goal.swift */; };
 		43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C131F7BCF03000C4C20 /* Extensions.swift */; };
 		43E04C2E1F7BD3E4000C4C20 /* google_c_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E04C221F7BD28A000C4C20 /* google_c_b.png */; };
 		43E04C2F1F7BD3E4000C4C20 /* fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E04C231F7BD28A000C4C20 /* fb.png */; };
@@ -57,6 +60,9 @@
 		43F60E151F846CF100250475 /* tab2.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E111F8469C000250475 /* tab2.png */; };
 		43F60E161F846CF100250475 /* tab5.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E121F8469C000250475 /* tab5.png */; };
 		43F60E171F846CF100250475 /* tab4.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E131F8469C000250475 /* tab4.png */; };
+		43FEC5C41F9D7DFF000055C0 /* HashtagPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FEC5C31F9D7DFF000055C0 /* HashtagPoints.swift */; };
+		43FEC5C71F9D7EFB000055C0 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FEC5C61F9D7EFB000055C0 /* Tree.swift */; };
+		43FEC5C91F9D8181000055C0 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FEC5C81F9D8181000055C0 /* Organization.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +90,9 @@
 		43ABCC3C1F7D4E4D00FA49B2 /* TripViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewController.swift; sourceTree = "<group>"; };
 		43ABCC3E1F7D4E5D00FA49B2 /* Trip.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Trip.storyboard; sourceTree = "<group>"; };
 		43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripBriefViewController.swift; sourceTree = "<group>"; };
+		43BCD48A1F9D957200DEB2EC /* Hashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hashtag.swift; sourceTree = "<group>"; };
+		43BCD48C1F9D969700DEB2EC /* UserContribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContribution.swift; sourceTree = "<group>"; };
+		43BCD48E1F9D988000DEB2EC /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		43E04C131F7BCF03000C4C20 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		43E04C221F7BD28A000C4C20 /* google_c_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_c_b.png; sourceTree = "<group>"; };
 		43E04C231F7BD28A000C4C20 /* fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb.png; sourceTree = "<group>"; };
@@ -112,6 +121,9 @@
 		43F60E221F857A7A00250475 /* JosefinSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		43F60E231F857A7B00250475 /* JosefinSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Bold.ttf"; sourceTree = "<group>"; };
 		43F60E241F857A7C00250475 /* JosefinSans-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JosefinSans-Thin.ttf"; sourceTree = "<group>"; };
+		43FEC5C31F9D7DFF000055C0 /* HashtagPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagPoints.swift; sourceTree = "<group>"; };
+		43FEC5C61F9D7EFB000055C0 /* Tree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tree.swift; sourceTree = "<group>"; };
+		43FEC5C81F9D8181000055C0 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		9BB5C8BC189A01193A46FC2C /* Pods-Trilly.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trilly.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Trilly/Pods-Trilly.debug.xcconfig"; sourceTree = "<group>"; };
 		BC8F71A74C1416D7A1459799 /* Pods_Trilly.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Trilly.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB1557B87C60CF961F98CE2D /* Pods-Trilly.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Trilly.release.xcconfig"; path = "Pods/Target Support Files/Pods-Trilly/Pods-Trilly.release.xcconfig"; sourceTree = "<group>"; };
@@ -189,6 +201,8 @@
 			children = (
 				43E04C351F7BD55B000C4C20 /* User.swift */,
 				4337498C1F9CED8300E50DB3 /* Inbox.swift */,
+				43FEC5C31F9D7DFF000055C0 /* HashtagPoints.swift */,
+				43FEC5C81F9D8181000055C0 /* Organization.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -227,6 +241,16 @@
 				43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */,
 			);
 			path = Trip;
+			sourceTree = "<group>";
+		};
+		43BCD4891F9D955B00DEB2EC /* Hashtag */ = {
+			isa = PBXGroup;
+			children = (
+				43BCD48A1F9D957200DEB2EC /* Hashtag.swift */,
+				43BCD48C1F9D969700DEB2EC /* UserContribution.swift */,
+				43BCD48E1F9D988000DEB2EC /* Goal.swift */,
+			);
+			path = Hashtag;
 			sourceTree = "<group>";
 		};
 		43E04C151F7BD28A000C4C20 /* Assets */ = {
@@ -295,9 +319,11 @@
 				43E04C131F7BCF03000C4C20 /* Extensions.swift */,
 				43E1CC7E1F7991B7002B0CF6 /* Constants.swift */,
 				43E04C331F7BD501000C4C20 /* TrillyObject.swift */,
+				43FEC5C51F9D7EE8000055C0 /* Tree */,
 				4337498E1F9CEDBF00E50DB3 /* User */,
 				43F60E0C1F83CDDA00250475 /* Trip */,
 				433749971F9D0C6A00E50DB3 /* Event */,
+				43BCD4891F9D955B00DEB2EC /* Hashtag */,
 				43E1CC7B1F799137002B0CF6 /* Trilly-Bridging-Header.h */,
 			);
 			path = Entities;
@@ -324,6 +350,14 @@
 				43F60E131F8469C000250475 /* tab4.png */,
 			);
 			path = icons;
+			sourceTree = "<group>";
+		};
+		43FEC5C51F9D7EE8000055C0 /* Tree */ = {
+			isa = PBXGroup;
+			children = (
+				43FEC5C61F9D7EFB000055C0 /* Tree.swift */,
+			);
+			path = Tree;
 			sourceTree = "<group>";
 		};
 		FBA339265EECBFCE483C44A7 /* Frameworks */ = {
@@ -537,11 +571,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43BCD48D1F9D969700DEB2EC /* UserContribution.swift in Sources */,
 				43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */,
 				433749921F9CF03800E50DB3 /* Stats.swift in Sources */,
+				43FEC5C91F9D8181000055C0 /* Organization.swift in Sources */,
 				43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */,
+				43BCD48B1F9D957200DEB2EC /* Hashtag.swift in Sources */,
+				43FEC5C41F9D7DFF000055C0 /* HashtagPoints.swift in Sources */,
 				43ABCC3D1F7D4E4D00FA49B2 /* TripViewController.swift in Sources */,
+				43FEC5C71F9D7EFB000055C0 /* Tree.swift in Sources */,
 				43E04C321F7BD416000C4C20 /* LoginViewController.swift in Sources */,
+				43BCD48F1F9D988000DEB2EC /* Goal.swift in Sources */,
 				43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */,
 				43E04C341F7BD501000C4C20 /* TrillyObject.swift in Sources */,
 				43E04C361F7BD55B000C4C20 /* User.swift in Sources */,

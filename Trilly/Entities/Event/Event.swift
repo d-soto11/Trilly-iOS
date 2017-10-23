@@ -40,7 +40,6 @@ class Event: TrillyObject {
     var icon: String?
     var reward: Double?
     var location: GeoPoint?
-    var users: [String]?
     // Cahce fields
     
     // Constructor
@@ -68,51 +67,61 @@ class Event: TrillyObject {
         if let location = dict["location"] as? GeoPoint {
             self.location = location
         }
-        if let users = dict["users"] as? [String] {
-            self.users = users
-        }
     }
     
     // Reference functions
     public func users(_ callback: @escaping ([User]?)->Void) {
-        if self.users != nil {
-            var max = self.users!.count
-            var response: [User] = []
-            for userID in self.users! {
-                User.withID(id: userID, callback: { (user) in
-                    if user != nil {
-                        response.append(user!)
-                        if response.count == max {
-                            callback(response)
+        guard self.uid != nil else { return }
+        Trilly.Database.ref().collection(Event.collectionName)
+            .document(self.uid!).collection(User.collectionName)
+            .getDocuments { (documents, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else if documents != nil {
+                    var response: [User] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(User(document.data()))
                         }
-                    } else {
-                        max = max - 1
-                        self.users!.remove(object: userID)
                     }
-                })
-            }
-        } else {
-            callback(nil)
+                    callback(response)
+                } else {
+                    callback(nil)
+                }
         }
-        
     }
     
     // Saving functions
-    
     public func save() {
-        if self.path != nil {
-            originalDictionary["path"] = self.path
+        if self.name != nil {
+            originalDictionary["name"] = self.name
         }
-        if self.start != nil {
-            originalDictionary["start"] = self.start
+        if self.descriptionT != nil {
+            originalDictionary["description"] = self.descriptionT
         }
-        if self.destination != nil {
-            originalDictionary["destination"] = self.destination
+        if self.date != nil {
+            originalDictionary["date"] = self.date
         }
-        if self.time != nil {
-            originalDictionary["time"] = self.time
+        if self.participants != nil {
+            originalDictionary["participants"] = self.participants
+        }
+        if self.icon != nil {
+            originalDictionary["icon"] = self.icon
+        }
+        if self.reward != nil {
+            originalDictionary["reward"] = self.reward
+        }
+        if self.location != nil {
+            originalDictionary["location"] = self.location
         }
         
-        super.save(route: Trip.collectionName)
+        super.save(route: Event.collectionName)
+    }
+    
+    public func addUser(_ user: User) {
+        guard self.uid != nil, user.uid != nil else { return }
+        Trilly.Database.ref().collection(Event.collectionName)
+            .document(self.uid!).collection(User.collectionName)
+            .document(user.uid!).setData(user.originalDictionary)
     }
 }

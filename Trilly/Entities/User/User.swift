@@ -59,7 +59,9 @@ class User: TrillyObject {
     var nextTree: Double?
     var blocked: Bool?
     var tokens: [String]?
-    
+    var organizationID: String?
+    // Cache fields
+    private var loadedHashtags: [HashtagPoints]?
     // Constructor
     public override init(_ dict: [String: Any]){
         super.init(dict)
@@ -94,27 +96,93 @@ class User: TrillyObject {
         if let tokens = dict["tokens"] as? [String] {
             self.tokens = tokens
         }
+        if let organizationID = dict["organization"] as? String {
+            self.organizationID = organizationID
+        }
     }
     
     // Reference functions
-    public func events() {
-        
+    public func events(_ callback: @escaping ([Event]?)->Void) {
+        guard self.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Event.collectionName)
+            .getDocuments { (documents, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else if documents != nil {
+                    var response: [Event] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(Event(document.data()))
+                        }
+                    }
+                    callback(response)
+                } else {
+                    callback(nil)
+                }
+        }
     }
     
-    public func hashtags() {
+    public func hashtags(callback: @escaping (Bool)->Void = {_ in}, forceReload: Bool = false) -> [HashtagPoints]? {
+        if loadedHashtags == nil || forceReload {
+            HashtagPoints.pointsFromUser(userID: self.uid!, callback: { (hashtags) in
+                if hashtags != nil {
+                    self.loadedHashtags = hashtags!
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            })
+        }
         
+        return loadedHashtags
     }
     
-    public func trees() {
-        
+    public func trees(_ callback: @escaping ([Tree]?)->Void) {
+        guard self.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Tree.collectionName)
+            .getDocuments { (documents, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else if documents != nil {
+                    var response: [Tree] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(Tree(document.data()))
+                        }
+                    }
+                    callback(response)
+                } else {
+                    callback(nil)
+                }
+        }
     }
     
-    public func organization() {
-        
+    public func organization(_ callback: @escaping (Organization?)->Void) {
+        guard self.organizationID != nil else { return }
+        Organization.withID(id: self.organizationID!, callback: callback)
     }
     
-    public func history() {
-        
+    public func history(_ callback: @escaping ([Trip]?)->Void) {
+        guard self.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Trip.collectionName)
+            .getDocuments { (documents, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else if documents != nil {
+                    var response: [Trip] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(Trip(document.data()))
+                        }
+                    }
+                    callback(response)
+                } else {
+                    callback(nil)
+                }
+        }
     }
     
     public func notifications() {
@@ -153,10 +221,33 @@ class User: TrillyObject {
         if self.tokens != nil {
             originalDictionary["tokens"] = self.tokens
         }
+        if self.organizationID != nil {
+            originalDictionary["organization"] = self.organizationID
+        }
         
         super.save(route: User.collectionName)
     }
     
+    public func addEvent(_ event: Event) {
+        guard self.uid != nil, event.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Event.collectionName)
+            .document(event.uid!).setData(event.originalDictionary)
+    }
+    
+    public func addTree(_ tree: Tree) {
+        guard self.uid != nil, tree.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Tree.collectionName)
+            .document(tree.uid!).setData(tree.originalDictionary)
+    }
+    
+    public func addTrip(_ trip: Trip) {
+        guard self.uid != nil, trip.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Trip.collectionName)
+            .document(trip.uid!).setData(tree.originalDictionary)
+    }
     
     
     public func saveNotificationToken(token: String) {

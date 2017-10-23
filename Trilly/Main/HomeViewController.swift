@@ -67,6 +67,7 @@ class HomeViewController: MaterialViewController {
     
 
     @IBAction func goToProfile(_ sender: Any) {
+        
     }
     
     @IBAction func startTrip(_ sender: Any) {
