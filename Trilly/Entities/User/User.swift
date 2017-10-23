@@ -246,7 +246,7 @@ class User: TrillyObject {
         guard self.uid != nil, trip.uid != nil else { return }
         Trilly.Database.ref().collection(User.collectionName)
             .document(self.uid!).collection(Trip.collectionName)
-            .document(trip.uid!).setData(tree.originalDictionary)
+            .document(trip.uid!).setData(trip.originalDictionary)
     }
     
     

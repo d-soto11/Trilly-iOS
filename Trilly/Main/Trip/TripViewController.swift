@@ -8,12 +8,13 @@
 
 import UIKit
 import GoogleMaps
+import GooglePlaces
 import MaterialTB
 import Modals3A
 import CoreLocation
 import MBProgressHUD
 
-class TripViewController: UIViewController, TripListener {
+class TripViewController: UIViewController, TripListener, UITextFieldDelegate, GMSAutocompleteViewControllerDelegate {
     
     @IBOutlet weak var hashtagLabel: UILabel!
     @IBOutlet weak var endTripB: UIButton!
@@ -21,8 +22,10 @@ class TripViewController: UIViewController, TripListener {
     @IBOutlet weak var infoBackground: UIView!
     @IBOutlet weak var kmLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var destinationTextField: UITextField!
     
     private var trackingPolyline: GMSPolyline!
+    private var routePolyline: GMSPolyline?
     private var overlayAdded: Bool = false
     
     private var hud: MBProgressHUD?
@@ -42,6 +45,11 @@ class TripViewController: UIViewController, TripListener {
     
     override func viewDidAppear(_ animated: Bool) {
         
+        guard mapView == nil else {
+            TripManager.current!.registerTripListener(self)
+            return
+        }
+        
         mapView = GMSMapView(frame: self.view.frame)
         self.view.insertSubview(mapView, belowSubview: overlay)
         
@@ -56,8 +64,8 @@ class TripViewController: UIViewController, TripListener {
         
         let camera = GMSCameraPosition.camera(withLatitude: 0, longitude: 0, zoom: 16)
         mapView.animate(to: camera)
+        mapView.animate(toViewingAngle: 45)
         mapView.isMyLocationEnabled = true
-        
         trackingPolyline = GMSPolyline()
         trackingPolyline.strokeColor = Trilly.UI.mainColor
         trackingPolyline.strokeWidth = 10
@@ -86,7 +94,6 @@ class TripViewController: UIViewController, TripListener {
     
     override func viewWillDisappear(_ animated: Bool) {
         TripManager.current?.clearTripListener()
-        self.mapView = nil
     }
     
     @IBAction func endTrip(_ sender: Any) {
@@ -156,6 +163,48 @@ class TripViewController: UIViewController, TripListener {
     
     func hashtagUpdated(_ hashtag: String) {
         self.hashtagLabel.text = "\(hashtag.lowercased())"
+    }
+    
+    func destinationUpdated(_ route: GMSPath) {
+        routePolyline?.map = nil
+        routePolyline = GMSPolyline(path: route)
+        routePolyline!.strokeColor = Trilly.UI.contrastColor
+        routePolyline!.strokeWidth = 10
+        routePolyline!.map = mapView
+    }
+    
+    // For directios
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
+        return false
+    }
+    
+    // Handle the user's selection.
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        self.destinationTextField.text = place.name
+        TripManager.current?.setDestination(place.coordinate)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // User canceled the operation.
+    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
 }

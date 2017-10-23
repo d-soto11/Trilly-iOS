@@ -150,7 +150,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlaces
   - GoogleSignIn
-  - MaterialTB (from `/Users/danielsoto/Documents/3A/Swift/MaterialTapBar`)
+  - MaterialTB (from `/Users/danielsoto/Documents/3A/Swift/MaterialTB`)
   - MBProgressHUD
   - Modals3A (from `/Users/danielsoto/Documents/3A/Swift/Modals3A`)
   - NewRelicAgent
@@ -159,7 +159,7 @@ DEPENDENCIES:
 
 EXTERNAL SOURCES:
   MaterialTB:
-    :path: /Users/danielsoto/Documents/3A/Swift/MaterialTapBar
+    :path: /Users/danielsoto/Documents/3A/Swift/MaterialTB
   Modals3A:
     :path: /Users/danielsoto/Documents/3A/Swift/Modals3A
 
@@ -201,6 +201,6 @@ SPEC CHECKSUMS:
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   RestEssentials: b7e7d0443eeeebc1c26f6fe86acd3a927101b4e3
 
-PODFILE CHECKSUM: e41394336b5102a7c7bb65b3cb9b0beb226f3df8
+PODFILE CHECKSUM: db72fce77eacf0753aee12007d84ba38f9b61ebf
 
 COCOAPODS: 1.3.1

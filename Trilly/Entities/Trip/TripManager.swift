@@ -10,6 +10,8 @@ import Foundation
 import GoogleMaps
 import CoreLocation
 import CoreMotion
+import RestEssentials
+import Firebase
 
 class TripManager: NSObject, CLLocationManagerDelegate {
     
@@ -17,6 +19,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     private var locationManager: CLLocationManager!
     private(set) public var location: CLLocationCoordinate2D?
     private var lastLocation: CLLocation?
+    private var destination: CLLocationCoordinate2D?
     // Motion
     private var motionManager: CMMotionManager!
     private var motionActivityManager: CMMotionActivityManager!
@@ -96,7 +99,17 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     // Stop
     public func stop() {
         self.pause()
-        // Save route to firebase
+        let newTrip = Trip([:])
+        if destination != nil {
+            newTrip.destination = GeoPoint(latitude: destination!.latitude, longitude: destination!.longitude)
+        }
+        newTrip.path = self.trackingPath.encodedPath()
+        let initial = self.trackingPath.coordinate(at: 0)
+        newTrip.start = GeoPoint(latitude: initial.latitude, longitude: initial.longitude)
+        newTrip.time = self.time
+        newTrip.userID = User.current!.uid!
+        newTrip.stats = Stats([:])
+        newTrip.save()
         TripManager.current = nil
     }
     // Pause
@@ -131,6 +144,35 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
+    // Destination handlers
+    public func setDestination(_ destination: CLLocationCoordinate2D) {
+        self.destination = destination
+        guard lastLocation != nil else { return }
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.lastLocation!.coordinate.latitude),\(self.lastLocation!.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=walking&avoid=highways&key=\(Trilly.googleApiKey)"
+        
+        print(urlString)
+        
+        guard let url = RestController.make(urlString: urlString) else { return }
+        
+        url.get(withDeserializer: JSONDeserializer()) { result, httpResponse in
+            do {
+                let json = try result.value()
+                if let routes = json["routes"].array {
+                    let route = routes[0]
+                    let overview = route["overview_polyline"]
+                    if let encoded = overview["points"].string {
+                        if let path = GMSPath(fromEncodedPath: encoded) {
+                            DispatchQueue.main.async {
+                                self.tripListener?.destinationUpdated(path)
+                            }
+                        }
+                    }
+                }
+            } catch {
+                print("Error performing GET: \(error)")
+            }
+        }
+    }
     // Load
     private func load() {
         self.initialLocationTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector:  #selector(noLocation), userInfo: nil, repeats: false)
@@ -415,4 +457,5 @@ protocol TripListener {
     func tripPaused(message: String, path: GMSPath)
     func timeTick(_ time: Int)
     func hashtagUpdated(_ hashtag: String)
+    func destinationUpdated(_ route: GMSPath)
 }
