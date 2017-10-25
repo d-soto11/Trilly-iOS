@@ -23,7 +23,6 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var goalsB: UIButton!
     @IBOutlet weak var rankingB: UIButton!
     @IBOutlet weak var tabBackground: UIView!
-    @IBOutlet weak var tabsFooter: UIView!
     
     @IBOutlet weak var mainHeigth: NSLayoutConstraint!
     @IBOutlet weak var goalHeigth: NSLayoutConstraint!
@@ -33,38 +32,65 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     // Ranking only
     @IBOutlet weak var userRankingCell: UIView!
     
-    // Testing purpose
-    private var count = 20
-    private let userRanking = 15
     
+    // Data
+    private var hashtag: Hashtag!
+    private var userRanking: Int = Int.max
+    private var count = 0
     
-    public class func showHashtag(hashtag: AnyClass? = nil, parent: UIViewController) {
+    public class func showHashtag(hashtag: String, parent: UIViewController) {
         let st = UIStoryboard(name: "Hashtag", bundle: nil)
         let hashView = st.instantiateViewController(withIdentifier: "Hashtag") as! HashtagViewController
-        parent.showDetailViewController(hashView, sender: nil)
-        UIApplication.shared.statusBarStyle = .lightContent
+        Hashtag.withID(id: hashtag) { (ht) in
+            guard ht != nil else { return }
+            hashView.hashtag = ht!
+            parent.showDetailViewController(hashView, sender: nil)
+            UIApplication.shared.statusBarStyle = .lightContent
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let _ = self.view.addGradientBackground(Trilly.UI.mainColor, .white, start: 0.4, end: 0.6)
         tabBackground.backgroundColor = Trilly.UI.secondColor
-        tabsFooter.backgroundColor = Trilly.UI.secondColor
         adjustConstraints()
         
+        self.mainLabel.text = "#\(self.hashtag.name!.lowercased())"
+        self.stickyLabel.text = "#\(self.hashtag.name!.lowercased())"
+        self.hashtagPointsLabel.text = String(format: "%.0f pts.", self.hashtag.points ?? 0)
+        
+        let _ = hashtag.goals(callback: { (done) in
+            if done {
+                self.count = self.hashtag.goals()?.count ?? 0
+                self.goalTable.reloadData()
+            }
+        })
+        let _ = hashtag.users(callback: { (done) in
+            if done {
+                for (index, user) in (self.hashtag.users() ?? []).enumerated() {
+                    if user.name ?? "" == User.current!.name! {
+                        self.userRanking = index
+                        (self.userRankingCell.viewWithTag(11) as? UILabel)?.text = "#\(self.userRanking + 1)"
+                        self.myPointsLabel.text = String(format: "%.0f pts.", user.points ?? 0)
+                        self.myKMLabel.text = String(format: "%.0f Km", user.km ?? 0)
+                        (self.userRankingCell.viewWithTag(12) as? UILabel)?.text = "\(user.name!) (Tú)"
+                        
+                    }
+                }
+            }
+        })
         // Load user ranking
-        (userRankingCell.viewWithTag(11) as? UILabel)?.text = "#\(userRanking + 1)"
     }
     
     func adjustConstraints() {
         switch self.currentTab {
         case 0:
             let exceded = CGFloat((count * 250))
-            mainHeigth.constant = 330 + exceded
+            mainHeigth.constant = max(330 + exceded, self.view.bounds.height)
             goalHeigth.constant = exceded
         case 1:
             let exceded = CGFloat((count * 100))
-            mainHeigth.constant = 330 + exceded
+            mainHeigth.constant = max(330 + exceded, self.view.bounds.height)
             goalHeigth.constant = exceded
         default:
             break
@@ -112,6 +138,7 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
             let cellUI = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! TrillyCell
             cellUI.uiUpdates = {(cell) in
                 cell.viewWithTag(1)?.addNormalShadow()
+                (cell.viewWithTag(21) as? UILabel)?.text = "\((self.hashtag.goals() ?? [])[indexPath.row].name!)"
             }
             return cellUI
         case 1:
@@ -119,10 +146,11 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
             cellUI.uiUpdates = {(cell) in
                 cell.viewWithTag(1)?.addNormalShadow()
                 cell.viewWithTag(2)?.addGradientBackground(Trilly.UI.secondColor, Trilly.UI.mainColor, horizontal: true, diagonal: true)
+                let rank = (self.hashtag.users() ?? [])[indexPath.row]
                 (cell.viewWithTag(11) as? UILabel)?.text = "#\(indexPath.row + 1)"
-                
+                (cell.viewWithTag(21) as? UILabel)?.text = "\(rank.name!)"
+                (cell.viewWithTag(22) as? UILabel)?.text = String(format: "%.0f", rank.points ?? 0)
                 if indexPath.row == self.userRanking {
-                    (cell.viewWithTag(21) as? UILabel)?.text = "Daniel Soto"
                     cell.viewWithTag(3)?.backgroundColor = Trilly.UI.contrastColor
                 } else {
                     cell.viewWithTag(3)?.backgroundColor = .clear
@@ -161,10 +189,11 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func loadGoals(_ sender: Any) {
         if currentTab != 0 {
             currentTab = 0
-            self.adjustConstraints()
-            self.view.layoutIfNeeded()
             self.goalsB.isSelected = true
             self.rankingB.isSelected = false
+            self.count = self.hashtag.goals()?.count ?? 0
+            self.adjustConstraints()
+            self.view.layoutIfNeeded()
             self.goalTable.reloadSections(IndexSet(integer: 0), with: .right)
             UIView.animate(withDuration: 0.1, animations: {
                 self.userRankingCell.alpha = 0
@@ -175,10 +204,11 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBAction func loadRanking(_ sender: Any) {
         if currentTab != 1 {
             currentTab = 1
-            self.adjustConstraints()
-            self.view.layoutIfNeeded()
             self.goalsB.isSelected = false
             self.rankingB.isSelected = true
+            self.count = self.hashtag.users()?.count ?? 0
+            self.adjustConstraints()
+            self.view.layoutIfNeeded()
             self.goalTable.reloadSections(IndexSet(integer: 0), with: .left)
             loadUserRankingUI()
         }

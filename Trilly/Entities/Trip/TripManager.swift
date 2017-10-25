@@ -57,6 +57,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     private static var encodedGMSPath: String?
     private static var lastHashtag: String?
     private static var time: Int?
+    private static var hashTagKM: [String:Double]?
     // Queue
     private let backgroundQueue: DispatchQueue = DispatchQueue(label: "com.trilly.tripqueue", qos: .utility)
     // Start
@@ -83,12 +84,14 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         current!.trackingPath = GMSMutablePath(fromEncodedPath: encodedGMSPath!)
         current!.time = time!
         current!.hashTag = lastHashtag!
+        current!.hashTagKM = hashTagKM!
         current!.load()
         current!.tripListener = listener
         
         encodedGMSPath = nil
         time = nil
         lastHashtag = nil
+        hashTagKM = nil
     }
     // Clear
     public class func clear() {
@@ -99,22 +102,74 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     // Stop
     public func stop() {
         self.pause()
-        let newTrip = Trip([:])
-        if destination != nil {
-            newTrip.destination = GeoPoint(latitude: destination!.latitude, longitude: destination!.longitude)
+        
+        backgroundQueue.async {
+            let newTrip = Trip([:])
+            if self.destination != nil {
+                newTrip.destination = GeoPoint(latitude: self.destination!.latitude, longitude: self.destination!.longitude)
+            }
+            newTrip.path = self.trackingPath.encodedPath()
+            let initial = self.trackingPath.coordinate(at: 0)
+            newTrip.start = GeoPoint(latitude: initial.latitude, longitude: initial.longitude)
+            newTrip.time = self.time
+            newTrip.user = User.current!.reference()
+            newTrip.date = NSDate()
+            newTrip.filters = ""
+            
+            let stats = Stats([:])
+            stats.km = self.trackingPath.length(of: GMSLengthKind.rhumb)/1000
+            stats.cal = Double(11 * self.time)
+            stats.co2 = 257 * stats.km!
+            newTrip.stats = stats
+            newTrip.save()
+            
+            for (name, km) in self.hashTagKM {
+                let hashtag = HashtagInfo([:])
+                hashtag.name = name
+                hashtag.points = km
+                hashtag.uid = name
+                hashtag.saveOnTrip(newTrip.uid!)
+                let userContribution = UserContribution([:])
+                userContribution.km = km
+                userContribution.name = User.current!.name!
+                userContribution.points = km
+                userContribution.uid = User.current!.uid!
+                userContribution.saveOnHashtag(name)
+                let userHashtag = HashtagPoints([:])
+                userHashtag.name = name
+                userHashtag.km = km
+                userHashtag.points = km
+                userHashtag.uid = name
+                userHashtag.saveToUser(User.current!.uid!)
+                newTrip.filters = "\(newTrip.filters!)-\(name)"
+            }
+            
+            newTrip.save()
+            User.current!.addTrip(newTrip)
+            Trilly.Database.Local.saveModel(id: Trip.new, object: newTrip)
         }
-        newTrip.path = self.trackingPath.encodedPath()
-        let initial = self.trackingPath.coordinate(at: 0)
-        newTrip.start = GeoPoint(latitude: initial.latitude, longitude: initial.longitude)
-        newTrip.time = self.time
-        newTrip.userID = User.current!.uid!
-        newTrip.stats = Stats([:])
-        newTrip.save()
+        
         TripManager.current = nil
+        TripManager.encodedGMSPath = nil
+        TripManager.time = nil
+        TripManager.lastHashtag = nil
+        TripManager.hashTagKM = nil
+        
+        self.locationManager?.stopUpdatingHeading()
+        self.locationManager?.stopUpdatingLocation()
+        self.locationManager?.delegate = nil
+        self.locationManager = nil
+        
+        self.motionActivityManager?.stopActivityUpdates()
+        self.motionActivityManager = nil
+        
+        self.motionManager?.stopAccelerometerUpdates()
+        self.motionManager = nil
     }
     // Pause
     public func pause() {
         clearTripListener()
+        self.hashTagKM[self.hashTag] = (self.hashTagKM[self.hashTag] ?? 0) + self.currentKM
         backgroundQueue.async {
             self.shakingTimer?.invalidate()
             self.shakingTimer = nil
@@ -127,20 +182,22 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             
             self.stopVerifiers()
             
-            self.locationManager!.stopUpdatingHeading()
-            self.locationManager!.stopUpdatingLocation()
-            self.locationManager.delegate = nil
+            self.locationManager?.stopUpdatingHeading()
+            self.locationManager?.stopUpdatingLocation()
+            self.locationManager?.delegate = nil
             self.locationManager = nil
             
-            self.motionActivityManager!.stopActivityUpdates()
+            self.motionActivityManager?.stopActivityUpdates()
             self.motionActivityManager = nil
             
-            self.motionManager!.stopAccelerometerUpdates()
+            self.motionManager?.stopAccelerometerUpdates()
             self.motionManager = nil
             
             TripManager.encodedGMSPath = self.trackingPath.encodedPath()
             TripManager.time = self.time
             TripManager.lastHashtag = self.hashTag
+            TripManager.hashTagKM = self.hashTagKM
+            
         }
     }
     
@@ -148,7 +205,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     public func setDestination(_ destination: CLLocationCoordinate2D) {
         self.destination = destination
         guard lastLocation != nil else { return }
-        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.lastLocation!.coordinate.latitude),\(self.lastLocation!.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=walking&avoid=highways&key=\(Trilly.googleApiKey)"
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.lastLocation!.coordinate.latitude),\(self.lastLocation!.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=walking&key=\(Trilly.googleApiKey)"
         
         print(urlString)
         
@@ -362,7 +419,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             self.speed = locations.last!.speed < 0 ? 0 : locations.last!.speed
             if self.onForeground && self.tripListener != nil {
                 DispatchQueue.main.async {
-                    self.tripListener!.tripUpdated(path: self.trackingPath)
+                    self.tripListener?.tripUpdated(path: self.trackingPath)
                 }
             }
             self.updateTripMotion()

@@ -8,16 +8,28 @@
 
 import UIKit
 import MaterialTB
+import MBProgressHUD
 
 class EventsViewController: MaterialViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var eventsTable: UITableView!
-    
+    private var events: [Event] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        Event.global { (event) in
+            MBProgressHUD.hide(for: self.view, animated: true)
+            if event != nil {
+                self.events = event!
+                self.eventsTable.reloadData()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

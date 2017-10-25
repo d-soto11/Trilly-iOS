@@ -97,12 +97,14 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     }
     
     @IBAction func endTrip(_ sender: Any) {
-        print("Received")
         paused = true
-        MBProgressHUD.showAdded(to: self.mapView, animated: true)
+        TripManager.current?.clearTripListener()
+        self.mapView.clear()
+        MBProgressHUD.showAdded(to: self.overlay, animated: true)
+        mapView = nil
         TripManager.current!.stop()
         Alert3A.show(withTitle: "Felicitaciones", body: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", accpetTitle: "Genial", confirmation: {
-            MBProgressHUD.hide(for: self.mapView, animated: true)
+            MBProgressHUD.hide(for: self.overlay, animated: true)
             self.performSegue(withIdentifier: "tripBrief", sender: nil)
         }, parent: self)
     }

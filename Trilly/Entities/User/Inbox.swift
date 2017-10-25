@@ -61,7 +61,7 @@ class Inbox: TrillyObject {
     var content: String?
     var image: String?
     var link: String?
-    
+    var date: NSDate?
     // Constructor
     public override init(_ dict: [String: Any]){
         super.init(dict)
@@ -78,6 +78,9 @@ class Inbox: TrillyObject {
         if let link = dict["link"] as? String {
             self.link = link
         }
+        if let date = dict["date"] as? NSDate {
+            self.date = date
+        }
     }
     
     // Saving functions
@@ -93,6 +96,9 @@ class Inbox: TrillyObject {
         }
         if self.link != nil {
             originalDictionary["link"] = self.link
+        }
+        if self.date != nil {
+            originalDictionary["date"] = self.date
         }
         
         super.save(route: "\(User.collectionName)/\(id)/\(Inbox.collectionName)")

@@ -34,10 +34,10 @@ extension UIView {
     
     func addNormalShadow() {
         self.layoutIfNeeded()
-        let shadowPath = UIBezierPath(rect: self.bounds)
+        let shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x-2, y: self.bounds.origin.y-2, width: self.bounds.size.width+4, height: self.bounds.size.height+4))
         self.layer.masksToBounds = false
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
         self.layer.shadowOpacity = 0.1
         self.layer.shadowPath = shadowPath.cgPath
     }
@@ -79,6 +79,7 @@ extension UIView {
     func roundCorners(radius: CGFloat) {
         self.layer.cornerRadius = radius
         self.layer.shadowRadius = radius
+        self.clipsToBounds = true
     }
     
     func bordered(color:UIColor) {

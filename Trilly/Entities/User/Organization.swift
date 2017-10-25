@@ -54,6 +54,10 @@ class Organization: TrillyObject {
     }
     
     // Reference functions
+    public func reference() -> DocumentReference {
+        return Trilly.Database.ref().collection(Organization.collectionName).document(uid!)
+    }
+    
     public func users(_ callback: @escaping ([User]?)->Void) {
         if self.users != nil {
             var max = self.users!.count

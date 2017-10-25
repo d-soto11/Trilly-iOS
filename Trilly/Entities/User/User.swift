@@ -59,7 +59,7 @@ class User: TrillyObject {
     var nextTree: Double?
     var blocked: Bool?
     var tokens: [String]?
-    var organizationID: String?
+    var organization: DocumentReference?
     // Cache fields
     private var loadedHashtags: [HashtagPoints]?
     // Constructor
@@ -96,12 +96,16 @@ class User: TrillyObject {
         if let tokens = dict["tokens"] as? [String] {
             self.tokens = tokens
         }
-        if let organizationID = dict["organization"] as? String {
-            self.organizationID = organizationID
+        if let organization = dict["organization"] as? DocumentReference {
+            self.organization = organization
         }
     }
     
     // Reference functions
+    public func reference() -> DocumentReference {
+        return Trilly.Database.ref().collection(User.collectionName).document(uid!)
+    }
+    
     public func events(_ callback: @escaping ([Event]?)->Void) {
         guard self.uid != nil else { return }
         Trilly.Database.ref().collection(User.collectionName)
@@ -160,8 +164,8 @@ class User: TrillyObject {
     }
     
     public func organization(_ callback: @escaping (Organization?)->Void) {
-        guard self.organizationID != nil else { return }
-        Organization.withID(id: self.organizationID!, callback: callback)
+        guard self.organization != nil else { return }
+        Organization.withID(id: self.organization!.documentID, callback: callback)
     }
     
     public func history(_ callback: @escaping ([Trip]?)->Void) {
@@ -185,8 +189,25 @@ class User: TrillyObject {
         }
     }
     
-    public func notifications() {
-        
+    public func inbox(_ callback: @escaping ([Inbox]?)->Void) {
+        guard self.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Inbox.collectionName)
+            .addSnapshotListener { (documents, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else if documents != nil {
+                    var response: [Inbox] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(Inbox(document.data()))
+                        }
+                    }
+                    callback(response)
+                } else {
+                    callback(nil)
+                }
+        }
     }
     
     // Saving functions
@@ -221,8 +242,8 @@ class User: TrillyObject {
         if self.tokens != nil {
             originalDictionary["tokens"] = self.tokens
         }
-        if self.organizationID != nil {
-            originalDictionary["organization"] = self.organizationID
+        if self.organization != nil {
+            originalDictionary["organization"] = self.organization
         }
         
         super.save(route: User.collectionName)

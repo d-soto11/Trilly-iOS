@@ -32,6 +32,24 @@ class Hashtag: TrillyObject {
         }
     }
     
+    class func global(callback: @escaping (_ s: [Hashtag]?)->Void) {
+        Trilly.Database.ref().collection(collectionName).order(by: "points").getDocuments { (documents, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else if documents != nil {
+                var response: [Hashtag] = []
+                for document in documents!.documents {
+                    if document.exists {
+                        response.append(Hashtag(document.data()))
+                    }
+                }
+                callback(response)
+            } else {
+                callback(nil)
+            }
+        }
+    }
+    
     // Object fields
     var name: String?
     var routeName: String?
@@ -65,7 +83,7 @@ class Hashtag: TrillyObject {
     // Reference functions
     public func users(callback: @escaping (Bool)->Void = {_ in}, forceReload: Bool = false) -> [UserContribution]? {
         if loadedContributions == nil || forceReload {
-            UserContribution.usersFromHashtag(hashtagID: self.uid!, callback: { (users) in
+            UserContribution.usersFromHashtag(hashtagID: self.uid ?? self.name ?? "trilly", callback: { (users) in
                 if users != nil {
                     self.loadedContributions = users!
                     callback(true)
@@ -80,7 +98,7 @@ class Hashtag: TrillyObject {
     
     public func goals(callback: @escaping (Bool)->Void = {_ in}, forceReload: Bool = false) -> [Goal]? {
         if loadedGoals == nil || forceReload {
-            Goal.goalsFromHashtag(hashtagID: self.uid!, callback: { (goals) in
+            Goal.goalsFromHashtag(hashtagID: self.uid ?? self.name ?? "trilly", callback: { (goals) in
                 if goals != nil {
                     self.loadedGoals = goals!
                     callback(true)

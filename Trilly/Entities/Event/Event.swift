@@ -32,6 +32,24 @@ class Event: TrillyObject {
         }
     }
     
+    class func global(callback: @escaping (_ s: [Event]?)->Void) {
+        Trilly.Database.ref().collection(collectionName).order(by: "date", descending: true).getDocuments { (documents, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else if documents != nil {
+                var response: [Event] = []
+                for document in documents!.documents {
+                    if document.exists {
+                        response.append(Event(document.data()))
+                    }
+                }
+                callback(response)
+            } else {
+                callback(nil)
+            }
+        }
+    }
+    
     // Object fields
     var name: String?
     var descriptionT: String?

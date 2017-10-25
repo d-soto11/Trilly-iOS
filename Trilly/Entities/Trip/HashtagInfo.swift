@@ -38,6 +38,7 @@ class HashtagInfo: TrillyObject {
         Trilly.Database.ref().collection(Trip.collectionName)
             .document(tripID)
             .collection(collectionName)
+            .order(by: "points", descending: true)
             .getDocuments { (documents, error) in
                 
                 if error != nil {

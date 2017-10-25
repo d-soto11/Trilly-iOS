@@ -13,6 +13,7 @@ class Trip: TrillyObject {
     
     // Class variables
     static let collectionName = "trips"
+    static let new = "newTripSaved"
     // Class methods
     
     // Type constructor
@@ -34,11 +35,13 @@ class Trip: TrillyObject {
     
     // Object fields
     var path: String?
+    var filters: String?
+    var date: NSDate?
     var start: GeoPoint?
     var destination: GeoPoint?
     var time: Int?
     var stats: Stats?
-    var userID: String?
+    var user: DocumentReference?
     // Cahce fields
     private var loadedHashtags: [HashtagInfo]?
     private var loadedAccidents: [Accident]?
@@ -48,6 +51,12 @@ class Trip: TrillyObject {
         
         if let path = dict["path"] as? String {
             self.path = path
+        }
+        if let filters = dict["filters"] as? String {
+            self.filters = filters
+        }
+        if let date = dict["date"] as? NSDate {
+            self.date = date
         }
         if let start = dict["start"] as? GeoPoint {
             self.start = start
@@ -61,8 +70,8 @@ class Trip: TrillyObject {
         if let stats = dict["stats"] as? [String:Any] {
             self.stats = Stats(stats)
         }
-        if let user = dict["user"] as? String {
-            self.userID = user
+        if let user = dict["user"] as? DocumentReference {
+            self.user = user
         }
     }
     
@@ -98,8 +107,8 @@ class Trip: TrillyObject {
     }
     
     public func user(_ callback: @escaping (User?)->Void) {
-        guard self.userID != nil else { return }
-        User.withID(id: self.userID!, callback: callback)
+        guard self.user != nil else { return }
+        User.withID(id: user!.documentID, callback: callback)
     }
     
     // Saving functions
@@ -107,6 +116,12 @@ class Trip: TrillyObject {
     public func save() {
         if self.path != nil {
             originalDictionary["path"] = self.path
+        }
+        if self.filters != nil {
+            originalDictionary["filters"] = self.filters
+        }
+        if self.date != nil {
+            originalDictionary["date"] = self.date
         }
         if self.start != nil {
             originalDictionary["start"] = self.start
@@ -117,7 +132,14 @@ class Trip: TrillyObject {
         if self.time != nil {
             originalDictionary["time"] = self.time
         }
+        if self.stats != nil {
+            originalDictionary["stats"] = self.stats!.prepareForSave()
+        }
+        if self.user != nil {
+            originalDictionary["user"] = self.user
+        }
         
         super.save(route: Trip.collectionName)
     }
+    
 }

@@ -38,6 +38,7 @@ class UserContribution: TrillyObject {
         Trilly.Database.ref().collection(Hashtag.collectionName)
             .document(hashtagID)
             .collection(collectionName)
+            .order(by: "points", descending: true)
             .getDocuments { (documents, error) in
                 
                 if error != nil {
@@ -77,7 +78,7 @@ class UserContribution: TrillyObject {
     
     // Saving functions
     public func saveOnHashtag(_ id: String) {
-        guard self.uid != nil else { return }
+        guard self.name != nil else { return }
         if self.name != nil {
             originalDictionary["name"] = self.name
         }
