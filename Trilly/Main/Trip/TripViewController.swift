@@ -32,10 +32,19 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     private var mapView: GMSMapView!
     private var paused = false
     
-    public class func startTrip() {
+    public class func startTrip(location: CLLocationCoordinate2D? = nil, onViewController: UIViewController? = nil) {
         let st = UIStoryboard(name: "Trip", bundle: nil)
         let vc = st.instantiateViewController(withIdentifier: "Trip") as! TripViewController
-        MaterialTB.currentTabBar!.show(vc, sender: nil)
+        
+        if onViewController != nil {
+            onViewController!.show(vc, sender: nil)
+        } else {
+            MaterialTB.currentTabBar!.show(vc, sender: nil)
+        }
+        
+        if location != nil {
+            TripManager.current?.setDestination(location!)
+        }
     }
     
     override func viewDidLoad() {

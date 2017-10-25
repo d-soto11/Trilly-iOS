@@ -221,9 +221,11 @@ extension UIViewController {
 }
 
 extension UIImageView {
-    func downloadedFrom(url: URL, contentMode mode: UIViewContentMode = .scaleAspectFill) {
+    func downloadedFrom(url: URL, contentMode mode: UIViewContentMode? = nil) {
         let mb = MBProgressHUD.showAdded(to: self, animated: true)
-        contentMode = mode
+        if mode != nil {
+            contentMode = mode!
+        }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -238,7 +240,7 @@ extension UIImageView {
             }
             }.resume()
     }
-    func downloadedFrom(link: String, contentMode mode: UIViewContentMode = .scaleAspectFill) {
+    func downloadedFrom(link: String, contentMode mode: UIViewContentMode? = nil) {
         if let data = Trilly.Database.Local.getCache(link) {
             if let img = UIImage(data: data) {
                 self.image = img

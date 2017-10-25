@@ -20,6 +20,8 @@ class HomeViewController: MaterialViewController {
     @IBOutlet weak var inboxB: UIButton!
     @IBOutlet weak var nextTree: UILabel!
     
+    private var animationPercentaje = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -89,7 +91,16 @@ class HomeViewController: MaterialViewController {
                 self.inboxB.addConstraints([c1, c2, c3, c4])
             }
         }
-        self.nextTree.text = String(format: "%.0f %", (User.current!.nextTree ?? 0)*100)
+        
+        Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(animatePercentage), userInfo: nil, repeats: false)
+    }
+    
+    @objc public func animatePercentage() {
+        if animationPercentaje < (User.current!.nextTree ?? 0) {
+            animationPercentaje += 0.01
+            self.nextTree.text = String(format: "%.0f%%", animationPercentaje*100)
+            Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(animatePercentage), userInfo: nil, repeats: false)
+        }
     }
     
 

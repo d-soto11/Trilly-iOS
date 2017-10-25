@@ -30,6 +30,84 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Location View Controller-->
+        <scene sceneID="AWn-E4-v73">
+            <objects>
+                <viewController storyboardIdentifier="Location" useStoryboardIdentifierAsRestorationIdentifier="YES" id="JhI-Pv-jBm" customClass="LocationViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R4m-c3-pCz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sPv-DE-VyI" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t7a-7D-qKn">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ki-uU-6il">
+                                <rect key="frame" x="40" y="577" width="295" height="40"/>
+                                <color key="backgroundColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="0KF-o3-Svx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Oxygen-Bold" family="Oxygen" pointSize="20"/>
+                                <state key="normal" title="iniciar viaje hasta allá">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="startTrip:" destination="JhI-Pv-jBm" eventType="touchUpInside" id="JSP-rM-aYo"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UBICACIÓN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMo-DT-Ame">
+                                <rect key="frame" x="25" y="50" width="325" height="20"/>
+                                <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="20"/>
+                                <color key="textColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6E-Tv-1xh">
+                                <rect key="frame" x="25" y="45" width="34" height="30"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="back:" destination="JhI-Pv-jBm" eventType="touchUpInside" id="jVB-8X-aDD"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pMo-DT-Ame" firstAttribute="centerX" secondItem="R4m-c3-pCz" secondAttribute="centerX" id="03e-Lx-CAH"/>
+                            <constraint firstItem="sPv-DE-VyI" firstAttribute="trailing" secondItem="2P6-dH-dcL" secondAttribute="trailing" id="0o1-jf-OTW"/>
+                            <constraint firstItem="g6E-Tv-1xh" firstAttribute="leading" secondItem="2P6-dH-dcL" secondAttribute="leading" constant="25" id="5tH-DE-dzH"/>
+                            <constraint firstItem="t7a-7D-qKn" firstAttribute="leading" secondItem="sPv-DE-VyI" secondAttribute="leading" id="63j-Ue-Fil"/>
+                            <constraint firstItem="t7a-7D-qKn" firstAttribute="trailing" secondItem="sPv-DE-VyI" secondAttribute="trailing" id="6lT-qn-Rh4"/>
+                            <constraint firstItem="t7a-7D-qKn" firstAttribute="top" secondItem="sPv-DE-VyI" secondAttribute="top" id="8yX-6y-EMw"/>
+                            <constraint firstItem="sPv-DE-VyI" firstAttribute="bottom" secondItem="2P6-dH-dcL" secondAttribute="bottom" id="Dsf-lA-8Fe"/>
+                            <constraint firstItem="pMo-DT-Ame" firstAttribute="top" secondItem="2P6-dH-dcL" secondAttribute="top" constant="30" id="FPd-yB-qQc"/>
+                            <constraint firstItem="2P6-dH-dcL" firstAttribute="bottom" secondItem="3Ki-uU-6il" secondAttribute="bottom" constant="50" id="LdQ-Dk-xP2"/>
+                            <constraint firstItem="3Ki-uU-6il" firstAttribute="leading" secondItem="2P6-dH-dcL" secondAttribute="leading" constant="40" id="N51-OA-zg5"/>
+                            <constraint firstItem="pMo-DT-Ame" firstAttribute="leading" secondItem="2P6-dH-dcL" secondAttribute="leading" constant="25" id="NBj-yk-Q6f"/>
+                            <constraint firstItem="3Ki-uU-6il" firstAttribute="centerX" secondItem="R4m-c3-pCz" secondAttribute="centerX" id="OC8-mD-ND9"/>
+                            <constraint firstItem="g6E-Tv-1xh" firstAttribute="top" secondItem="2P6-dH-dcL" secondAttribute="top" constant="25" id="Xyj-Lk-BeM"/>
+                            <constraint firstItem="sPv-DE-VyI" firstAttribute="leading" secondItem="2P6-dH-dcL" secondAttribute="leading" id="efq-Hg-8u6"/>
+                            <constraint firstItem="sPv-DE-VyI" firstAttribute="top" secondItem="R4m-c3-pCz" secondAttribute="top" id="phH-IS-XN8"/>
+                            <constraint firstItem="t7a-7D-qKn" firstAttribute="bottom" secondItem="sPv-DE-VyI" secondAttribute="bottom" id="ykI-U7-MCk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2P6-dH-dcL"/>
+                    </view>
+                    <connections>
+                        <outlet property="backB" destination="g6E-Tv-1xh" id="yzQ-yD-wNp"/>
+                        <outlet property="mapView" destination="sPv-DE-VyI" id="4K2-tj-BjL"/>
+                        <outlet property="overlay" destination="t7a-7D-qKn" id="tq0-oy-Ueq"/>
+                        <outlet property="startTripB" destination="3Ki-uU-6il" id="9t5-bj-xsl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pfn-5N-Uns" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-808.79999999999995" y="79.610194902548727"/>
+        </scene>
         <!--Trip View Controller-->
         <scene sceneID="fAH-St-JLP">
             <objects>

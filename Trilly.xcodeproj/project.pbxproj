@@ -20,6 +20,10 @@
 		433749941F9CF29E00E50DB3 /* HashtagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749931F9CF29E00E50DB3 /* HashtagInfo.swift */; };
 		433749961F9D020E00E50DB3 /* Accident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749951F9D020E00E50DB3 /* Accident.swift */; };
 		433749991F9D0EB400E50DB3 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749981F9D0EB400E50DB3 /* Event.swift */; };
+		4374CE491FA0ECF3005EC40E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE481FA0ECF3005EC40E /* LocationViewController.swift */; };
+		4374CE4C1FA1262C005EC40E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */; };
+		4374CE4E1FA1263F005EC40E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4374CE4D1FA1263F005EC40E /* User.storyboard */; };
+		4374CE501FA13322005EC40E /* UserStat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE4F1FA13322005EC40E /* UserStat.swift */; };
 		43A8A3561F8BDC3900E6FF3C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */; };
 		43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */; };
 		43A8E05D1F86E23000418CDF /* Hashtag.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43A8E05C1F86E23000418CDF /* Hashtag.storyboard */; };
@@ -80,6 +84,10 @@
 		433749931F9CF29E00E50DB3 /* HashtagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagInfo.swift; sourceTree = "<group>"; };
 		433749951F9D020E00E50DB3 /* Accident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accident.swift; sourceTree = "<group>"; };
 		433749981F9D0EB400E50DB3 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4374CE481FA0ECF3005EC40E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		4374CE4D1FA1263F005EC40E /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
+		4374CE4F1FA13322005EC40E /* UserStat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStat.swift; sourceTree = "<group>"; };
 		43A8A3551F8BDC3900E6FF3C /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		43A8A3571F8BDC8B00E6FF3C /* HashtagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagsViewController.swift; sourceTree = "<group>"; };
 		43A8E05C1F86E23000418CDF /* Hashtag.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Hashtag.storyboard; sourceTree = "<group>"; };
@@ -203,6 +211,7 @@
 				4337498C1F9CED8300E50DB3 /* Inbox.swift */,
 				43FEC5C31F9D7DFF000055C0 /* HashtagPoints.swift */,
 				43FEC5C81F9D8181000055C0 /* Organization.swift */,
+				4374CE4F1FA13322005EC40E /* UserStat.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -213,6 +222,15 @@
 				433749981F9D0EB400E50DB3 /* Event.swift */,
 			);
 			path = Event;
+			sourceTree = "<group>";
+		};
+		4374CE4A1FA12619005EC40E /* User */ = {
+			isa = PBXGroup;
+			children = (
+				4374CE4D1FA1263F005EC40E /* User.storyboard */,
+				4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */,
+			);
+			path = User;
 			sourceTree = "<group>";
 		};
 		43A8E05B1F86E21B00418CDF /* Hashtag */ = {
@@ -239,6 +257,7 @@
 				43ABCC3E1F7D4E5D00FA49B2 /* Trip.storyboard */,
 				43ABCC3C1F7D4E4D00FA49B2 /* TripViewController.swift */,
 				43BA6F8C1F869023002005D8 /* TripBriefViewController.swift */,
+				4374CE481FA0ECF3005EC40E /* LocationViewController.swift */,
 			);
 			path = Trip;
 			sourceTree = "<group>";
@@ -304,6 +323,7 @@
 		43E04C6A1F7C256F000C4C20 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				4374CE4A1FA12619005EC40E /* User */,
 				4323403A1F88143D00E1703C /* Event */,
 				43A8E05B1F86E21B00418CDF /* Hashtag */,
 				43ABCC3B1F7D4E2500FA49B2 /* Trip */,
@@ -462,6 +482,7 @@
 				4330077F1F796A5B000A454D /* Assets.xcassets in Resources */,
 				4330077D1F796A5B000A454D /* Main.storyboard in Resources */,
 				4323403C1F88151A00E1703C /* Event.storyboard in Resources */,
+				4374CE4E1FA1263F005EC40E /* User.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +596,7 @@
 				43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */,
 				433749921F9CF03800E50DB3 /* Stats.swift in Sources */,
 				43FEC5C91F9D8181000055C0 /* Organization.swift in Sources */,
+				4374CE501FA13322005EC40E /* UserStat.swift in Sources */,
 				43A8A3581F8BDC8B00E6FF3C /* HashtagsViewController.swift in Sources */,
 				43BCD48B1F9D957200DEB2EC /* Hashtag.swift in Sources */,
 				43FEC5C41F9D7DFF000055C0 /* HashtagPoints.swift in Sources */,
@@ -583,9 +605,11 @@
 				43E04C321F7BD416000C4C20 /* LoginViewController.swift in Sources */,
 				43BCD48F1F9D988000DEB2EC /* Goal.swift in Sources */,
 				43A8E0621F86FA6E00418CDF /* TrillyCell.swift in Sources */,
+				4374CE4C1FA1262C005EC40E /* ProfileViewController.swift in Sources */,
 				43E04C341F7BD501000C4C20 /* TrillyObject.swift in Sources */,
 				43E04C361F7BD55B000C4C20 /* User.swift in Sources */,
 				433749991F9D0EB400E50DB3 /* Event.swift in Sources */,
+				4374CE491FA0ECF3005EC40E /* LocationViewController.swift in Sources */,
 				433007781F796A5B000A454D /* AppDelegate.swift in Sources */,
 				43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */,
 				43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */,

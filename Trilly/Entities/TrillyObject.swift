@@ -27,8 +27,8 @@ class TrillyObject: NSObject {
     public func save(route: String) {
         if uid == nil {
             let saving_ref = Trilly.Database.ref().collection(route).addDocument(data: originalDictionary)
-            saving_ref.updateData(["lastUpdated": FieldValue.serverTimestamp()])
             uid = saving_ref.documentID
+            saving_ref.updateData(["lastUpdated": FieldValue.serverTimestamp(), "id": uid!])
         } else {
             originalDictionary["id"] = uid
             Trilly.Database.ref().collection(route).document(uid!).setData(originalDictionary, options: SetOptions.merge())
