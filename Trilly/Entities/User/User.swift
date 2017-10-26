@@ -210,6 +210,27 @@ class User: TrillyObject {
         }
     }
     
+    public func stats(_ callback: @escaping ([UserStat]?)->Void) {
+        guard self.uid != nil else { return }
+        Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(UserStat.collectionName)
+            .addSnapshotListener { (documents, error) in
+                if error != nil {
+                    print(error!.localizedDescription)
+                } else if documents != nil {
+                    var response: [UserStat] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(UserStat(document.data()))
+                        }
+                    }
+                    callback(response)
+                } else {
+                    callback(nil)
+                }
+        }
+    }
+    
     // Saving functions
     public func save() {
         if self.name != nil {

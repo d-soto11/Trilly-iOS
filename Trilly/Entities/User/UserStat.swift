@@ -9,31 +9,14 @@
 import Foundation
 import Firebase
 
-class HashtagPoints: TrillyObject {
+class UserStat: TrillyObject {
     
     // Class variables
-    static let collectionName = "hashtags"
+    static let collectionName = "stats"
     // Class methods
     
     // Type constructor
-    class func withID(id: String, relativeTo user: String, callback: @escaping (_ s: HashtagPoints?)->Void) {
-        let path = "\(User.collectionName)/\(user)/\(collectionName)/\(id)"
-        Trilly.Database.ref().document(path).getDocument { (document, error) in
-            if error != nil {
-                print(error!.localizedDescription)
-            } else if document != nil && document!.exists {
-                if let documentData = document?.data() {
-                    callback(HashtagPoints(documentData))
-                } else {
-                    callback(nil)
-                }
-            } else {
-                callback(nil)
-            }
-        }
-    }
-    
-    class func pointsFromUser(userID: String, callback: @escaping (_ s: [HashtagPoints]?)->Void) {
+    class func statsFromUser(userID: String, callback: @escaping (_ s: [UserStat]?)->Void) {
         
         Trilly.Database.ref().collection(User.collectionName)
             .document(userID)
@@ -43,10 +26,10 @@ class HashtagPoints: TrillyObject {
                 if error != nil {
                     print(error!.localizedDescription)
                 } else if documents != nil {
-                    var response: [HashtagPoints] = []
+                    var response: [UserStat] = []
                     for document in documents!.documents {
                         if document.exists {
-                            response.append(HashtagPoints(document.data()))
+                            response.append(UserStat(document.data()))
                         }
                     }
                     callback(response)
@@ -57,39 +40,37 @@ class HashtagPoints: TrillyObject {
     }
     
     // Object fields
-    var name: String?
-    var points: Double?
-    var km: Double?
+    var icon: String?
+    var stat: Double?
+    var descriptionT: String?
     
     // Constructor
     public override init(_ dict: [String: Any]){
         super.init(dict)
         
-        if let name = dict["name"] as? String {
-            self.name = name
+        if let icon = dict["icon"] as? String {
+            self.icon = icon
         }
-        if let points = dict["points"] as? Double {
-            self.points = points
+        if let stat = dict["stat"] as? Double {
+            self.stat = stat
         }
-        if let km = dict["km"] as? Double {
-            self.km = km
+        if let description = dict["description"] as? String {
+            self.descriptionT = description
         }
     }
     
     // Saving functions
     public func saveToUser(_ id: String) {
-        guard self.name != nil else { return }
-        originalDictionary["name"] = self.name
-        
-        if self.points != nil {
-            originalDictionary["points"] = self.points
+        if self.icon != nil {
+            originalDictionary["icon"] = self.icon
         }
-        if self.km != nil {
-            originalDictionary["km"] = self.km
+        if self.stat != nil {
+            originalDictionary["stat"] = self.stat
+        }
+        if self.descriptionT != nil {
+            originalDictionary["description"] = self.descriptionT
         }
         
-        self.uid = self.name!
-        
-        super.save(route: "\(User.collectionName)/\(id)/\(HashtagPoints.collectionName)")
+        super.save(route: "\(User.collectionName)/\(id)/\(UserStat.collectionName)")
     }
 }

@@ -29,7 +29,7 @@
         <!--Profile View Controller-->
         <scene sceneID="U3a-bq-pBj">
             <objects>
-                <viewController id="wJf-zQ-1r0" customClass="ProfileViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Profile" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wJf-zQ-1r0" customClass="ProfileViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="teh-YE-Odh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

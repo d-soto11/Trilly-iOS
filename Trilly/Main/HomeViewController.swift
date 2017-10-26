@@ -105,7 +105,7 @@ class HomeViewController: MaterialViewController {
     
 
     @IBAction func goToProfile(_ sender: Any) {
-        
+        ProfileViewController.showProfile()
     }
     
     @IBAction func goToInbox(_ sender: Any) {
