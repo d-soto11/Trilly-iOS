@@ -60,6 +60,7 @@ class User: TrillyObject {
     var blocked: Bool?
     var tokens: [String]?
     var organization: DocumentReference?
+    var points: Double?
     // Cache fields
     private var loadedHashtags: [HashtagPoints]?
     // Constructor
@@ -98,6 +99,9 @@ class User: TrillyObject {
         }
         if let organization = dict["organization"] as? DocumentReference {
             self.organization = organization
+        }
+        if let points = dict["points"] as? Double {
+            self.points = points
         }
     }
     
@@ -265,6 +269,9 @@ class User: TrillyObject {
         }
         if self.organization != nil {
             originalDictionary["organization"] = self.organization
+        }
+        if self.points != nil {
+            originalDictionary["points"] = self.points
         }
         
         super.save(route: User.collectionName)

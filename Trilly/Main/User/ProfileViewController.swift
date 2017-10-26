@@ -9,7 +9,7 @@
 import UIKit
 import MaterialTB
 
-class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var backB: UIButton!
     @IBOutlet weak var profileScroll: UIScrollView!
@@ -43,12 +43,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             if stats != nil {
                 self.userStats = stats!
                 self.statsCollection.reloadData()
-                let height = self.statsCollection.bounds.origin.y
-                self.mainHeight.constant = max(height + self.statsCollection.contentSize.height, self.view.bounds.height - 50)
+                self.statsCollection.layoutIfNeeded()
                 self.statsHeight.constant = self.statsCollection.contentSize.height
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.view.layoutIfNeeded()
-                })
+                let height = self.statsCollection.frame.origin.y
+                self.mainHeight.constant = max(height + self.statsCollection.contentSize.height, self.mainHeight.constant)
             }
         }
         
@@ -73,6 +71,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
                 self.treesLabel.text = "\(trees!.count)"
             }
         }
+        self.pointsLabel.text = String(format: "%.0f pts.", user.points ?? 0)
         // Do any additional setup after loading the view.
     }
 
@@ -81,56 +80,73 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.profileImage.roundCorners(radius: 10)
+    }
+    
     @IBAction func organization(_ sender: Any) {
     }
     
     
     // Collection
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userStats.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell = UICollectionViewCell()
+        let stat = userStats[indexPath.row]
+        var cellUI = TrillyCollectionCell()
+        let loadInfo: (UICollectionViewCell) -> Void = { cell in
+            cell.viewWithTag(1)?.addNormalShadow()
+            if stat.icon != nil {
+                //(cell.viewWithTag(2) as? UIImageView)?.downloadedFrom(link: stat.icon!)
+                (cell.viewWithTag(11) as? UILabel)?.text = String(format: "%.0f %@", (stat.stat ?? 0), (stat.descriptionT ?? "pts."))
+            }
+            
+        }
         switch indexPath.row % 4{
         case 0:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VerticalStat", for: indexPath)
-            return cell
+            cellUI = collectionView.dequeueReusableCell(withReuseIdentifier: "VerticalStat", for: indexPath) as! TrillyCollectionCell
         case 1:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VerticalStat", for: indexPath)
+            cellUI = collectionView.dequeueReusableCell(withReuseIdentifier: "VerticalStat", for: indexPath) as! TrillyCollectionCell
         case 2:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontallStat", for: indexPath)
+            cellUI = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalStat", for: indexPath) as! TrillyCollectionCell
         case 3:
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VerticalStat", for: indexPath)
+            cellUI = collectionView.dequeueReusableCell(withReuseIdentifier: "VerticalStat", for: indexPath) as! TrillyCollectionCell
         default:
             break
         }
-        return cell
+        cellUI.uiUpdates = loadInfo
+        return cellUI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = ((UIScreen.main.bounds.width - 50) / 2) - 10
-        switch indexPath.row % 4{
+        let width = (self.statsCollection.frame.size.width / 2) - 20
+        print(width)
+        switch indexPath.row % 4 {
         case 0:
-            return CGSize(width: width, height: width*1.4)
+            return CGSize(width: width, height: width*1.3)
         case 1:
-            return CGSize(width: width, height: width*0.6)
+            return CGSize(width: width, height: width*0.8)
         case 2:
-            return CGSize(width: width, height: width*0.6)
+            return CGSize(width: width, height: width*0.8)
         case 3:
-            return CGSize(width: width, height: width*1.4)
+            return CGSize(width: width, height: width*1.3)
         default:
-            return CGSize()
+            return CGSize(width: width, height: width)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 15
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return 5
     }
 
 }

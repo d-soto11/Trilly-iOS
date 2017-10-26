@@ -145,6 +145,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             }
             
             newTrip.save()
+            User.current!.points! += newTrip.stats!.km!
             User.current!.addTrip(newTrip)
             Trilly.Database.Local.saveModel(id: Trip.new, object: newTrip)
         }

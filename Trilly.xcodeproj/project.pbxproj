@@ -20,6 +20,7 @@
 		433749941F9CF29E00E50DB3 /* HashtagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749931F9CF29E00E50DB3 /* HashtagInfo.swift */; };
 		433749961F9D020E00E50DB3 /* Accident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749951F9D020E00E50DB3 /* Accident.swift */; };
 		433749991F9D0EB400E50DB3 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749981F9D0EB400E50DB3 /* Event.swift */; };
+		434644221FA191FC00426506 /* TrillyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434644211FA191FC00426506 /* TrillyCollectionCell.swift */; };
 		4374CE491FA0ECF3005EC40E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE481FA0ECF3005EC40E /* LocationViewController.swift */; };
 		4374CE4C1FA1262C005EC40E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */; };
 		4374CE4E1FA1263F005EC40E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4374CE4D1FA1263F005EC40E /* User.storyboard */; };
@@ -84,6 +85,7 @@
 		433749931F9CF29E00E50DB3 /* HashtagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagInfo.swift; sourceTree = "<group>"; };
 		433749951F9D020E00E50DB3 /* Accident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accident.swift; sourceTree = "<group>"; };
 		433749981F9D0EB400E50DB3 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		434644211FA191FC00426506 /* TrillyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrillyCollectionCell.swift; sourceTree = "<group>"; };
 		4374CE481FA0ECF3005EC40E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4374CE4D1FA1263F005EC40E /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				43A8E0611F86FA6E00418CDF /* TrillyCell.swift */,
+				434644211FA191FC00426506 /* TrillyCollectionCell.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				433007781F796A5B000A454D /* AppDelegate.swift in Sources */,
 				43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */,
 				43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */,
+				434644221FA191FC00426506 /* TrillyCollectionCell.swift in Sources */,
 				433749901F9CEDFC00E50DB3 /* Trip.swift in Sources */,
 				43F60E0B1F83B5CB00250475 /* TripManager.swift in Sources */,
 				43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */,
