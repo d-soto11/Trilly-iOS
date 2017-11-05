@@ -126,6 +126,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         // K.User.client?.saveNotificationToken(token: fcmToken)
     }
+    
+    func applicationDidReceiveMemoryWarning(_ application: UIApplication) {
+        Trilly.Database.Local.delete()
+        print("MEMORY")
+    }
 
 
 }

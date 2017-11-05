@@ -55,7 +55,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 160
+        return max(160, UIScreen.main.bounds.size.height/4)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,7 +91,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     func applySearch(_ query: String) {
         if query != "" {
             filteredTrips = userTrips.filter({ (trip) -> Bool in
-                trip.filters!.lowercased().contains(query.lowercased())
+                trip.filters!.lowercased().folding(options: .diacriticInsensitive, locale: .current).contains(query.lowercased().folding(options: .diacriticInsensitive, locale: .current))
             })
         } else {
             filteredTrips = nil

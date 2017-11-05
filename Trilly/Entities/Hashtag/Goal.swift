@@ -17,7 +17,7 @@ class Goal: TrillyObject {
     
     // Type constructor
     class func withID(id: String, relativeTo hashtag: String, callback: @escaping (_ s: Goal?)->Void) {
-        let path = "\(Hashtag.collectionName)/\(hashtag)/\(collectionName)/\(id)"
+        let path = "\(Hashtag.collectionName)/\(hashtag.lowercased().folding(options: .diacriticInsensitive, locale: .current))/\(collectionName)/\(id)"
         Trilly.Database.ref().document(path).getDocument { (document, error) in
             if error != nil {
                 print(error!.localizedDescription)

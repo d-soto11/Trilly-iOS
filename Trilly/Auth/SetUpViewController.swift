@@ -84,20 +84,20 @@ class SetUpViewController: UIViewController, UITextFieldDelegate, DatePickerDele
             return
         }
         
-        guard (nameField.text!.characters.count) <= 50 else {
+        guard (nameField.text!.count) <= 50 else {
             MBProgressHUD.hide(for: self.view, animated: true)
             showAlert(title: "¡Espera!", message: "El nombre que has ingresado es muy largo.", closeButtonTitle: "Entendido")
             return
             
         }
         
-        guard mailField.text != "" && mailField.text!.contains("@") && mailField.text!.contains(".") && !mailField.text!.contains("+") && mailField.text!.characters.count <= 100 else {
+        guard mailField.text != "" && mailField.text!.contains("@") && mailField.text!.contains(".") && !mailField.text!.contains("+") && mailField.text!.count <= 100 else {
             MBProgressHUD.hide(for: self.view, animated: true)
             showAlert(title: "¡Espera!", message: "Debes ingresar un correo válido", closeButtonTitle: "Entendido")
             return
         }
         
-        guard (phoneField.text?.characters.count)! == 10 else {
+        guard (phoneField.text?.count)! == 10 else {
             MBProgressHUD.hide(for: self.view, animated: true)
             showAlert(title: "¡Espera!", message: "El número celular que has ingresado no es válido", closeButtonTitle: "Entendido")
             return

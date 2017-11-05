@@ -17,7 +17,9 @@ class Hashtag: TrillyObject {
     
     // Type constructor
     class func withID(id: String, callback: @escaping (_ s: Hashtag?)->Void) {
-        Trilly.Database.ref().collection(collectionName).document(id).getDocument { (document, error) in
+        Trilly.Database.ref().collection(collectionName)
+            .document(id.lowercased().folding(options: .diacriticInsensitive, locale: .current))
+            .getDocument { (document, error) in
             if error != nil {
                 print(error!.localizedDescription)
             } else if document != nil && document!.exists {
@@ -33,7 +35,7 @@ class Hashtag: TrillyObject {
     }
     
     class func global(callback: @escaping (_ s: [Hashtag]?)->Void) {
-        Trilly.Database.ref().collection(collectionName).order(by: "points").getDocuments { (documents, error) in
+        Trilly.Database.ref().collection(collectionName).order(by: "points", descending: true).getDocuments { (documents, error) in
             if error != nil {
                 print(error!.localizedDescription)
             } else if documents != nil {
@@ -131,7 +133,7 @@ class Hashtag: TrillyObject {
             originalDictionary["radius"] = self.radius
         }
         
-        self.uid = name!
+        self.uid = name!.lowercased().folding(options: .diacriticInsensitive, locale: .current)
     
         super.save(route: Hashtag.collectionName)
     }

@@ -51,6 +51,7 @@
 		43BCD48B1F9D957200DEB2EC /* Hashtag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BCD48A1F9D957200DEB2EC /* Hashtag.swift */; };
 		43BCD48D1F9D969700DEB2EC /* UserContribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BCD48C1F9D969700DEB2EC /* UserContribution.swift */; };
 		43BCD48F1F9D988000DEB2EC /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BCD48E1F9D988000DEB2EC /* Goal.swift */; };
+		43D574F31FA278CC0054489E /* QRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D574F21FA278CC0054489E /* QRViewController.swift */; };
 		43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E04C131F7BCF03000C4C20 /* Extensions.swift */; };
 		43E04C2E1F7BD3E4000C4C20 /* google_c_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E04C221F7BD28A000C4C20 /* google_c_b.png */; };
 		43E04C2F1F7BD3E4000C4C20 /* fb.png in Resources */ = {isa = PBXBuildFile; fileRef = 43E04C231F7BD28A000C4C20 /* fb.png */; };
@@ -73,6 +74,7 @@
 /* Begin PBXFileReference section */
 		4323403B1F88151A00E1703C /* Event.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Event.storyboard; sourceTree = "<group>"; };
 		4323403D1F8815BA00E1703C /* EventDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewController.swift; sourceTree = "<group>"; };
+		432AB73B1FAE2AD40039D27D /* Trilly.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Trilly.entitlements; sourceTree = "<group>"; };
 		433007741F796A5B000A454D /* Trilly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trilly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		433007771F796A5B000A454D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4330077C1F796A5B000A454D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 		43BCD48A1F9D957200DEB2EC /* Hashtag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hashtag.swift; sourceTree = "<group>"; };
 		43BCD48C1F9D969700DEB2EC /* UserContribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContribution.swift; sourceTree = "<group>"; };
 		43BCD48E1F9D988000DEB2EC /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		43D574F21FA278CC0054489E /* QRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRViewController.swift; sourceTree = "<group>"; };
 		43E04C131F7BCF03000C4C20 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		43E04C221F7BD28A000C4C20 /* google_c_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_c_b.png; sourceTree = "<group>"; };
 		43E04C231F7BD28A000C4C20 /* fb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb.png; sourceTree = "<group>"; };
@@ -191,6 +194,7 @@
 		433007761F796A5B000A454D /* Trilly */ = {
 			isa = PBXGroup;
 			children = (
+				432AB73B1FAE2AD40039D27D /* Trilly.entitlements */,
 				43A8E0601F86FA5300418CDF /* Other */,
 				43E04C6A1F7C256F000C4C20 /* Main */,
 				43E04C301F7BD400000C4C20 /* Auth */,
@@ -231,6 +235,7 @@
 			children = (
 				4374CE4D1FA1263F005EC40E /* User.storyboard */,
 				4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */,
+				43D574F21FA278CC0054489E /* QRViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -432,6 +437,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 				};
@@ -614,6 +622,7 @@
 				433749991F9D0EB400E50DB3 /* Event.swift in Sources */,
 				4374CE491FA0ECF3005EC40E /* LocationViewController.swift in Sources */,
 				433007781F796A5B000A454D /* AppDelegate.swift in Sources */,
+				43D574F31FA278CC0054489E /* QRViewController.swift in Sources */,
 				43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */,
 				43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */,
 				434644221FA191FC00426506 /* TrillyCollectionCell.swift in Sources */,
@@ -766,6 +775,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Trilly/Trilly.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBLL74FJC6;
 				INFOPLIST_FILE = Trilly/Info.plist;
@@ -786,6 +796,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Trilly/Trilly.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QBLL74FJC6;
 				INFOPLIST_FILE = Trilly/Info.plist;

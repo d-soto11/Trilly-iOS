@@ -45,6 +45,9 @@
                                 <state key="normal" title="Back">
                                     <color key="titleColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="back:" destination="wJf-zQ-1r0" eventType="touchUpInside" id="2y2-kv-XyQ"/>
+                                </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Krh-ke-PVN">
                                 <rect key="frame" x="0.0" y="95.5" width="375" height="571.5"/>
@@ -272,6 +275,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lx9-gW-HEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="287.19999999999999" y="-330.58470764617692"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="rHa-RA-MPv">
+            <objects>
+                <viewController storyboardIdentifier="QR" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Cqx-g3-MdM" customClass="QRViewController" customModule="Trilly" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3jw-hb-rHW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSB-eT-GaG">
+                                <rect key="frame" x="0.0" y="100" width="375" height="433.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h0K-p2-OuB">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ESCANEA EL CÓDIGO DE TU EMPRESA" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVH-Yl-eTu">
+                                        <rect key="frame" x="25" y="25" width="325" height="50"/>
+                                        <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="20"/>
+                                        <color key="textColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="PVH-Yl-eTu" secondAttribute="bottom" constant="25" id="49h-US-fto"/>
+                                    <constraint firstItem="PVH-Yl-eTu" firstAttribute="top" secondItem="h0K-p2-OuB" secondAttribute="top" constant="25" id="9cp-FT-sRY"/>
+                                    <constraint firstItem="PVH-Yl-eTu" firstAttribute="leading" secondItem="h0K-p2-OuB" secondAttribute="leading" constant="25" id="Hfr-yh-OPY"/>
+                                    <constraint firstItem="PVH-Yl-eTu" firstAttribute="centerX" secondItem="h0K-p2-OuB" secondAttribute="centerX" id="ZRw-Ol-arg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xU-Ts-LKQ">
+                                <rect key="frame" x="0.0" y="533.5" width="375" height="133.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1xU-Ts-LKQ" firstAttribute="height" secondItem="3jw-hb-rHW" secondAttribute="height" multiplier="0.2" id="4pb-9K-XJ8"/>
+                            <constraint firstItem="jSB-eT-GaG" firstAttribute="leading" secondItem="r0Z-k7-sIC" secondAttribute="leading" id="CM4-8g-enP"/>
+                            <constraint firstItem="1xU-Ts-LKQ" firstAttribute="top" secondItem="jSB-eT-GaG" secondAttribute="bottom" id="LUs-4L-yom"/>
+                            <constraint firstItem="jSB-eT-GaG" firstAttribute="top" secondItem="h0K-p2-OuB" secondAttribute="bottom" id="Tl8-ex-cOt"/>
+                            <constraint firstItem="1xU-Ts-LKQ" firstAttribute="bottom" secondItem="r0Z-k7-sIC" secondAttribute="bottom" id="Zha-9l-b3i"/>
+                            <constraint firstItem="r0Z-k7-sIC" firstAttribute="trailing" secondItem="h0K-p2-OuB" secondAttribute="trailing" id="ew7-sT-URu"/>
+                            <constraint firstItem="1xU-Ts-LKQ" firstAttribute="leading" secondItem="r0Z-k7-sIC" secondAttribute="leading" id="f4h-k4-iO4"/>
+                            <constraint firstItem="h0K-p2-OuB" firstAttribute="height" secondItem="3jw-hb-rHW" secondAttribute="height" multiplier="0.15" id="gIK-Bo-tNg"/>
+                            <constraint firstItem="r0Z-k7-sIC" firstAttribute="trailing" secondItem="jSB-eT-GaG" secondAttribute="trailing" id="gUh-P6-MIL"/>
+                            <constraint firstItem="r0Z-k7-sIC" firstAttribute="trailing" secondItem="1xU-Ts-LKQ" secondAttribute="trailing" id="j90-4P-oD5"/>
+                            <constraint firstItem="h0K-p2-OuB" firstAttribute="leading" secondItem="r0Z-k7-sIC" secondAttribute="leading" id="q9L-zm-EYW"/>
+                            <constraint firstItem="h0K-p2-OuB" firstAttribute="top" secondItem="3jw-hb-rHW" secondAttribute="top" id="uNB-1Q-521"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="r0Z-k7-sIC"/>
+                    </view>
+                    <connections>
+                        <outlet property="videoContainer" destination="jSB-eT-GaG" id="UKy-91-7SE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WwJ-yg-X5L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1080.8" y="-336.88155922038982"/>
         </scene>
     </scenes>
 </document>

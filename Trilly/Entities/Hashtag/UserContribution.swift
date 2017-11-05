@@ -17,7 +17,7 @@ class UserContribution: TrillyObject {
     
     // Type constructor
     class func withID(id: String, relativeTo hashtag: String, callback: @escaping (_ s: UserContribution?)->Void) {
-        let path = "\(Hashtag.collectionName)/\(hashtag)/\(collectionName)/\(id)"
+        let path = "\(Hashtag.collectionName)/\(hashtag.lowercased().folding(options: .diacriticInsensitive, locale: .current))/\(collectionName)/\(id)"
         Trilly.Database.ref().document(path).getDocument { (document, error) in
             if error != nil {
                 print(error!.localizedDescription)
@@ -36,7 +36,7 @@ class UserContribution: TrillyObject {
     class func usersFromHashtag(hashtagID: String, callback: @escaping (_ s: [UserContribution]?)->Void) {
         
         Trilly.Database.ref().collection(Hashtag.collectionName)
-            .document(hashtagID)
+            .document(hashtagID.lowercased().folding(options: .diacriticInsensitive, locale: .current))
             .collection(collectionName)
             .order(by: "points", descending: true)
             .getDocuments { (documents, error) in
@@ -89,6 +89,6 @@ class UserContribution: TrillyObject {
             originalDictionary["km"] = self.km
         }
         
-        super.save(route: "\(Hashtag.collectionName)/\(id)/\(UserContribution.collectionName)")
+        super.save(route: "\(Hashtag.collectionName)/\(id.lowercased().folding(options: .diacriticInsensitive, locale: .current))/\(UserContribution.collectionName)")
     }
 }

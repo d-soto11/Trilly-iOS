@@ -176,6 +176,7 @@ class User: TrillyObject {
         guard self.uid != nil else { return }
         Trilly.Database.ref().collection(User.collectionName)
             .document(self.uid!).collection(Trip.collectionName)
+            .order(by: "date", descending: true)
             .getDocuments { (documents, error) in
                 if error != nil {
                     print(error!.localizedDescription)

@@ -39,6 +39,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         user.stats { (stats) in
             if stats != nil {
                 self.userStats = stats!
@@ -64,6 +68,7 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         user.organization { (org) in
             if org != nil {
                 self.organizationB.setTitle(org!.name ?? "", for: .normal)
+                self.organizationB.isEnabled = false
             }
         }
         user.trees { (trees) in
@@ -72,7 +77,6 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         }
         self.pointsLabel.text = String(format: "%.0f pts.", user.points ?? 0)
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,11 +86,16 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLayoutSubviews() {
         self.profileImage.roundCorners(radius: 10)
+        self.organizationB.addGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
     }
     
     @IBAction func organization(_ sender: Any) {
+        QRViewController.readQR(self)
     }
     
+    @IBAction func back(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     // Collection
     func numberOfSections(in collectionView: UICollectionView) -> Int {

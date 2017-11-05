@@ -43,7 +43,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         }
         
         if location != nil {
-            TripManager.current?.setDestination(location!)
+            TripManager.current?.setDestination(location!, "Ubicación recibida")
         }
     }
     
@@ -53,21 +53,26 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
         guard mapView == nil else {
-            TripManager.current!.registerTripListener(self)
+            TripManager.current?.registerTripListener(self)
+            self.destinationTextField.text = TripManager.current?.destinationName
             return
         }
-        
-        mapView = GMSMapView(frame: self.view.frame)
+        mapView = GMSMapView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        mapView.translatesAutoresizingMaskIntoConstraints = false
         self.view.insertSubview(mapView, belowSubview: overlay)
         
         let c1 = NSLayoutConstraint(item: mapView, attribute: .leading, relatedBy: .equal, toItem: self.view, attribute: .leading, multiplier: 1, constant: 0)
-        let c2 = NSLayoutConstraint(item: mapView, attribute: .trailing, relatedBy: .equal, toItem: self.view, attribute: .trailing, multiplier: 1, constant: 0)
+        let c2 = NSLayoutConstraint(item: mapView, attribute: .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 0)
         let c3 = NSLayoutConstraint(item: mapView, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top, multiplier: 1, constant: 0)
-        let c4 = NSLayoutConstraint(item: mapView, attribute: .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
+        let c4 = NSLayoutConstraint(item: mapView, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0)
         
-        self.view.addConstraints([c1, c2, c3, c4])
+        let c5 = NSLayoutConstraint(item: mapView, attribute: .height, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 700)
+        
+        c3.priority = .defaultLow
+        c5.priority = .defaultHigh
+
+        self.view.addConstraints([c1, c2, c3, c4, c5])
         self.view.layoutIfNeeded()
         
         
@@ -81,6 +86,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         
         if TripManager.current != nil {
             TripManager.current!.registerTripListener(self)
+            self.destinationTextField.text = TripManager.current!.destinationName
         } else {
             TripManager.start(self)
         }
@@ -88,7 +94,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     
     override func viewDidLayoutSubviews() {
         self.infoBackground.addNormalShadow()
-        
+        self.destinationTextField.addLightShadow()
         if !overlayAdded {
             overlayAdded = true
             self.overlay.addGradientBackground(UIColor(white: 1, alpha: 0), .white, start: 0.4, end: 0.8)
@@ -98,6 +104,9 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        trackingPolyline = nil
+        routePolyline = nil
+        TripManager.current?.memoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
@@ -107,15 +116,22 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     
     @IBAction func endTrip(_ sender: Any) {
         paused = true
+        MBProgressHUD.showAdded(to: self.overlay, animated: true).label.text = "Guardando viaje"
         TripManager.current?.clearTripListener()
         self.mapView.clear()
-        MBProgressHUD.showAdded(to: self.overlay, animated: true)
-        mapView = nil
-        TripManager.current!.stop()
-        Alert3A.show(withTitle: "Felicitaciones", body: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", accpetTitle: "Genial", confirmation: {
-            MBProgressHUD.hide(for: self.overlay, animated: true)
-            self.performSegue(withIdentifier: "tripBrief", sender: nil)
-        }, parent: self)
+        let stopped = TripManager.current!.stop()
+        if stopped {
+            Alert3A.show(withTitle: "Felicitaciones", body: "Hemos guardado tu viaje de hoy en bici. Estamos procesando tu información para que veas cuánto has aportado al medio ambiente y a tu ciudad.", accpetTitle: "Genial", confirmation: {
+                MBProgressHUD.hide(for: self.overlay, animated: true)
+                self.performSegue(withIdentifier: "tripBrief", sender: nil)
+            })
+        } else {
+            Alert3A.show(withTitle: "Lo sentimos", body: "El viaje que haz realizado es demasiado corto, debes recorrer por lo menos un kilómetro para ayudar a tu ciudad.", accpetTitle: "Entendido", confirmation: {
+                MBProgressHUD.hide(for: self.overlay, animated: true)
+                self.dismiss(animated: true, completion: nil)
+            })
+        }
+        
     }
     
     // Tracking
@@ -123,7 +139,15 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         guard TripManager.current != nil && !paused else {
             return
         }
-        mapView.clear()
+        
+        if trackingPolyline == nil {
+            trackingPolyline = GMSPolyline()
+            trackingPolyline.strokeColor = Trilly.UI.mainColor
+            trackingPolyline.strokeWidth = 10
+        } else {
+            trackingPolyline.map = nil
+        }
+        
         trackingPolyline.path = path
         trackingPolyline.map = mapView
         self.mapView.animate(toLocation: TripManager.current!.location!)
@@ -151,7 +175,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         hud = nil
         Alert3A.show(withTitle: "Lo sentimos", body: "No hemos podido recibir tu ubicación. Revisa que tengas el GPS prendido y que hayas autorizado a Trilly para usarlo.", accpetTitle: "OK", confirmation: {
             self.dismiss(animated: true, completion: nil)
-        }, parent: self)
+        })
     }
     
     func tripPaused(message: String, path: GMSPath) {
@@ -161,7 +185,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
             // Save paused path to firebase and clean encoded path
             TripManager.clear()
             self.performSegue(withIdentifier: "tripBrief", sender: nil)
-        }, parent: self)
+        })
     }
     
     func tripStoped(message: String, path: GMSPath) {
@@ -195,7 +219,8 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         self.destinationTextField.text = place.name
-        TripManager.current?.setDestination(place.coordinate)
+        TripManager.current!.registerTripListener(self)
+        TripManager.current!.setDestination(place.coordinate, place.name)
         dismiss(animated: true, completion: nil)
     }
     
@@ -218,4 +243,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
+    @IBAction func back(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }

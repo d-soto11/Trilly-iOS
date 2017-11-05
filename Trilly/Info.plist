@@ -44,6 +44,8 @@
 	<string>Trilly te acompaña durante tu viaje para darte información útil y para que puedas aportar al medio ambiente con esos pedalazos</string>
 	<key>NSMotionUsageDescription</key>
 	<string>Trilly te acompaña durante tu viaje para darte información útil y para que puedas aportar al medio ambiente con esos pedalazos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Trilly necesita usar tu cámara para leer el código de tu empresa.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

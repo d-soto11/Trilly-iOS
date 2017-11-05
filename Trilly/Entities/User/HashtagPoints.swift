@@ -17,7 +17,7 @@ class HashtagPoints: TrillyObject {
     
     // Type constructor
     class func withID(id: String, relativeTo user: String, callback: @escaping (_ s: HashtagPoints?)->Void) {
-        let path = "\(User.collectionName)/\(user)/\(collectionName)/\(id)"
+        let path = "\(User.collectionName)/\(user)/\(collectionName)/\(id.lowercased().folding(options: .diacriticInsensitive, locale: .current))"
         Trilly.Database.ref().document(path).getDocument { (document, error) in
             if error != nil {
                 print(error!.localizedDescription)
@@ -38,6 +38,7 @@ class HashtagPoints: TrillyObject {
         Trilly.Database.ref().collection(User.collectionName)
             .document(userID)
             .collection(collectionName)
+            .order(by: "points", descending: true)
             .getDocuments { (documents, error) in
                 
                 if error != nil {
@@ -79,16 +80,16 @@ class HashtagPoints: TrillyObject {
     // Saving functions
     public func saveToUser(_ id: String) {
         guard self.name != nil else { return }
-        originalDictionary["name"] = self.name
+        originalDictionary["name"] = self.name!
         
         if self.points != nil {
-            originalDictionary["points"] = self.points
+            originalDictionary["points"] = self.points!
         }
         if self.km != nil {
-            originalDictionary["km"] = self.km
+            originalDictionary["km"] = self.km!
         }
         
-        self.uid = self.name!
+        self.uid = self.name!.lowercased().folding(options: .diacriticInsensitive, locale: .current)
         
         super.save(route: "\(User.collectionName)/\(id)/\(HashtagPoints.collectionName)")
     }

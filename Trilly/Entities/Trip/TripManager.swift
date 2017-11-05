@@ -30,6 +30,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     private var hashTag: String = ""
     private var hashTagKM: [String:Double] = [:]
     private var currentKM: Double = 0
+    private(set) public var destinationName: String = ""
     // Path
     private(set) public var trackingPath: GMSMutablePath! = GMSMutablePath()
     // Logic
@@ -40,14 +41,15 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     private var shaking: Bool = true
     private var deferringUpdates: Bool = false
     private var hardwareAvailable: Bool = false
-    private var queue: OperationQueue = OperationQueue()
+    private var lowMemory: Bool = false
+    private var timeToRecoverMemory: Int = 60
     // Verification
     private var slowMovementTimer: Timer?
     private var fastMovementTimer: Timer?
     private var slowMovementInterval = 30.0
     private var fastMovementInterval = 30.0
     // Listener
-    private var tripListener: TripListener?
+    private weak var tripListener: TripListener?
     // Singleton
     private(set) public static var current: TripManager?
     private static let footSpeed = 8.0
@@ -69,6 +71,30 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         current = TripManager()
         current!.load()
         current!.tripListener = listener
+    }
+    // Load
+    private func load() {
+        self.initialLocationTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector:  #selector(noLocation), userInfo: nil, repeats: false)
+        //        self.shakingTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(verifyShaking), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
+        
+        DispatchQueue(label: "com.trilly.tripcreationqueue", qos: .userInitiated).sync {
+            self.startManagers()
+            
+            DispatchQueue.main.async {
+                // Request permission
+                let status = CLLocationManager.authorizationStatus()
+                if status == .authorizedAlways || status == .authorizedWhenInUse {
+                    self.locationManager.startUpdatingLocation()
+                    self.locationManager.startUpdatingHeading()
+                } else {
+                    self.locationManager.requestAlwaysAuthorization()
+                    self.locationManager.requestWhenInUseAuthorization()
+                    self.locationManager.startUpdatingLocation()
+                    self.locationManager.startUpdatingHeading()
+                }
+            }
+        }
     }
     // Resume
     public class func resume(_ listener: TripListener?) {
@@ -99,74 +125,6 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         time = nil
         lastHashtag = nil
     }
-    // Stop
-    public func stop() {
-        self.pause()
-        
-        backgroundQueue.async {
-            let newTrip = Trip([:])
-            if self.destination != nil {
-                newTrip.destination = GeoPoint(latitude: self.destination!.latitude, longitude: self.destination!.longitude)
-            }
-            newTrip.path = self.trackingPath.encodedPath()
-            let initial = self.trackingPath.coordinate(at: 0)
-            newTrip.start = GeoPoint(latitude: initial.latitude, longitude: initial.longitude)
-            newTrip.time = self.time
-            newTrip.user = User.current!.reference()
-            newTrip.date = NSDate()
-            newTrip.filters = ""
-            
-            let stats = Stats([:])
-            stats.km = self.trackingPath.length(of: GMSLengthKind.rhumb)/1000
-            stats.cal = Double(11 * self.time)
-            stats.co2 = 257 * stats.km!
-            newTrip.stats = stats
-            newTrip.save()
-            
-            for (name, km) in self.hashTagKM {
-                let hashtag = HashtagInfo([:])
-                hashtag.name = name
-                hashtag.points = km
-                hashtag.uid = name
-                hashtag.saveOnTrip(newTrip.uid!)
-                let userContribution = UserContribution([:])
-                userContribution.km = km
-                userContribution.name = User.current!.name!
-                userContribution.points = km
-                userContribution.uid = User.current!.uid!
-                userContribution.saveOnHashtag(name)
-                let userHashtag = HashtagPoints([:])
-                userHashtag.name = name
-                userHashtag.km = km
-                userHashtag.points = km
-                userHashtag.uid = name
-                userHashtag.saveToUser(User.current!.uid!)
-                newTrip.filters = "\(newTrip.filters!)-\(name)"
-            }
-            
-            newTrip.save()
-            User.current!.points! += newTrip.stats!.km!
-            User.current!.addTrip(newTrip)
-            Trilly.Database.Local.saveModel(id: Trip.new, object: newTrip)
-        }
-        
-        TripManager.current = nil
-        TripManager.encodedGMSPath = nil
-        TripManager.time = nil
-        TripManager.lastHashtag = nil
-        TripManager.hashTagKM = nil
-        
-        self.locationManager?.stopUpdatingHeading()
-        self.locationManager?.stopUpdatingLocation()
-        self.locationManager?.delegate = nil
-        self.locationManager = nil
-        
-        self.motionActivityManager?.stopActivityUpdates()
-        self.motionActivityManager = nil
-        
-        self.motionManager?.stopAccelerometerUpdates()
-        self.motionManager = nil
-    }
     // Pause
     public func pause() {
         clearTripListener()
@@ -185,6 +143,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             
             self.locationManager?.stopUpdatingHeading()
             self.locationManager?.stopUpdatingLocation()
+            self.locationManager?.disallowDeferredLocationUpdates()
             self.locationManager?.delegate = nil
             self.locationManager = nil
             
@@ -198,62 +157,98 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             TripManager.time = self.time
             TripManager.lastHashtag = self.hashTag
             TripManager.hashTagKM = self.hashTagKM
-            
         }
     }
-    
-    // Destination handlers
-    public func setDestination(_ destination: CLLocationCoordinate2D) {
-        self.destination = destination
-        guard lastLocation != nil else { return }
-        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.lastLocation!.coordinate.latitude),\(self.lastLocation!.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=walking&key=\(Trilly.googleApiKey)"
+    // Stop
+    public func stop() -> Bool {
+        self.pause()
         
-        print(urlString)
+        let globalKM = self.trackingPath.length(of: GMSLengthKind.rhumb)/1000
         
-        guard let url = RestController.make(urlString: urlString) else { return }
-        
-        url.get(withDeserializer: JSONDeserializer()) { result, httpResponse in
-            do {
-                let json = try result.value()
-                if let routes = json["routes"].array {
-                    let route = routes[0]
-                    let overview = route["overview_polyline"]
-                    if let encoded = overview["points"].string {
-                        if let path = GMSPath(fromEncodedPath: encoded) {
-                            DispatchQueue.main.async {
-                                self.tripListener?.destinationUpdated(path)
-                            }
-                        }
-                    }
-                }
-            } catch {
-                print("Error performing GET: \(error)")
-            }
-        }
-    }
-    // Load
-    private func load() {
-        self.initialLocationTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector:  #selector(noLocation), userInfo: nil, repeats: false)
-//        self.shakingTimer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(verifyShaking), userInfo: nil, repeats: true)
-        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
-        
-        backgroundQueue.sync {
-            self.startManagers()
+        if globalKM < 1 {
+            TripManager.current = nil
+            TripManager.encodedGMSPath = nil
+            TripManager.time = nil
+            TripManager.lastHashtag = nil
+            TripManager.hashTagKM = nil
             
-            DispatchQueue.main.async {
-                // Request permission
-                let status = CLLocationManager.authorizationStatus()
-                if status == .authorizedAlways || status == .authorizedWhenInUse {
-                    self.locationManager.startUpdatingLocation()
-                    self.locationManager.startUpdatingHeading()
-                } else {
-                    self.locationManager.requestAlwaysAuthorization()
-                    self.locationManager.requestWhenInUseAuthorization()
-                    self.locationManager.startUpdatingLocation()
-                    self.locationManager.startUpdatingHeading()
-                }
-            }
+            self.locationManager?.stopUpdatingHeading()
+            self.locationManager?.stopUpdatingLocation()
+            self.locationManager?.delegate = nil
+            self.locationManager = nil
+            
+            self.motionActivityManager?.stopActivityUpdates()
+            self.motionActivityManager = nil
+            
+            self.motionManager?.stopAccelerometerUpdates()
+            self.motionManager = nil
+            return false
         }
+        
+        backgroundQueue.async {
+            let newTrip = Trip([:])
+            if self.destination != nil {
+                newTrip.destination = GeoPoint(latitude: self.destination!.latitude, longitude: self.destination!.longitude)
+            }
+            newTrip.path = self.trackingPath.encodedPath()
+            let initial = self.trackingPath.coordinate(at: 0)
+            newTrip.start = GeoPoint(latitude: initial.latitude, longitude: initial.longitude)
+            newTrip.time = self.time
+            newTrip.user = User.current!.reference()
+            newTrip.date = NSDate()
+            newTrip.filters = ""
+            
+            let stats = Stats([:])
+            stats.km = globalKM
+            stats.cal = Double(11 * self.time)
+            stats.co2 = 257 * stats.km!
+            newTrip.stats = stats
+            newTrip.save()
+            
+            for (name, km) in self.hashTagKM {
+                let hashtag = HashtagInfo([:])
+                hashtag.name = name
+                hashtag.points = km
+                hashtag.saveOnTrip(newTrip.uid!)
+                let userContribution = UserContribution([:])
+                userContribution.km = km
+                userContribution.name = User.current!.name!
+                userContribution.points = km
+                userContribution.uid = User.current!.uid!
+                userContribution.saveOnHashtag(name)
+                let userHashtag = HashtagPoints([:])
+                userHashtag.name = name
+                userHashtag.km = km
+                userHashtag.points = km
+                userHashtag.saveToUser(User.current!.uid!)
+                newTrip.filters = "\(newTrip.filters!)-\(name)"
+            }
+            
+            newTrip.save()
+            User.current!.points = User.current!.points ?? 0 + newTrip.stats!.km!
+            User.current!.addTrip(newTrip)
+            Trilly.Database.Local.save(id: Trip.new, data: newTrip as AnyObject)
+        }
+        
+        TripManager.current = nil
+        TripManager.encodedGMSPath = nil
+        TripManager.time = nil
+        TripManager.lastHashtag = nil
+        TripManager.hashTagKM = nil
+        
+        self.locationManager?.stopUpdatingHeading()
+        self.locationManager?.stopUpdatingLocation()
+        self.locationManager?.disallowDeferredLocationUpdates()
+        self.locationManager?.delegate = nil
+        self.locationManager = nil
+        
+        self.motionActivityManager?.stopActivityUpdates()
+        self.motionActivityManager = nil
+        
+        self.motionManager?.stopAccelerometerUpdates()
+        self.motionManager = nil
+        
+        return true
     }
     
     private func startManagers() {
@@ -269,7 +264,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         // Start Motion
         motionManager = CMMotionManager()
         motionManager.accelerometerUpdateInterval = 120
-        motionManager.startAccelerometerUpdates(to: queue) { (data, error) in
+        motionManager.startAccelerometerUpdates(to: OperationQueue()) { (data, error) in
             if error != nil {
                 DispatchQueue.main.async {
                     print("Error in accelerometer")
@@ -283,7 +278,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         }
         // Start Activity
         motionActivityManager = CMMotionActivityManager()
-        motionActivityManager!.startActivityUpdates(to: queue) { (activity) in
+        motionActivityManager!.startActivityUpdates(to: OperationQueue()) { (activity) in
             if activity == nil {
                 DispatchQueue.main.async {
                     print("Error in activity")
@@ -312,6 +307,21 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     
     // Trip logic
     @objc public func tick() {
+        if lowMemory && timeToRecoverMemory > 0 {
+            timeToRecoverMemory -= 1
+            time += 1
+            DispatchQueue.main.async {
+                self.tripListener?.timeTick(self.time)
+            }
+            return
+        } else if lowMemory {
+            lowMemory = false
+            timeToRecoverMemory = 60
+            if self.destination != nil {
+                self.setDestination(destination!, destinationName)
+            }
+        }
+        
         if (time % 60 == 0 || hashTag == "") && location != nil {
             GMSGeocoder().reverseGeocodeCoordinate(location!, completionHandler: { (response, error) in
                 if error != nil {
@@ -331,9 +341,45 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 }
             })
         }
-        time = time + 1
+        time += 1
         DispatchQueue.main.async {
             self.tripListener?.timeTick(self.time)
+        }
+    }
+    
+    // Destination handlers
+    public func setDestination(_ destination: CLLocationCoordinate2D, _ name: String) {
+        self.destination = destination
+        self.destinationName = name
+        guard lastLocation != nil else { return }
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(self.lastLocation!.coordinate.latitude),\(self.lastLocation!.coordinate.longitude)&destination=\(destination.latitude),\(destination.longitude)&mode=walking&key=\(Trilly.googleApiKey)"
+        
+        
+        guard let url = RestController.make(urlString: urlString) else { return }
+        
+        url.get(withDeserializer: JSONDeserializer()) { result, httpResponse in
+            do {
+                let json = try result.value()
+                if let routes = json["routes"].array {
+                    let route = routes[0]
+                    let overview = route["overview_polyline"]
+                    if let encoded = overview["points"].string {
+                        if let path = GMSPath(fromEncodedPath: encoded) {
+                            DispatchQueue.main.async {
+                                if self.tripListener != nil {
+                                    self.tripListener!.destinationUpdated(path)
+                                } else {
+                                    print("No listener")
+                                }
+                            }
+                        }
+                    } else {
+                        print("No path received")
+                    }
+                }
+            } catch {
+                print("Error performing GET: \(error)")
+            }
         }
     }
     
@@ -350,6 +396,8 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             }
         }
     }
+    
+    
     
     @objc public func verifySlowMovement() {
         print("Verifing slow")
@@ -454,11 +502,17 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     
     public func stopBackground() {
         onForeground = true
+        if self.destination != nil {
+            self.setDestination(destination!, destinationName)
+        }
     }
     
     // Listener methods
     public func registerTripListener(_ listener: TripListener) {
         self.tripListener = listener
+        if self.destination != nil {
+            self.setDestination(self.destination!, self.destinationName)
+        }
     }
     
     public func clearTripListener() {
@@ -505,9 +559,14 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             shakeTestInterval = 0.0
         }
     }
+    
+    public func memoryWarning() {
+        self.stopVerifiers()
+        self.lowMemory = true
+    }
 }
 
-protocol TripListener {
+protocol TripListener: NSObjectProtocol {
     func tripUpdated(path: GMSPath)
     func headingUpdated(heading: CLLocationDirection)
     func noLocation()

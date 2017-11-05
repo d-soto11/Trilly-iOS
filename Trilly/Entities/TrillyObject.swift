@@ -30,9 +30,9 @@ class TrillyObject: NSObject {
             uid = saving_ref.documentID
             saving_ref.updateData(["lastUpdated": FieldValue.serverTimestamp(), "id": uid!])
         } else {
-            originalDictionary["id"] = uid
-            Trilly.Database.ref().collection(route).document(uid!).setData(originalDictionary, options: SetOptions.merge())
-            Trilly.Database.ref().collection(route).document(uid!).updateData(["lastUpdated": FieldValue.serverTimestamp()])
+            originalDictionary["id"] = uid!
+            Trilly.Database.ref().collection(route).document(uid!).setData(self.originalDictionary, options: SetOptions.merge())
+            Trilly.Database.ref().collection(route).document(self.uid!).updateData(["lastUpdated": FieldValue.serverTimestamp()])
         }
     }
     

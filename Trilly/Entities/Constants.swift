@@ -44,27 +44,22 @@ struct Trilly {
             return Storage.storage().reference(forURL: storageURL)
         }
         struct Local {
-            private static var data_cache: [String:Data] = [:]
-            private static var model_cache: [String: AnyObject] = [:]
+            private static var dataCache: NSCache<NSString, AnyObject> = NSCache<NSString, AnyObject>()
             
-            public static func save(id: String, data: Data) {
-                data_cache[id] = data
+            public static func save(id: String, data: AnyObject) {
+                dataCache.setObject(data as AnyObject, forKey: id as NSString)
             }
             
-            public static func getCache(_ id: String) -> Data? {
-                return data_cache[id]
+            public static func get(_ id: String) -> AnyObject? {
+                return dataCache.object(forKey: id as NSString)
             }
             
-            public static func saveModel(id: String, object: AnyObject) {
-                model_cache[id] = object
+            public static func clear(_ id: String) {
+                dataCache.removeObject(forKey: id as NSString)
             }
             
-            public static func getModel(_ id: String) -> AnyObject? {
-                return model_cache[id]
-            }
-            
-            public static func clearModel(_ id: String) {
-                model_cache.removeValue(forKey: id)
+            public static func delete() {
+                dataCache.removeAllObjects()
             }
         }
     }

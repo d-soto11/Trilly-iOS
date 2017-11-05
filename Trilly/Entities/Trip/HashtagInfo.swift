@@ -76,13 +76,13 @@ class HashtagInfo: TrillyObject {
     // Saving functions
     public func saveOnTrip(_ id: String) {
         guard self.name != nil else { return }
-        originalDictionary["name"] = self.name
+        originalDictionary["name"] = self.name!
         
         if self.points != nil {
-            originalDictionary["points"] = self.points
+            originalDictionary["points"] = self.points!
         }
         
-        self.uid = self.name!
+        self.uid = self.name!.lowercased().folding(options: .diacriticInsensitive, locale: .current)
         
         super.save(route: "\(Trip.collectionName)/\(id)/\(HashtagInfo.collectionName)")
     }

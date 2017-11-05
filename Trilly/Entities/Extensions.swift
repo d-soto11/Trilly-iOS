@@ -88,8 +88,13 @@ extension UIView {
     }
     
     func addInnerShadow() {
-        self.layer.borderColor = UIColor(0x545454).withAlphaComponent(0.3).cgColor
-        self.layer.borderWidth = 1.0
+        self.layoutIfNeeded()
+        let shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x+1, y: self.bounds.origin.y+1, width: self.bounds.size.width-2, height: self.bounds.size.height-2))
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        self.layer.shadowOpacity = 0.1
+        self.layer.shadowPath = shadowPath.cgPath
     }
     
     func addGradientBackground(_ first: UIColor, _ second: UIColor, start: NSNumber = 0.0, end: NSNumber = 1.0, horizontal: Bool = false, diagonal: Bool = false) {
@@ -175,7 +180,7 @@ extension UIViewController {
     
     func showAlert(title:String, message:String, closeButtonTitle:String, special: Bool = true, persistent: Bool = false) {
         if special {
-            Alert3A.show(withTitle: title, body: message, accpetTitle: closeButtonTitle, parent: self, persistent: persistent)
+            Alert3A.show(withTitle: title, body: message, accpetTitle: closeButtonTitle, persistent: persistent)
         } else {
             let alertController = UIAlertController(title: title, message: message,
                                                     preferredStyle: .alert)
@@ -234,14 +239,14 @@ extension UIImageView {
                 let image = UIImage(data: data)
                 else { return }
             DispatchQueue.main.async() { () -> Void in
-                Trilly.Database.Local.save(id: url.absoluteString, data: data)
+                Trilly.Database.Local.save(id: url.absoluteString, data: data as AnyObject)
                 mb.hide(animated: true)
                 self.image = image
             }
             }.resume()
     }
     func downloadedFrom(link: String, contentMode mode: UIViewContentMode? = nil) {
-        if let data = Trilly.Database.Local.getCache(link) {
+        if let data = Trilly.Database.Local.get(link) as? Data {
             if let img = UIImage(data: data) {
                 self.image = img
             }

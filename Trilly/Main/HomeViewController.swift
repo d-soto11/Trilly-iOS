@@ -26,6 +26,8 @@ class HomeViewController: MaterialViewController {
         super.viewDidLoad()
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
+//        User.logOut()
+        
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
                 // User is signed in.
@@ -45,7 +47,7 @@ class HomeViewController: MaterialViewController {
                         if User.current!.blocked ?? false {
                             Alert3A.show(withTitle: "Lo sentimos", body: "Tu cuenta ha sido bloqueada por seguridad.", accpetTitle: "Llamar a Trilly", confirmation: {() in
                                 Trilly.call()
-                            }, parent: MaterialTB.currentTabBar!, persistent: true)
+                            }, persistent: true)
                         }
                     }
                 })
@@ -68,6 +70,12 @@ class HomeViewController: MaterialViewController {
     override func viewDidLayoutSubviews() {
         self.tripB.roundCorners(radius: Trilly.UI.lightRoundPx)
         self.tripB.bordered(color: Trilly.UI.mainColor)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if TripManager.current != nil {
+            self.tripB.setTitle("Trilly está encendido", for: .normal)
+        }
     }
     
     func reloadUserData() {

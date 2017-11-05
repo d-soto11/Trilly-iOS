@@ -51,7 +51,7 @@ class TripBriefViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @objc public func loadTripFromCache() {
-        if let t = Trilly.Database.Local.getModel(Trip.new) as? Trip {
+        if let t = Trilly.Database.Local.get(Trip.new) as? Trip {
             trip = t
             self.loadTripData()
         } else {
