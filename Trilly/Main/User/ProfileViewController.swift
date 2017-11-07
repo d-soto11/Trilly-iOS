@@ -11,6 +11,7 @@ import MaterialTB
 
 class ProfileViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    @IBOutlet weak var logoutB: UIButton!
     @IBOutlet weak var backB: UIButton!
     @IBOutlet weak var profileScroll: UIScrollView!
     @IBOutlet weak var profileImage: UIImageView!
@@ -25,6 +26,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     private var userStats: [UserStat] = []
     private var user: User!
+    
+    private var orgGradientLayer: CALayer? = nil
     
     public class func showProfile(user: User = User.current!, onViewController: UIViewController? = nil) {
         let profile = UIStoryboard(name: "User", bundle: nil).instantiateViewController(withIdentifier: "Profile") as! ProfileViewController
@@ -59,6 +62,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             if user.organization == nil {
                 self.organizationB.alpha = 0
             }
+        } else {
+            self.logoutB.alpha = 1
         }
         
         if user.photo != nil {
@@ -86,7 +91,8 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     
     override func viewDidLayoutSubviews() {
         self.profileImage.roundCorners(radius: 10)
-        self.organizationB.addGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
+        self.orgGradientLayer?.removeFromSuperlayer()
+        self.orgGradientLayer = self.organizationB.setGradientBackground(Trilly.UI.mainColor, Trilly.UI.secondColor, horizontal: true)
     }
     
     @IBAction func organization(_ sender: Any) {
@@ -97,6 +103,9 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func logout(_ sender: Any) {
+        User.logOut()
+    }
     // Collection
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1

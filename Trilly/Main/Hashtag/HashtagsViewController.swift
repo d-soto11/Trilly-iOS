@@ -77,10 +77,12 @@ class HashtagsViewController: MaterialViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func back(_ sender: Any) {
-        self.dismiss(animated: true, completion: {
-            UIApplication.shared.statusBarStyle = .default
-        })
+    override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .default
     }
     
     // Table

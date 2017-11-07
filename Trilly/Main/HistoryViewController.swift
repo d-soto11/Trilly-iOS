@@ -17,6 +17,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     @IBOutlet weak var searchBackground: UIView!
     @IBOutlet weak var searchB: UIButton!
     @IBOutlet weak var historyTable: UITableView!
+    @IBOutlet weak var reloadLabel: UILabel!
     
     private var filteredTrips: [Trip]?
     var userTrips: [Trip] = []
@@ -55,7 +56,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return max(160, UIScreen.main.bounds.size.height/4)
+        return max(220, UIScreen.main.bounds.size.height/4)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,6 +65,11 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
         
         cellUI.uiUpdates = {cell in
             cell.viewWithTag(1)?.addNormalShadow()
+            if trip.image != nil {
+                (cell.viewWithTag(2) as? UIImageView)?.downloadedFrom(link: trip.image!)
+            } else {
+                (cell.viewWithTag(2) as? UIImageView)?.image = nil
+            }
             (cell.viewWithTag(11) as? UILabel)?.text = String(format: "%.0f km", trip.stats?.km ?? 0)
             (cell.viewWithTag(12) as? UILabel)?.text = (trip.date! as Date).toString(format: .Short)
         }
@@ -101,6 +107,43 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.searchTextField.resignFirstResponder()
+        
+        if scrollView.contentOffset.y <= 0 {
+            let net = scrollView.contentOffset.y / -100
+            let opacity = net > 1 ? 1 : net
+            UIView.animate(withDuration: 0.15, animations: {
+                self.reloadLabel.alpha = opacity
+            })
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y <= -75 {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            User.current!.history { (trips) in
+                if trips != nil && trips!.count > 0 {
+                    self.userTrips = trips!
+                    self.historyTable.reloadData()
+                } else {
+                    // Show no trip message
+                }
+                MBProgressHUD.hide(for: self.view, animated: true)
+            }
+        }
+    }
+    
+    override func refreshViewController() -> MaterialViewController {
+        MBProgressHUD.showAdded(to: self.view, animated: true)
+        User.current!.history { (trips) in
+            if trips != nil && trips!.count > 0 {
+                self.userTrips = trips!
+                self.historyTable.reloadData()
+            } else {
+                // Show no trip message
+            }
+            MBProgressHUD.hide(for: self.view, animated: true)
+        }
+        return self
     }
 
 }

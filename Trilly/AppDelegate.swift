@@ -44,7 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Modals3AConfig.fontFamily = "Oxygen"
         Modals3AConfig.titleFontSize = 30
         Modals3AConfig.roundedCorners = false
-        Modals3AConfig.flatMode = true
+        // Configure Network
+        Trilly.Network.startNetwork()
+//        Modals3AConfig.flatMode = true
         // Configuracion Stripe
         // STPPaymentConfiguration.shared().publishableKey = K.Hometap.stripe_key
         // Private configurations
@@ -107,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         TripManager.current?.stopBackground()
+        User.current?.checkNotifications()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

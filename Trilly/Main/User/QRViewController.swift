@@ -8,7 +8,8 @@
 
 import UIKit
 import AVFoundation
-
+import Modals3A
+import MBProgressHUD
 
 class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
@@ -52,6 +53,9 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
             videoPreviewLayer?.frame = view.layer.bounds
             videoContainer.layer.addSublayer(videoPreviewLayer!)
             
+            qrCodeFrameView = UIView()
+            qrCodeFrameView!.bordered(color: Trilly.UI.mainColor, width: CGFloat(10.0))
+            videoContainer.addSubview(qrCodeFrameView!)
             // Start video capture.
             captureSession?.startRunning()
             
@@ -76,13 +80,34 @@ class QRViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate
         if metadataObj.type == AVMetadataObject.ObjectType.qr {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
-            qrCodeFrameView?.frame = barCodeObject!.bounds
+            UIView.animate(withDuration: 0.25, animations: {
+                self.qrCodeFrameView?.frame = barCodeObject!.bounds
+            })
             
             if metadataObj.stringValue != nil {
                 captureSession?.stopRunning()
-                self.showAlert(title: "QR leido", message: metadataObj.stringValue!, closeButtonTitle: "Genial")
+                MBProgressHUD.showAdded(to: self.view, animated: true)
+                Organization.withQR(qr: metadataObj.stringValue ?? "nothing", callback: { (org) in
+                    UIView.animate(withDuration: 0.25, animations: {
+                        self.qrCodeFrameView?.frame = CGRect.zero
+                    })
+                    MBProgressHUD.hide(for: self.view, animated: true)
+                    if org == nil {
+                        Alert3A.show(withTitle: "QR Inválido", body: "No se encontró ninguna organización asociada a este QR", accpetTitle: "Ok", confirmation: {
+                            self.captureSession?.startRunning()
+                        })
+                    } else {
+                        User.current!.organization = org!
+                        User.current!.save()
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                    
+                })
             }
         }
     }
-
+    @IBAction func cancel(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

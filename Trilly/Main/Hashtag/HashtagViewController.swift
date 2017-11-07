@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class HashtagViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate {
     
@@ -45,7 +46,6 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
             guard ht != nil else { return }
             hashView.hashtag = ht!
             parent.showDetailViewController(hashView, sender: nil)
-            UIApplication.shared.statusBarStyle = .lightContent
         }
     }
     
@@ -82,6 +82,16 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
         // Load user ranking
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .lightContent
+        self.adjustConstraints()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
+    
     func adjustConstraints() {
         switch self.currentTab {
         case 0:
@@ -111,9 +121,7 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     @IBAction func back(_ sender: Any) {
-        self.dismiss(animated: true, completion: {
-            UIApplication.shared.statusBarStyle = .default
-        })
+        self.dismiss(animated: true, completion: nil)
     }
     
     // Table
@@ -161,6 +169,25 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
             return UITableViewCell()
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if currentTab == 1 {
+            // Users
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            if let user = (self.hashtag.users() ?? [])[indexPath.row].uid {
+                MBProgressHUD.hide(for: self.view, animated: true)
+                User.withID(id: user, callback: { (u) in
+                    if u != nil {
+                        ProfileViewController.showProfile(user: u!, onViewController: self)
+                    }
+                })
+            }
+        } else {
+            // Info Goal
+            let goal = self.hashtag.goals()![indexPath.row]
+            self.showAlert(title: goal.name ?? "Meta Trilly", message: goal.descriptionT ?? "No hemos podido cargar la descripción de esta meta.", closeButtonTitle: "Genial")
+        }
     }
     
     // Scroll
@@ -216,6 +243,7 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // Ranking animation:
     func loadUserRankingUI() {
+        guard userRanking != Int.max else { return }
         let needed = CGFloat(295 + (userRanking + 1)*100)
         if needed > scrollView.contentOffset.y + scrollView.bounds.height {
             UIView.animate(withDuration: 0.1, animations: {

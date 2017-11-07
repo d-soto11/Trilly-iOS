@@ -82,9 +82,9 @@ extension UIView {
         self.clipsToBounds = true
     }
     
-    func bordered(color:UIColor) {
+    func bordered(color:UIColor, width: CGFloat = CGFloat(1.0)) {
         self.layer.borderColor = color.cgColor
-        self.layer.borderWidth = 1.0
+        self.layer.borderWidth = width
     }
     
     func addInnerShadow() {
@@ -353,6 +353,7 @@ extension Date {
         case Time
         case Try
         case Custom(String)
+        case News
     }
     
     struct Helper {
@@ -361,6 +362,7 @@ extension Date {
         static let medium:String = "yyyy-MM-dd'T'HH:mm:ssxxxxx"
         static let long: String = "yyyy-MM-dd'T'HH:mm:ss.SSSxxxxx"
         static let time: String = "hh:mm a"
+        static let news: String = "d 'de' LLLL, yyyy 'a las' h:mm a"
     }
     
     func merge(time: Date) -> Date? {
@@ -393,7 +395,7 @@ extension Date {
             dtf.dateFormat = Helper.long
         case .Time:
             dtf.dateFormat = Helper.time
-        case .Try:
+        case .Try, .News:
             dtf.dateFormat = Helper.normal
             if let tst_dt = dtf.date(from: fromString) {
                 self = tst_dt
@@ -431,7 +433,7 @@ extension Date {
     
     func toString(format: DateFormat) -> String? {
         let dtf = DateFormatter()
-        dtf.locale = Locale(identifier: "en_US_POSIX")
+        dtf.locale = Locale(identifier: "es_CO")
         switch format {
         case .Short:
             dtf.dateFormat = Helper.short
@@ -443,6 +445,8 @@ extension Date {
             dtf.dateFormat = Helper.long
         case .Time:
             dtf.dateFormat = Helper.time
+        case .News:
+            dtf.dateFormat = Helper.news
         case .Custom(let format):
             dtf.dateFormat = format
             let str = dtf.string(from: self)

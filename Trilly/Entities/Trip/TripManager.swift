@@ -163,6 +163,8 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     public func stop() -> Bool {
         self.pause()
         
+        guard self.trackingPath.count() >= 2 else { return false }
+        
         let globalKM = self.trackingPath.length(of: GMSLengthKind.rhumb)/1000
         
         if globalKM < 1 {
@@ -190,9 +192,30 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             if self.destination != nil {
                 newTrip.destination = GeoPoint(latitude: self.destination!.latitude, longitude: self.destination!.longitude)
             }
+            
             newTrip.path = self.trackingPath.encodedPath()
+            
+            var outter = 1.0
+            while self.trackingPath.count() > 150 {
+                for i in 1...(self.trackingPath.count()-1) {
+                    let l2d1 = self.trackingPath.coordinate(at: i-1)
+                    let l2d2 = self.trackingPath.coordinate(at: i)
+                    let location1 = CLLocation(latitude: l2d1.latitude, longitude: l2d1.longitude)
+                    let location2 = CLLocation(latitude: l2d2.latitude, longitude: l2d2.longitude)
+                    
+                    if location1.distance(from: location2) < (5.0 * outter) {
+                        self.trackingPath.removeCoordinate(at: i)
+                    }
+                }
+                outter += 1
+            }
+            
+            newTrip.shortPath = self.trackingPath.encodedPath()
+            
             let initial = self.trackingPath.coordinate(at: 0)
             newTrip.start = GeoPoint(latitude: initial.latitude, longitude: initial.longitude)
+            let final = self.trackingPath.coordinate(at: self.trackingPath.count() - 1)
+            newTrip.end = GeoPoint(latitude: final.latitude, longitude: final.longitude)
             newTrip.time = self.time
             newTrip.user = User.current!.reference()
             newTrip.date = NSDate()
@@ -200,7 +223,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             
             let stats = Stats([:])
             stats.km = globalKM
-            stats.cal = Double(11 * self.time)
+            stats.cal = Double(11 * (self.time/60))
             stats.co2 = 257 * stats.km!
             newTrip.stats = stats
             newTrip.save()
@@ -227,6 +250,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             newTrip.save()
             User.current!.points = User.current!.points ?? 0 + newTrip.stats!.km!
             User.current!.addTrip(newTrip)
+            User.current!.save()
             Trilly.Database.Local.save(id: Trip.new, data: newTrip as AnyObject)
         }
         
@@ -341,6 +365,11 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 }
             })
         }
+        
+        if (time % 20 == 0 && destination != nil && onForeground) {
+            setDestination(destination!, destinationName)
+        }
+        
         time += 1
         DispatchQueue.main.async {
             self.tripListener?.timeTick(self.time)
@@ -407,6 +436,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 self.tripListener?.tripStoped(message: "Hemos detectado que has parado tu rodada. Puedes terminar tu viaje o continuarlo si ya estás listo para seguir pedaleando.", path: self.trackingPath)
             } else {
                 // Guardar notificación para el background
+                User.current!.scheduleNotification(title: "Viaje pausado", message: "Hemos detectado que has parado tu rodada. Puedes terminar tu viaje o continuarlo si ya estás listo para seguir pedaleando.")
             }
             self.pause()
         } else {
@@ -421,10 +451,17 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         if intents >= 10 {
             if onForeground {
                 self.tripListener?.tripStoped(message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.", path: self.trackingPath)
+                
+                let _ = self.stop()
             } else {
                 // Guardar notificación para el background
+                if self.stop() {
+                    User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.")
+                } else {
+                    User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta.")
+                }
             }
-            self.stop()
+            
         } else {
             fastMovementInterval  = fastMovementInterval + 30
             fastMovementTimer = Timer.scheduledTimer(timeInterval: fastMovementInterval, target: self, selector: #selector(verifyFastMovement), userInfo: nil, repeats: false)
@@ -458,7 +495,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             }
             
             if self.lastLocation != nil {
-                self.currentKM = currentKM + locations.last!.distance(from: lastLocation!)
+                self.currentKM = currentKM + (locations.last!.distance(from: lastLocation!)/1000)
             }
             
             self.trackingPath.add(locations.last!.coordinate)

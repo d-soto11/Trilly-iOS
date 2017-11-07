@@ -97,7 +97,6 @@ class Goal: TrillyObject {
     
     // Saving functions
     public func saveOnHashtag(_ id: String) {
-        guard self.uid != nil else { return }
         if self.name != nil {
             originalDictionary["name"] = self.name
         }

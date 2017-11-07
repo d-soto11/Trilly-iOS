@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import Modals3A
 
 class User: TrillyObject {
     
@@ -194,23 +195,30 @@ class User: TrillyObject {
         }
     }
     
-    public func inbox(_ callback: @escaping ([Inbox]?)->Void) {
+    public func inbox(_ callback: @escaping ([Inbox]?, Int)->Void) {
         guard self.uid != nil else { return }
         Trilly.Database.ref().collection(User.collectionName)
             .document(self.uid!).collection(Inbox.collectionName)
+            .order(by: "date", descending: true)
             .addSnapshotListener { (documents, error) in
                 if error != nil {
                     print(error!.localizedDescription)
                 } else if documents != nil {
                     var response: [Inbox] = []
+                    var unread: Int = 0
+                    let lastDate = UserDefaults.standard.object(forKey: Trilly.Settings.lastReadFeedKey) as? Date
                     for document in documents!.documents {
                         if document.exists {
-                            response.append(Inbox(document.data()))
+                            let inb = Inbox(document.data())
+                            response.append(inb)
+                            if lastDate == nil || lastDate! < ((inb.date ?? NSDate()) as Date) {
+                                unread += 1
+                            }
                         }
                     }
-                    callback(response)
+                    callback(response, unread)
                 } else {
-                    callback(nil)
+                    callback(nil, 0)
                 }
         }
     }
@@ -312,20 +320,26 @@ class User: TrillyObject {
         }
     }
     
+    public func scheduleNotification(title: String, message: String) {
+        UserDefaults.standard.set(true, forKey: Trilly.Settings.notificationPending)
+        UserDefaults.standard.set(title, forKey: Trilly.Settings.notificationTitle)
+        UserDefaults.standard.set(message, forKey: Trilly.Settings.notificationContent)
+    }
+    
     public func checkNotifications() {
-//        if let pending = self.notifications() {
-//            for notification in pending {
-//                switch notification.type! {
-//                default:
-//                    break
-//                }
-//            }
-//            self.clearNotifications()
-//        }
+        if UserDefaults.standard.bool(forKey: Trilly.Settings.notificationPending) {
+            guard let title = UserDefaults.standard.string(forKey: Trilly.Settings.notificationTitle),
+                let content = UserDefaults.standard.string(forKey: Trilly.Settings.notificationContent) else { return }
+            
+            Alert3A.show(withTitle: title, body: content, accpetTitle: "Entendido", confirmation: {
+                self.clearNotifications()
+            })
+        }
     }
     
     public func clearNotifications() {
-//        original_dictionary.removeValue(forKey: "notifications")
-//        Trilly.Database.ref().child("users").child(self.uid!).child("notifications").removeValue()
+        UserDefaults.standard.removeObject(forKey: Trilly.Settings.notificationPending)
+        UserDefaults.standard.removeObject(forKey: Trilly.Settings.notificationTitle)
+        UserDefaults.standard.removeObject(forKey: Trilly.Settings.notificationContent)
     }
 }

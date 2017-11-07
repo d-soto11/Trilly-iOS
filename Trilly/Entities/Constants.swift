@@ -9,6 +9,8 @@
 import Foundation
 import Firebase
 import Modals3A
+import MaterialTB
+import Reachability
 
 struct Trilly {
     static let googleApiKey = "AIzaSyBmR69_Jqzy7Tyw68Qp4SBhdEKV_mhc94E"
@@ -62,5 +64,32 @@ struct Trilly {
                 dataCache.removeAllObjects()
             }
         }
+    }
+    
+    struct Network {
+        private static var reachability: Reachability = Reachability(hostname: "www.google.com")!
+        
+        public static func startNetwork() {
+            reachability.whenReachable = {_ in
+                MaterialTB.currentTabBar!.hideSnack()
+            }
+            
+            reachability.whenUnreachable = {_ in
+                MaterialTB.currentTabBar!.showSnack(message: "Estás en modo sin conexión", permanent: true)
+            }
+            
+            do {
+                try reachability.startNotifier()
+            } catch  {
+                print("No state available")
+            }
+        }
+    }
+    
+    struct Settings {
+        static let lastReadFeedKey = "lastReadFeed"
+        static let notificationPending = "notificationScheduled"
+        static let notificationContent = "notificationScheduledContent"
+        static let notificationTitle = "notificationScheduledTitle"
     }
 }

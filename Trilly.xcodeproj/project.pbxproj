@@ -20,7 +20,9 @@
 		433749941F9CF29E00E50DB3 /* HashtagInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749931F9CF29E00E50DB3 /* HashtagInfo.swift */; };
 		433749961F9D020E00E50DB3 /* Accident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749951F9D020E00E50DB3 /* Accident.swift */; };
 		433749991F9D0EB400E50DB3 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749981F9D0EB400E50DB3 /* Event.swift */; };
+		4338D8461FB098310048A66B /* CustomAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4338D8451FB098310048A66B /* CustomAlert.xib */; };
 		434644221FA191FC00426506 /* TrillyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434644211FA191FC00426506 /* TrillyCollectionCell.swift */; };
+		4359DF0F1FB0F89100D40A20 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4359DF0E1FB0F89100D40A20 /* InboxViewController.swift */; };
 		4374CE491FA0ECF3005EC40E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE481FA0ECF3005EC40E /* LocationViewController.swift */; };
 		4374CE4C1FA1262C005EC40E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */; };
 		4374CE4E1FA1263F005EC40E /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4374CE4D1FA1263F005EC40E /* User.storyboard */; };
@@ -87,7 +89,9 @@
 		433749931F9CF29E00E50DB3 /* HashtagInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagInfo.swift; sourceTree = "<group>"; };
 		433749951F9D020E00E50DB3 /* Accident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accident.swift; sourceTree = "<group>"; };
 		433749981F9D0EB400E50DB3 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		4338D8451FB098310048A66B /* CustomAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlert.xib; sourceTree = "<group>"; };
 		434644211FA191FC00426506 /* TrillyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrillyCollectionCell.swift; sourceTree = "<group>"; };
+		4359DF0E1FB0F89100D40A20 /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		4374CE481FA0ECF3005EC40E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		4374CE4D1FA1263F005EC40E /* User.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = User.storyboard; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 				4374CE4D1FA1263F005EC40E /* User.storyboard */,
 				4374CE4B1FA1262C005EC40E /* ProfileViewController.swift */,
 				43D574F21FA278CC0054489E /* QRViewController.swift */,
+				4359DF0E1FB0F89100D40A20 /* InboxViewController.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 			children = (
 				43A8E0611F86FA6E00418CDF /* TrillyCell.swift */,
 				434644211FA191FC00426506 /* TrillyCollectionCell.swift */,
+				4338D8451FB098310048A66B /* CustomAlert.xib */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -494,6 +500,7 @@
 				4330077D1F796A5B000A454D /* Main.storyboard in Resources */,
 				4323403C1F88151A00E1703C /* Event.storyboard in Resources */,
 				4374CE4E1FA1263F005EC40E /* User.storyboard in Resources */,
+				4338D8461FB098310048A66B /* CustomAlert.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +610,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4359DF0F1FB0F89100D40A20 /* InboxViewController.swift in Sources */,
 				43BCD48D1F9D969700DEB2EC /* UserContribution.swift in Sources */,
 				43ABCC391F7D2E8A00FA49B2 /* SetUpViewController.swift in Sources */,
 				433749921F9CF03800E50DB3 /* Stats.swift in Sources */,

@@ -91,6 +91,11 @@ class HashtagPoints: TrillyObject {
         
         self.uid = self.name!.lowercased().folding(options: .diacriticInsensitive, locale: .current)
         
-        super.save(route: "\(User.collectionName)/\(id)/\(HashtagPoints.collectionName)")
+        HashtagPoints.withID(id: self.uid!, relativeTo: id) { (hp) in
+            if hp != nil {
+                self.points = (self.points ?? 0) + (hp!.points ?? 0)
+            }
+            super.save(route: "\(User.collectionName)/\(id)/\(HashtagPoints.collectionName)")
+        }
     }
 }

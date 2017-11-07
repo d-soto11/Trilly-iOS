@@ -35,9 +35,12 @@ class Trip: TrillyObject {
     
     // Object fields
     var path: String?
+    var shortPath: String?
+    var image: String?
     var filters: String?
     var date: NSDate?
     var start: GeoPoint?
+    var end: GeoPoint?
     var destination: GeoPoint?
     var time: Int?
     var stats: Stats?
@@ -51,6 +54,12 @@ class Trip: TrillyObject {
         
         if let path = dict["path"] as? String {
             self.path = path
+        }
+        if let shortPath = dict["shortPath"] as? String {
+            self.shortPath = shortPath
+        }
+        if let image = dict["image"] as? String {
+            self.image = image
         }
         if let filters = dict["filters"] as? String {
             self.filters = filters
@@ -117,6 +126,9 @@ class Trip: TrillyObject {
         if self.path != nil {
             originalDictionary["path"] = self.path
         }
+        if self.shortPath != nil {
+            originalDictionary["shortPath"] = self.shortPath
+        }
         if self.filters != nil {
             originalDictionary["filters"] = self.filters
         }
@@ -125,6 +137,9 @@ class Trip: TrillyObject {
         }
         if self.start != nil {
             originalDictionary["start"] = self.start
+        }
+        if self.end != nil {
+            originalDictionary["end"] = self.end
         }
         if self.destination != nil {
             originalDictionary["destination"] = self.destination

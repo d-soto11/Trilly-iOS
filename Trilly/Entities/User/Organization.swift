@@ -31,6 +31,24 @@ class Organization: TrillyObject {
             }
         }
     }
+    // From QR
+    class func withQR(qr: String, callback: @escaping (_ s: DocumentReference?)->Void) {
+        Trilly.Database.ref().collection(collectionName).whereField("qr", isEqualTo: qr).getDocuments { (documents, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                callback(nil)
+            } else if documents != nil && documents!.documents.count > 0 {
+                let document = documents!.documents[0]
+                if document.exists {
+                    callback(document.reference)
+                } else {
+                    callback(nil)
+                }
+            } else {
+                callback(nil)
+            }
+        }
+    }
     
     // Object fields
     var name: String?

@@ -77,8 +77,8 @@ class UserContribution: TrillyObject {
     }
     
     // Saving functions
-    public func saveOnHashtag(_ id: String) {
-        guard self.name != nil else { return }
+    public func saveOnHashtag(_ hashtag: String) {
+        guard self.uid != nil else { return }
         if self.name != nil {
             originalDictionary["name"] = self.name
         }
@@ -89,6 +89,13 @@ class UserContribution: TrillyObject {
             originalDictionary["km"] = self.km
         }
         
-        super.save(route: "\(Hashtag.collectionName)/\(id.lowercased().folding(options: .diacriticInsensitive, locale: .current))/\(UserContribution.collectionName)")
+        UserContribution.withID(id: self.uid!, relativeTo: hashtag) { (uc) in
+            if uc != nil {
+                self.points = (self.points ?? 0) + (uc!.points ?? 0)
+            }
+            super.save(route: "\(Hashtag.collectionName)/\(hashtag.lowercased().folding(options: .diacriticInsensitive, locale: .current))/\(UserContribution.collectionName)")
+        }
+        
+        
     }
 }
