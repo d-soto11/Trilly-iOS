@@ -67,15 +67,18 @@ struct Trilly {
     }
     
     struct Network {
+        public static var offline: Bool = false
         private static var reachability: Reachability = Reachability(hostname: "www.google.com")!
         
         public static func startNetwork() {
             reachability.whenReachable = {_ in
                 MaterialTB.currentTabBar!.hideSnack()
+                offline = false
             }
             
             reachability.whenUnreachable = {_ in
                 MaterialTB.currentTabBar!.showSnack(message: "Estás en modo sin conexión", permanent: true)
+                offline = true
             }
             
             do {
@@ -91,5 +94,12 @@ struct Trilly {
         static let notificationPending = "notificationScheduled"
         static let notificationContent = "notificationScheduledContent"
         static let notificationTitle = "notificationScheduledTitle"
+        static let notificationType = "notificationScheduledType"
+        
+        struct NotificationTypes {
+            static let normal = 0
+            static let tripPaused = 1
+            static let tripEnded = 2
+        }
     }
 }

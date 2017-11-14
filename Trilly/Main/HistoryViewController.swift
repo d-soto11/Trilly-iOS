@@ -25,13 +25,17 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        User.current!.history { (trips) in
+        User.current!.history({ (trips) in
             if trips != nil && trips!.count > 0 {
+                print(trips!.count)
                 self.userTrips = trips!
                 self.historyTable.reloadData()
             } else {
                 // Show no trip message
             }
+            MBProgressHUD.hide(for: self.view, animated: true)
+        })
+        if Trilly.Network.offline {
             MBProgressHUD.hide(for: self.view, animated: true)
         }
         // Do any additional setup after loading the view.
@@ -41,6 +45,11 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
         self.searchBackground.addNormalShadow()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if userTrips.count > 0 {
+            self.historyTable.scrollToRow(at: IndexPath.init(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,7 +79,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
             } else {
                 (cell.viewWithTag(2) as? UIImageView)?.image = nil
             }
-            (cell.viewWithTag(11) as? UILabel)?.text = String(format: "%.0f km", trip.stats?.km ?? 0)
+            (cell.viewWithTag(11) as? UILabel)?.text = String(format: "%.2f km", trip.stats?.km ?? 0)
             (cell.viewWithTag(12) as? UILabel)?.text = (trip.date! as Date).toString(format: .Short)
         }
         
@@ -82,6 +91,25 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
         TripBriefViewController.showTrip(trip: trip, onViewController: self)
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == userTrips.count - 1 {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            User.current!.history({ (trips) in
+                if trips != nil && trips!.count > 0 {
+                    self.historyTable.beginUpdates()
+                    var indexPaths = [IndexPath]()
+                    for row in (self.userTrips.count..<(self.userTrips.count + trips!.count)) {
+                        indexPaths.append(IndexPath(row: row, section: 0))
+                    }
+                    self.userTrips.append(contentsOf: trips!)
+                    self.historyTable.insertRows(at: indexPaths, with: .bottom)
+                    self.historyTable.endUpdates()
+                    
+                }
+                MBProgressHUD.hide(for: self.view, animated: true)
+            }, true)
+        }
+    }
     // Search
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -120,7 +148,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         if scrollView.contentOffset.y <= -75 {
             MBProgressHUD.showAdded(to: self.view, animated: true)
-            User.current!.history { (trips) in
+            User.current!.history({ (trips) in
                 if trips != nil && trips!.count > 0 {
                     self.userTrips = trips!
                     self.historyTable.reloadData()
@@ -128,13 +156,13 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
                     // Show no trip message
                 }
                 MBProgressHUD.hide(for: self.view, animated: true)
-            }
+            })
         }
     }
     
     override func refreshViewController() -> MaterialViewController {
         MBProgressHUD.showAdded(to: self.view, animated: true)
-        User.current!.history { (trips) in
+        User.current!.history ({ (trips) in
             if trips != nil && trips!.count > 0 {
                 self.userTrips = trips!
                 self.historyTable.reloadData()
@@ -142,7 +170,7 @@ class HistoryViewController: MaterialViewController, UITextFieldDelegate, UITabl
                 // Show no trip message
             }
             MBProgressHUD.hide(for: self.view, animated: true)
-        }
+        })
         return self
     }
 

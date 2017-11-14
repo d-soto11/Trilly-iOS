@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import MaterialTB
 import MBProgressHUD
+import Modals3A
 
 class LocationViewController: UIViewController {
     
@@ -47,10 +48,32 @@ class LocationViewController: UIViewController {
         mapView.isMyLocationEnabled = true
         
         let marker = GMSMarker(position: self.location)
-        marker.snippet = locationHint
-        marker.map = self.mapView
+        marker.icon = GMSMarker.markerImage(with: Trilly.UI.mainColor)
         
-        MBProgressHUD.hide(for: self.overlay, animated: true)
+        if Trilly.Network.offline {
+            Alert3A.show(withTitle: "Sin conexión", body: "No tienes conexión disponible para mostrarte la ubicación y que Trilly te lleve. Intenta regresar más tarde.", accpetTitle: "Entendido", confirmation: {
+                self.back(self)
+            })
+        } else {
+            GMSGeocoder().reverseGeocodeCoordinate(self.location!, completionHandler: { (response, error) in
+                if error != nil {
+                    print("Error getting hashtag from MAPS")
+                } else {
+                    if let address = response?.firstResult() {
+                        DispatchQueue.main.async {
+                            MBProgressHUD.hide(for: self.overlay, animated: true)
+                            marker.snippet = (address.lines ?? ["Dirección recibida"])[0]
+                            marker.title = self.locationHint
+                            marker.map = self.mapView
+                            self.mapView.selectedMarker = marker
+                        }
+                    } else {
+                        print("Error getting hashtag from MAPS")
+                    }
+                    
+                }
+            })
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,7 +93,7 @@ class LocationViewController: UIViewController {
     
     @IBAction func startTrip(_ sender: Any) {
         
-        TripViewController.startTrip(location: self.location, onViewController: self)
+        TripViewController.startTrip(location: self.location, locationText: self.locationHint, onViewController: self)
     }
     
     @IBAction func back(_ sender: Any) {

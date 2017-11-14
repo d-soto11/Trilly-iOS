@@ -42,6 +42,16 @@ extension UIView {
         self.layer.shadowPath = shadowPath.cgPath
     }
     
+    func addDarkShadow() {
+        self.layoutIfNeeded()
+        let shadowPath = UIBezierPath(rect: CGRect(x: self.bounds.origin.x-3, y: self.bounds.origin.y-3, width: self.bounds.size.width+6, height: self.bounds.size.height+6))
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        self.layer.shadowOpacity = 0.15
+        self.layer.shadowPath = shadowPath.cgPath
+    }
+    
     func addInvertedShadow() {
         self.layoutIfNeeded()
         let shadowPath = UIBezierPath(rect: self.bounds)
@@ -227,6 +237,7 @@ extension UIViewController {
 
 extension UIImageView {
     func downloadedFrom(url: URL, contentMode mode: UIViewContentMode? = nil) {
+        guard !Trilly.Network.offline else { return }
         let mb = MBProgressHUD.showAdded(to: self, animated: true)
         if mode != nil {
             contentMode = mode!

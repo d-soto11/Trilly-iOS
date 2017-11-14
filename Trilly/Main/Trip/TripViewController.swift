@@ -32,7 +32,8 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     private var mapView: GMSMapView!
     private var paused = false
     
-    public class func startTrip(location: CLLocationCoordinate2D? = nil, onViewController: UIViewController? = nil) {
+    public class func startTrip(location: CLLocationCoordinate2D? = nil, locationText: String? = nil, onViewController: UIViewController? = nil) {
+        guard !Trilly.Network.offline else { return }
         let st = UIStoryboard(name: "Trip", bundle: nil)
         let vc = st.instantiateViewController(withIdentifier: "Trip") as! TripViewController
         
@@ -43,7 +44,8 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         }
         
         if location != nil {
-            TripManager.current?.setDestination(location!, "Ubicación recibida")
+            TripManager.start(nil)
+            TripManager.current!.setDestination(location!, locationText!)
         }
     }
     
@@ -126,7 +128,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
                 self.performSegue(withIdentifier: "tripBrief", sender: nil)
             })
         } else {
-            Alert3A.show(withTitle: "Lo sentimos", body: "El viaje que haz realizado es demasiado corto, debes recorrer por lo menos un kilómetro para ayudar a tu ciudad.", accpetTitle: "Entendido", confirmation: {
+            Alert3A.show(withTitle: "Lo sentimos", body: "El viaje que haz realizado es demasiado corto, trilly solo guarda tus viajes de más de 700M.", accpetTitle: "Entendido", confirmation: {
                 MBProgressHUD.hide(for: self.overlay, animated: true)
                 self.dismiss(animated: true, completion: nil)
             })
@@ -151,7 +153,7 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
         trackingPolyline.path = path
         trackingPolyline.map = mapView
         self.mapView.animate(toLocation: TripManager.current!.location!)
-        self.kmLabel.text = String(format: "%.0f Km", path.length(of: GMSLengthKind.rhumb)/1000)
+        self.kmLabel.text = String(format: "%.1f Km", path.length(of: GMSLengthKind.rhumb)/1000)
         
         if hud != nil {
             UIView.animate(withDuration: 0.3, animations: {
@@ -189,7 +191,9 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     }
     
     func tripStoped(message: String, path: GMSPath) {
-        self.showAlert(title: "Viaje terminado", message: message, closeButtonTitle: "Aceptar")
+        Alert3A.show(withTitle: "Viaje terminado", body: message, accpetTitle: "Aceptar", confirmation: {
+            self.dismiss(animated: true, completion: nil)
+        })
     }
     
     func timeTick(_ time: Int) {
@@ -212,6 +216,9 @@ class TripViewController: UIViewController, TripListener, UITextFieldDelegate, G
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
+        if let bounds = TripManager.current?.boundsFromLocation() {
+            autocompleteController.autocompleteBounds = bounds
+        }
         present(autocompleteController, animated: true, completion: nil)
         return false
     }

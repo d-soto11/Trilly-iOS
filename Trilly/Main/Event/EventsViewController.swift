@@ -30,6 +30,10 @@ class EventsViewController: MaterialViewController, UITableViewDataSource, UITab
                 self.eventsTable.reloadData()
             }
         }
+        if Trilly.Network.offline {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            self.showAlert(title: "Sin conexión", message: "Algunos eventos no se muestran porque estás sin conexión.", closeButtonTitle: "Entendido")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +48,7 @@ class EventsViewController: MaterialViewController, UITableViewDataSource, UITab
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let event = events[indexPath.row]
         let loadCellInfo: (UITableViewCell)->Void = {cell in
-            (cell.viewWithTag(2) as? UIImageView)?.downloadedFrom(link: event.icon ?? "")
+            (cell.viewWithTag(2) as? UIImageView)?.image = UIImage(named: event.icon ?? "Bicycle")
             (cell.viewWithTag(11) as? UILabel)?.text = event.name ?? "Sin titulo"
             (cell.viewWithTag(12) as? UILabel)?.text = event.descriptionT ?? "Sin descripción"
             if event.date != nil {

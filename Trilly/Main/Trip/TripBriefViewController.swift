@@ -26,11 +26,11 @@ class TripBriefViewController: UIViewController, UITableViewDataSource, UITableV
     
     public var trip: Trip!
     
-    public class func showTrip(trip: Trip, onViewController: UIViewController) {
+    public class func showTrip(trip: Trip? = nil, onViewController: UIViewController) {
         let st = UIStoryboard(name: "Trip", bundle: nil)
         let vc = st.instantiateViewController(withIdentifier: "Brief") as! TripBriefViewController
         vc.trip = trip
-        vc.loadFromCache = false
+        vc.loadFromCache = (trip == nil)
         
         onViewController.showDetailViewController(vc, sender: nil)
     }
@@ -47,6 +47,9 @@ class TripBriefViewController: UIViewController, UITableViewDataSource, UITableV
             doneB.alpha = 0
             backB.alpha = 1
             self.loadTripData()
+        }
+        if Trilly.Network.offline {
+            MBProgressHUD.hide(for: self.view, animated: true)
         }
     }
     

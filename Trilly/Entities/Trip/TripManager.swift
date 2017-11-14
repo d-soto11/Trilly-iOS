@@ -12,6 +12,7 @@ import CoreLocation
 import CoreMotion
 import RestEssentials
 import Firebase
+import MapKit
 
 class TripManager: NSObject, CLLocationManagerDelegate {
     
@@ -46,14 +47,15 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     // Verification
     private var slowMovementTimer: Timer?
     private var fastMovementTimer: Timer?
-    private var slowMovementInterval = 30.0
-    private var fastMovementInterval = 30.0
+    private var slowMovementInterval = 10.0
+    private var fastMovementInterval = 2.0
     // Listener
     private weak var tripListener: TripListener?
     // Singleton
     private(set) public static var current: TripManager?
-    private static let footSpeed = 8.0
-    private static let bycicleSpeed = 40.0
+    private static let footSpeed = 2.5
+    private static let bycicleSpeed = 12.0
+    private static let carSpeed = 20.0
     private static let maximumAcceleration = 5.0
     // Encoded
     private static var encodedGMSPath: String?
@@ -167,7 +169,7 @@ class TripManager: NSObject, CLLocationManagerDelegate {
         
         let globalKM = self.trackingPath.length(of: GMSLengthKind.rhumb)/1000
         
-        if globalKM < 1 {
+        if globalKM < 0.7 {
             TripManager.current = nil
             TripManager.encodedGMSPath = nil
             TripManager.time = nil
@@ -377,6 +379,16 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     }
     
     // Destination handlers
+    public func boundsFromLocation() -> GMSCoordinateBounds? {
+        guard self.location != nil else { return nil }
+        
+        let region = MKCoordinateRegionMakeWithDistance(self.location!, 30000, 30000)
+        let northEast = CLLocationCoordinate2D(latitude: self.location!.latitude + region.span.latitudeDelta, longitude: self.location!.longitude + region.span.longitudeDelta)
+        let southWeast = CLLocationCoordinate2D(latitude: self.location!.latitude - region.span.latitudeDelta, longitude: self.location!.longitude - region.span.longitudeDelta)
+        
+        return GMSCoordinateBounds(coordinate: northEast, coordinate: southWeast)
+    }
+    
     public func setDestination(_ destination: CLLocationCoordinate2D, _ name: String) {
         self.destination = destination
         self.destinationName = name
@@ -413,15 +425,29 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     }
     
     private func updateTripMotion() {
+        // print("Motion: \(speed)")
         if speed < TripManager.footSpeed {
             if slowMovementTimer == nil {
                 slowMovementTimer = Timer.scheduledTimer(timeInterval: slowMovementInterval, target: self, selector: #selector(verifySlowMovement), userInfo: nil, repeats: false)
             }
         } else if speed < TripManager.bycicleSpeed {
             self.stopVerifiers()
-        } else {
+        } else if speed < TripManager.carSpeed {
             if fastMovementTimer == nil {
                 fastMovementTimer = Timer.scheduledTimer(timeInterval: fastMovementInterval, target: self, selector: #selector(verifyFastMovement), userInfo: nil, repeats: false)
+            }
+        } else {
+            if onForeground {
+                self.tripListener?.tripStoped(message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.", path: self.trackingPath)
+                
+                let _ = self.stop()
+            } else {
+                // Guardar notificación para el background
+                if self.stop() {
+                    User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.", type: Trilly.Settings.NotificationTypes.tripEnded)
+                } else {
+                    User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta.")
+                }
             }
         }
     }
@@ -430,24 +456,24 @@ class TripManager: NSObject, CLLocationManagerDelegate {
     
     @objc public func verifySlowMovement() {
         print("Verifing slow")
-        let intents = slowMovementInterval / 30
+        let intents = slowMovementInterval / 10
         if intents >= 10 {
             if onForeground {
-                self.tripListener?.tripStoped(message: "Hemos detectado que has parado tu rodada. Puedes terminar tu viaje o continuarlo si ya estás listo para seguir pedaleando.", path: self.trackingPath)
+                self.tripListener?.tripPaused(message: "Hemos detectado que has parado tu rodada. Puedes terminar tu viaje o continuarlo si ya estás listo para seguir pedaleando.", path: self.trackingPath)
             } else {
                 // Guardar notificación para el background
-                User.current!.scheduleNotification(title: "Viaje pausado", message: "Hemos detectado que has parado tu rodada. Puedes terminar tu viaje o continuarlo si ya estás listo para seguir pedaleando.")
+                User.current!.scheduleNotification(title: "Viaje pausado", message: "Hemos detectado que has parado tu rodada. Puedes terminar tu viaje o continuarlo si ya estás listo para seguir pedaleando.", type: Trilly.Settings.NotificationTypes.tripPaused)
             }
             self.pause()
         } else {
-            slowMovementInterval = slowMovementInterval + 30
+            slowMovementInterval = slowMovementInterval + 10
             slowMovementTimer = Timer.scheduledTimer(timeInterval: slowMovementInterval, target: self, selector: #selector(verifySlowMovement), userInfo: nil, repeats: false)
         }
     }
     
     @objc public func verifyFastMovement() {
         print("Verifing fast")
-        let intents = fastMovementInterval / 30
+        let intents = fastMovementInterval / 2
         if intents >= 10 {
             if onForeground {
                 self.tripListener?.tripStoped(message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.", path: self.trackingPath)
@@ -456,14 +482,14 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             } else {
                 // Guardar notificación para el background
                 if self.stop() {
-                    User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.")
+                    User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta. Debemos parar tu viaje porque Trilly está diseñado para bicicletas, pero hemos guardado los pedalazos que diste antes.", type: Trilly.Settings.NotificationTypes.tripEnded)
                 } else {
                     User.current!.scheduleNotification(title: "Lo sentimos", message: "Hemos detectado que vas muy rápido, posiblemente en un medio de transporte diferente a la bicicleta.")
                 }
             }
             
         } else {
-            fastMovementInterval  = fastMovementInterval + 30
+            fastMovementInterval  = fastMovementInterval + 2
             fastMovementTimer = Timer.scheduledTimer(timeInterval: fastMovementInterval, target: self, selector: #selector(verifyFastMovement), userInfo: nil, repeats: false)
         }
     }
@@ -478,8 +504,8 @@ class TripManager: NSObject, CLLocationManagerDelegate {
             fastMovementTimer?.invalidate()
             fastMovementTimer = nil
         }
-        slowMovementInterval = 30
-        fastMovementInterval = 30
+        slowMovementInterval = 10
+        fastMovementInterval = 2
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -493,16 +519,17 @@ class TripManager: NSObject, CLLocationManagerDelegate {
                 self.trackingPath.removeAllCoordinates()
                 self.trackingPath.add(locations.last!.coordinate)
             }
-            
+            var localSpeed = 0.0
             if self.lastLocation != nil {
-                self.currentKM = currentKM + (locations.last!.distance(from: lastLocation!)/1000)
+                localSpeed = locations.last!.distance(from: lastLocation!)
+                self.currentKM = currentKM + (localSpeed/1000)
             }
             
             self.trackingPath.add(locations.last!.coordinate)
             self.location = locations.last!.coordinate
             self.lastLocation = locations.last!
             
-            self.speed = locations.last!.speed < 0 ? 0 : locations.last!.speed
+            self.speed = max(locations.last!.speed < 0 ? 0 : locations.last!.speed, localSpeed)
             if self.onForeground && self.tripListener != nil {
                 DispatchQueue.main.async {
                     self.tripListener?.tripUpdated(path: self.trackingPath)

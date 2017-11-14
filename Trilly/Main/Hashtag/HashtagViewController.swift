@@ -79,6 +79,10 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
                 }
             }
         })
+        
+        if Trilly.Network.offline {
+            self.showAlert(title: "Sin conexión", message: "Algunos datos pueden estar desactualizados o no mostrarse porque estás sin conexión.", closeButtonTitle: "Entendido.")
+        }
         // Load user ranking
     }
     
@@ -144,9 +148,22 @@ class HashtagViewController: UIViewController, UITableViewDataSource, UITableVie
         switch currentTab {
         case 0:
             let cellUI = tableView.dequeueReusableCell(withIdentifier: "GoalCell", for: indexPath) as! TrillyCell
+            let goal = (self.hashtag.goals() ?? [])[indexPath.row]
             cellUI.uiUpdates = {(cell) in
                 cell.viewWithTag(1)?.addNormalShadow()
-                (cell.viewWithTag(21) as? UILabel)?.text = "\((self.hashtag.goals() ?? [])[indexPath.row].name!)"
+                (cell.viewWithTag(21) as? UILabel)?.text = "\(goal.name!)"
+                let dif = (goal.points ?? 0) - (self.hashtag.points ?? 0)
+                if dif < 0 {
+                    // Reto logrado Gold
+                    (cell.viewWithTag(20) as? UIImageView)?.image = UIImage(named: "GoalGreen")
+                    (cell.viewWithTag(31) as? UILabel)?.text = "¡Premio redimido!"
+                    (cell.viewWithTag(30) as? UIImageView)?.image = UIImage(named: "TrophyGold")
+                } else {
+                    // Reto por logar Gray
+                    (cell.viewWithTag(20) as? UIImageView)?.image = UIImage(named: "GoalGray")
+                    (cell.viewWithTag(31) as? UILabel)?.text = String(format: "%.0f pts. para redimir el premio", dif)
+                    (cell.viewWithTag(30) as? UIImageView)?.image = UIImage(named: "TrophyGray")
+                }
             }
             return cellUI
         case 1:

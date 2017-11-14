@@ -20,6 +20,7 @@ class HomeViewController: MaterialViewController {
     @IBOutlet weak var tripB: UIButton!
     @IBOutlet weak var inboxB: UIButton!
     @IBOutlet weak var nextTree: UILabel!
+    @IBOutlet weak var treeImage: TreeView!
     
     private var badge: UILabel?
     
@@ -76,6 +77,8 @@ class HomeViewController: MaterialViewController {
     override func viewDidAppear(_ animated: Bool) {
         if TripManager.current != nil {
             self.tripB.setTitle("Trilly está encendido", for: .normal)
+        } else {
+            self.tripB.setTitle("empezar viaje", for: .normal)
         }
     }
     
@@ -103,21 +106,16 @@ class HomeViewController: MaterialViewController {
         
         Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(animatePercentage), userInfo: nil, repeats: false)
         
-//        let goal = Goal([:])
-//        goal.achieved = false
-//        goal.descriptionT = "Trilly junto con la alcaldía pintara esta calle para hacer un carril con prioridad para bicicletas. ¿Quiers hacer tu via más segura?"
-//        goal.name = "Pintar la calle"
-//        goal.points = 5000
-//        goal.saveOnHashtag("bogota")
-//        goal.saveOnHashtag("cupertino")
-//
     }
     
     @objc public func animatePercentage() {
         if animationPercentaje < (User.current!.nextTree ?? 0) {
-            animationPercentaje += 0.01
+            animationPercentaje += 0.02
             self.nextTree.text = String(format: "%.0f%%", animationPercentaje*100)
-            Timer.scheduledTimer(timeInterval: 0.05, target: self, selector: #selector(animatePercentage), userInfo: nil, repeats: false)
+            
+            self.treeImage.animate(toFilled: CGFloat(self.animationPercentaje))
+          
+            Timer.scheduledTimer(timeInterval: 0.005, target: self, selector: #selector(animatePercentage), userInfo: nil, repeats: false)
         }
     }
     

@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import Modals3A
+import MaterialTB
 
 class User: TrillyObject {
     
@@ -64,6 +65,8 @@ class User: TrillyObject {
     var points: Double?
     // Cache fields
     private var loadedHashtags: [HashtagPoints]?
+    private var lastHistory: DocumentSnapshot?
+    private var lastInbox: DocumentSnapshot?
     // Constructor
     public override init(_ dict: [String: Any]){
         super.init(dict)
@@ -173,22 +176,31 @@ class User: TrillyObject {
         Organization.withID(id: self.organization!.documentID, callback: callback)
     }
     
-    public func history(_ callback: @escaping ([Trip]?)->Void) {
+    public func history(_ callback: @escaping ([Trip]?)->Void, _ more: Bool = false) {
         guard self.uid != nil else { return }
-        Trilly.Database.ref().collection(User.collectionName)
+        var query = Trilly.Database.ref().collection(User.collectionName)
             .document(self.uid!).collection(Trip.collectionName)
             .order(by: "date", descending: true)
-            .getDocuments { (documents, error) in
+        if lastHistory != nil && more {
+            query = query.start(afterDocument: lastHistory!)
+        }   
+        
+        query.limit(to: 10).getDocuments { (documents, error) in
                 if error != nil {
                     print(error!.localizedDescription)
                 } else if documents != nil {
-                    var response: [Trip] = []
-                    for document in documents!.documents {
-                        if document.exists {
-                            response.append(Trip(document.data()))
+                    if more && self.lastHistory != nil && self.lastHistory?.documentID == documents!.documents.last?.documentID {
+                        callback(nil)
+                    } else {
+                        self.lastHistory = documents!.documents.last ?? self.lastHistory
+                        var response: [Trip] = []
+                        for document in documents!.documents {
+                            if document.exists {
+                                response.append(Trip(document.data()))
+                            }
                         }
+                        callback(response)
                     }
-                    callback(response)
                 } else {
                     callback(nil)
                 }
@@ -197,16 +209,19 @@ class User: TrillyObject {
     
     public func inbox(_ callback: @escaping ([Inbox]?, Int)->Void) {
         guard self.uid != nil else { return }
+        let lastDate = UserDefaults.standard.object(forKey: Trilly.Settings.lastReadFeedKey) as? Date
+        
         Trilly.Database.ref().collection(User.collectionName)
             .document(self.uid!).collection(Inbox.collectionName)
             .order(by: "date", descending: true)
+            .end(before: [(lastDate ?? Date()) as NSDate])
             .addSnapshotListener { (documents, error) in
                 if error != nil {
                     print(error!.localizedDescription)
                 } else if documents != nil {
                     var response: [Inbox] = []
                     var unread: Int = 0
-                    let lastDate = UserDefaults.standard.object(forKey: Trilly.Settings.lastReadFeedKey) as? Date
+                    self.lastInbox = documents!.documents.last
                     for document in documents!.documents {
                         if document.exists {
                             let inb = Inbox(document.data())
@@ -220,6 +235,37 @@ class User: TrillyObject {
                 } else {
                     callback(nil, 0)
                 }
+        }
+    }
+    
+    public func inboxHistory(_ callback: @escaping ([Inbox]?)->Void) {
+        guard self.uid != nil else { return }
+        var query = Trilly.Database.ref().collection(User.collectionName)
+            .document(self.uid!).collection(Inbox.collectionName)
+            .order(by: "date", descending: true)
+        if lastInbox != nil {
+            query = query.start(afterDocument: lastInbox!)
+        }
+        
+        query.limit(to: 10).getDocuments { (documents, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else if documents != nil {
+                if self.lastInbox != nil && self.lastInbox?.documentID == documents!.documents.last?.documentID {
+                    callback(nil)
+                } else {
+                    self.lastInbox = documents!.documents.last ?? self.lastInbox
+                    var response: [Inbox] = []
+                    for document in documents!.documents {
+                        if document.exists {
+                            response.append(Inbox(document.data()))
+                        }
+                    }
+                    callback(response)
+                }
+            } else {
+                callback(nil)
+            }
         }
     }
     
@@ -320,10 +366,11 @@ class User: TrillyObject {
         }
     }
     
-    public func scheduleNotification(title: String, message: String) {
+    public func scheduleNotification(title: String, message: String, type: Int = Trilly.Settings.NotificationTypes.normal) {
         UserDefaults.standard.set(true, forKey: Trilly.Settings.notificationPending)
         UserDefaults.standard.set(title, forKey: Trilly.Settings.notificationTitle)
         UserDefaults.standard.set(message, forKey: Trilly.Settings.notificationContent)
+        UserDefaults.standard.set(type, forKey: Trilly.Settings.notificationType)
     }
     
     public func checkNotifications() {
@@ -331,9 +378,67 @@ class User: TrillyObject {
             guard let title = UserDefaults.standard.string(forKey: Trilly.Settings.notificationTitle),
                 let content = UserDefaults.standard.string(forKey: Trilly.Settings.notificationContent) else { return }
             
-            Alert3A.show(withTitle: title, body: content, accpetTitle: "Entendido", confirmation: {
-                self.clearNotifications()
-            })
+            let type = UserDefaults.standard.integer(forKey: Trilly.Settings.notificationType)
+            
+            switch type {
+            case Trilly.Settings.NotificationTypes.normal:
+                Alert3A.show(withTitle: title, body: content, accpetTitle: "Entendido", confirmation: {
+                    self.clearNotifications()
+                })
+            case Trilly.Settings.NotificationTypes.tripEnded:
+                Alert3A.show(withTitle: title, body: content, accpetTitle: "Entendido", confirmation: {
+                    self.clearNotifications()
+                    
+                    if let _ = Trilly.Database.Local.get(Trip.new) as? Trip {
+                        guard var parent = UIApplication.shared.delegate?.window??.rootViewController else { return }
+                        
+                        while ((parent.presentedViewController) != nil) {
+                            parent = parent.presentedViewController!
+                        }
+                        
+                        TripBriefViewController.showTrip(onViewController: parent)
+                    } else {
+                        MaterialTB.currentTabBar?.reloadViewController()
+                    }
+                })
+            case Trilly.Settings.NotificationTypes.tripPaused:
+                Alert3A.show(withTitle: title, body: content, accpetTitle: "Continuar viaje", cancelTitle: "Terminar", confirmation: {
+                    guard var parent = UIApplication.shared.delegate?.window??.rootViewController else { return }
+                    
+                    while ((parent.presentedViewController) != nil) {
+                        parent = parent.presentedViewController!
+                    }
+                    
+                    if parent.isKind(of: TripViewController.self) {
+                        TripManager.resume(parent as! TripViewController)
+                    } else {
+                        TripManager.resume(nil)
+                    }
+                    
+                    self.clearNotifications()
+                    
+                }, cancelation: {
+                    // Save paused path to firebase and clean encoded path
+                    self.clearNotifications()
+                    TripManager.clear()
+                    
+                    if let _ = Trilly.Database.Local.get(Trip.new) as? Trip {
+                        guard var parent = UIApplication.shared.delegate?.window??.rootViewController else { return }
+                        
+                        while ((parent.presentedViewController) != nil) {
+                            parent = parent.presentedViewController!
+                        }
+                        
+                        TripBriefViewController.showTrip(onViewController: parent)
+                    } else {
+                        MaterialTB.currentTabBar?.reloadViewController()
+                    }
+                    
+                    
+                })
+            default:
+                break
+            }
         }
     }
     

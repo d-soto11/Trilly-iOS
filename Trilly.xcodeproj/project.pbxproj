@@ -21,6 +21,7 @@
 		433749961F9D020E00E50DB3 /* Accident.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749951F9D020E00E50DB3 /* Accident.swift */; };
 		433749991F9D0EB400E50DB3 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 433749981F9D0EB400E50DB3 /* Event.swift */; };
 		4338D8461FB098310048A66B /* CustomAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4338D8451FB098310048A66B /* CustomAlert.xib */; };
+		434093571FBA87950038BD1D /* TreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434093561FBA87950038BD1D /* TreeView.swift */; };
 		434644221FA191FC00426506 /* TrillyCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 434644211FA191FC00426506 /* TrillyCollectionCell.swift */; };
 		4359DF0F1FB0F89100D40A20 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4359DF0E1FB0F89100D40A20 /* InboxViewController.swift */; };
 		4374CE491FA0ECF3005EC40E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4374CE481FA0ECF3005EC40E /* LocationViewController.swift */; };
@@ -64,9 +65,6 @@
 		43E1CC771F796B73002B0CF6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43E1CC761F796B73002B0CF6 /* GoogleService-Info.plist */; };
 		43E1CC7F1F7991B7002B0CF6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E1CC7E1F7991B7002B0CF6 /* Constants.swift */; };
 		43F60E0B1F83B5CB00250475 /* TripManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43F60E0A1F83B5CB00250475 /* TripManager.swift */; };
-		43F60E141F846CF100250475 /* tab3.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E101F8469C000250475 /* tab3.png */; };
-		43F60E151F846CF100250475 /* tab2.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E111F8469C000250475 /* tab2.png */; };
-		43F60E161F846CF100250475 /* tab5.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E121F8469C000250475 /* tab5.png */; };
 		43F60E171F846CF100250475 /* tab4.png in Resources */ = {isa = PBXBuildFile; fileRef = 43F60E131F8469C000250475 /* tab4.png */; };
 		43FEC5C41F9D7DFF000055C0 /* HashtagPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FEC5C31F9D7DFF000055C0 /* HashtagPoints.swift */; };
 		43FEC5C71F9D7EFB000055C0 /* Tree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43FEC5C61F9D7EFB000055C0 /* Tree.swift */; };
@@ -90,6 +88,7 @@
 		433749951F9D020E00E50DB3 /* Accident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accident.swift; sourceTree = "<group>"; };
 		433749981F9D0EB400E50DB3 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		4338D8451FB098310048A66B /* CustomAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomAlert.xib; sourceTree = "<group>"; };
+		434093561FBA87950038BD1D /* TreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeView.swift; sourceTree = "<group>"; };
 		434644211FA191FC00426506 /* TrillyCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrillyCollectionCell.swift; sourceTree = "<group>"; };
 		4359DF0E1FB0F89100D40A20 /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		4374CE481FA0ECF3005EC40E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
@@ -121,9 +120,6 @@
 		43E1CC7B1F799137002B0CF6 /* Trilly-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trilly-Bridging-Header.h"; sourceTree = "<group>"; };
 		43E1CC7E1F7991B7002B0CF6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		43F60E0A1F83B5CB00250475 /* TripManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripManager.swift; sourceTree = "<group>"; };
-		43F60E101F8469C000250475 /* tab3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab3.png; sourceTree = "<group>"; };
-		43F60E111F8469C000250475 /* tab2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab2.png; sourceTree = "<group>"; };
-		43F60E121F8469C000250475 /* tab5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab5.png; sourceTree = "<group>"; };
 		43F60E131F8469C000250475 /* tab4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tab4.png; sourceTree = "<group>"; };
 		43F60E181F857A5000250475 /* Oxygen-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oxygen-Light.ttf"; sourceTree = "<group>"; };
 		43F60E191F857A5100250475 /* Oxygen-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Oxygen-Bold.ttf"; sourceTree = "<group>"; };
@@ -261,6 +257,7 @@
 				43A8E0611F86FA6E00418CDF /* TrillyCell.swift */,
 				434644211FA191FC00426506 /* TrillyCollectionCell.swift */,
 				4338D8451FB098310048A66B /* CustomAlert.xib */,
+				434093561FBA87950038BD1D /* TreeView.swift */,
 			);
 			path = Other;
 			sourceTree = "<group>";
@@ -378,9 +375,6 @@
 		43F60E0F1F8469C000250475 /* icons */ = {
 			isa = PBXGroup;
 			children = (
-				43F60E101F8469C000250475 /* tab3.png */,
-				43F60E111F8469C000250475 /* tab2.png */,
-				43F60E121F8469C000250475 /* tab5.png */,
 				43F60E131F8469C000250475 /* tab4.png */,
 			);
 			path = icons;
@@ -486,10 +480,7 @@
 				43A8E06D1F86FD6700418CDF /* JosefinSans-SemiBoldItalic.ttf in Resources */,
 				43A8E06E1F86FD6700418CDF /* JosefinSans-Thin.ttf in Resources */,
 				43A8E06F1F86FD6700418CDF /* JosefinSans-ThinItalic.ttf in Resources */,
-				43F60E141F846CF100250475 /* tab3.png in Resources */,
 				43A8E05D1F86E23000418CDF /* Hashtag.storyboard in Resources */,
-				43F60E151F846CF100250475 /* tab2.png in Resources */,
-				43F60E161F846CF100250475 /* tab5.png in Resources */,
 				43F60E171F846CF100250475 /* tab4.png in Resources */,
 				43E04C2E1F7BD3E4000C4C20 /* google_c_b.png in Resources */,
 				43ABCC3F1F7D4E5D00FA49B2 /* Trip.storyboard in Resources */,
@@ -634,6 +625,7 @@
 				43E04C141F7BCF03000C4C20 /* Extensions.swift in Sources */,
 				43E04C6C1F7C25B8000C4C20 /* HomeViewController.swift in Sources */,
 				434644221FA191FC00426506 /* TrillyCollectionCell.swift in Sources */,
+				434093571FBA87950038BD1D /* TreeView.swift in Sources */,
 				433749901F9CEDFC00E50DB3 /* Trip.swift in Sources */,
 				43F60E0B1F83B5CB00250475 /* TripManager.swift in Sources */,
 				43BA6F8D1F869023002005D8 /* TripBriefViewController.swift in Sources */,

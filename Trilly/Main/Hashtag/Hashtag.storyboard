@@ -51,37 +51,37 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#hashtag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="Gy0-CV-fdf">
-                                                <rect key="frame" x="40" y="100" width="239" height="50"/>
+                                                <rect key="frame" x="40" y="100" width="239" height="58.5"/>
                                                 <fontDescription key="fontDescription" name="JosefinSans-Bold" family="Josefin Sans" pointSize="50"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 pts." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOX-Oj-Y4c">
-                                                <rect key="frame" x="142" y="150" width="37" height="19"/>
+                                                <rect key="frame" x="141.5" y="158.5" width="38" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Oxygen-Light" family="Oxygen" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 pts." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVO-vd-Mno">
-                                                <rect key="frame" x="50" y="189" width="59.5" height="21"/>
+                                                <rect key="frame" x="50" y="196" width="59.5" height="20"/>
                                                 <fontDescription key="fontDescription" name="Oxygen-Regular" family="Oxygen" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mis puntos" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAp-5S-FwU">
-                                                <rect key="frame" x="50" y="210" width="59.5" height="15.5"/>
+                                                <rect key="frame" x="50" y="216" width="59.5" height="14"/>
                                                 <fontDescription key="fontDescription" name="Oxygen-Regular" family="Oxygen" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QPL-FC-3Uj">
-                                                <rect key="frame" x="200.5" y="189" width="79.5" height="21"/>
+                                                <rect key="frame" x="202" y="196" width="78" height="20"/>
                                                 <fontDescription key="fontDescription" name="Oxygen-Regular" family="Oxygen" pointSize="17"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mis kilómetros" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QGC-0X-O8h">
-                                                <rect key="frame" x="200.5" y="210" width="79.5" height="15.5"/>
+                                                <rect key="frame" x="202" y="216" width="78" height="14"/>
                                                 <fontDescription key="fontDescription" name="Oxygen-Regular" family="Oxygen" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -131,13 +131,13 @@
                                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 </view>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" tag="22" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="800" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="k2j-NP-Wp0">
-                                                                                    <rect key="frame" x="5" y="10" width="46" height="20"/>
+                                                                                    <rect key="frame" x="5" y="10" width="46" height="23.5"/>
                                                                                     <fontDescription key="fontDescription" name="JosefinSans-Regular" family="Josefin Sans" pointSize="20"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" tag="23" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sqz-gE-fyO">
-                                                                                    <rect key="frame" x="5" y="30" width="46" height="18"/>
+                                                                                    <rect key="frame" x="5" y="33.5" width="46" height="21"/>
                                                                                     <fontDescription key="fontDescription" name="JosefinSans-Regular" family="Josefin Sans" pointSize="18"/>
                                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                     <nil key="highlightedColor"/>
@@ -202,28 +202,28 @@
                                                                                 <constraint firstAttribute="height" constant="1" id="Xuq-f4-bqm"/>
                                                                             </constraints>
                                                                         </view>
-                                                                        <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ASR-s5-chS">
+                                                                        <imageView userInteractionEnabled="NO" tag="30" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TrophyGray" translatesAutoresizingMaskIntoConstraints="NO" id="ASR-s5-chS">
                                                                             <rect key="frame" x="15" y="143" width="40" height="40"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="ASR-s5-chS" secondAttribute="height" multiplier="1:1" id="sOD-Ib-pkK"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" tag="31" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Estado del premio" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vr-Ve-BB2">
-                                                                            <rect key="frame" x="70" y="143" width="160.5" height="40"/>
+                                                                            <rect key="frame" x="70" y="143" width="160" height="40"/>
                                                                             <fontDescription key="fontDescription" name="Oxygen-Regular" family="Oxygen" pointSize="12"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <button opaque="NO" tag="33" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5V-Ur-k3p">
-                                                                            <rect key="frame" x="245.5" y="143" width="39.5" height="39.5"/>
+                                                                        <button opaque="NO" tag="33" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5V-Ur-k3p">
+                                                                            <rect key="frame" x="245" y="143" width="40" height="40"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" secondItem="n5V-Ur-k3p" secondAttribute="height" multiplier="1:1" id="H3l-jY-bgT"/>
                                                                             </constraints>
-                                                                            <state key="normal" title="share">
+                                                                            <state key="normal" image="Share">
                                                                                 <color key="titleColor" red="0.20784313730000001" green="0.91764705879999997" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </state>
                                                                         </button>
-                                                                        <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="v5N-MJ-06o">
+                                                                        <imageView userInteractionEnabled="NO" tag="20" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GoalGray" translatesAutoresizingMaskIntoConstraints="NO" id="v5N-MJ-06o">
                                                                             <rect key="frame" x="20" y="10" width="101.5" height="112"/>
                                                                         </imageView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" tag="21" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descpipción de la meta por lograr" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="D1Z-yK-wCw">
@@ -403,14 +403,14 @@
                                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L5U-yq-uFV">
                                                 <rect key="frame" x="172.5" y="0.0" width="57" height="64"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" tag="22" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="X6n-g3-b1U">
-                                                        <rect key="frame" x="5" y="10" width="47" height="20"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" tag="22" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="X6n-g3-b1U">
+                                                        <rect key="frame" x="5" y="10" width="47" height="0.0"/>
                                                         <fontDescription key="fontDescription" name="JosefinSans-Regular" family="Josefin Sans" pointSize="20"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" tag="23" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCT-tp-sHf">
-                                                        <rect key="frame" x="5" y="30" width="47" height="18"/>
+                                                        <rect key="frame" x="5" y="10" width="47" height="21"/>
                                                         <fontDescription key="fontDescription" name="JosefinSans-Regular" family="Josefin Sans" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -452,13 +452,13 @@
                                     <constraint firstAttribute="trailing" secondItem="cce-ne-Q4l" secondAttribute="trailing" constant="15" id="q2i-O0-YYv"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdD-Tz-NAS">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VdD-Tz-NAS">
                                 <rect key="frame" x="25" y="25" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="IwF-0a-8ND"/>
                                     <constraint firstAttribute="width" secondItem="VdD-Tz-NAS" secondAttribute="height" multiplier="1:1" id="pSh-NK-tFK"/>
                                 </constraints>
-                                <state key="normal" title="Back">
+                                <state key="normal" image="BackWhite">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -513,4 +513,10 @@
             <point key="canvasLocation" x="24.800000000000001" y="59.820089955022496"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="BackWhite" width="110" height="110"/>
+        <image name="GoalGray" width="370" height="370"/>
+        <image name="Share" width="105" height="105"/>
+        <image name="TrophyGray" width="90" height="90"/>
+    </resources>
 </document>

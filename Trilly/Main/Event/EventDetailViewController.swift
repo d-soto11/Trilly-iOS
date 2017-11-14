@@ -36,6 +36,7 @@ class EventDetailViewController: UIViewController {
     @IBOutlet weak var infoText: UITextView!
     @IBOutlet weak var locationB: UIButton!
     @IBOutlet weak var joinB: UIButton!
+    @IBOutlet weak var locationImage: UIImageView!
     
     private var isUserAttending = false
     
@@ -46,7 +47,7 @@ class EventDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if event.icon != nil {
-            self.coverImage.downloadedFrom(link: event.icon ?? "")
+            self.coverImage.image = UIImage(named: event.icon!)
         }
         self.titleLabel.text = event.name ?? "Evento Trilly"
         self.pointsLabel.text = String(format: "%.0f pts.", event.reward ?? 0)
@@ -79,8 +80,9 @@ class EventDetailViewController: UIViewController {
             self.coverBackground.addGradientBackground(Trilly.UI.contrastColor, Trilly.UI.secondContrastColor, horizontal: true, diagonal: true)
             self.joinB.addGradientBackground(Trilly.UI.contrastColor, Trilly.UI.secondContrastColor, horizontal: true)
             self.locationB.setTitleColor(Trilly.UI.secondContrastColor, for: .normal)
+            self.locationImage.image = UIImage(named: "LocationPink")
         }
-        self.infoBackground.addNormalShadow()
+        self.infoBackground.addDarkShadow()
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,6 +106,12 @@ class EventDetailViewController: UIViewController {
     
     @IBAction func join(_ sender: Any) {
         if !self.isUserAttending {
+            
+            guard !Trilly.Network.offline else {
+                self.showAlert(title: "Sin conexión", message: "No puedes unirte a un evento si no tienes conexión. Intenta de nuevo más tarde", closeButtonTitle: "Entendido")
+                return
+            }
+            
             event.addUser(User.current!)
             User.current!.addEvent(event)
             

@@ -82,6 +82,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
             }
         }
         self.pointsLabel.text = String(format: "%.0f pts.", user.points ?? 0)
+        
+        if Trilly.Network.offline {
+            self.showAlert(title: "Sin conexión", message: "Algunos datos pueden estar desactualizados o no mostrarse porque estás sin conexión.", closeButtonTitle: "Entendido.")
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,6 +100,10 @@ class ProfileViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @IBAction func organization(_ sender: Any) {
+        guard !Trilly.Network.offline else {
+            self.showAlert(title: "Sin conexión", message: "No podemos agregarte a una organización sin conexión. Intenta más tarde.", closeButtonTitle: "Entendido")
+            return
+        }
         QRViewController.readQR(self)
     }
     

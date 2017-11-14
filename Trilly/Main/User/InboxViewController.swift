@@ -28,6 +28,20 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
                 self.unread = unr
                 self.inbox = noti!
                 self.inboxTable.reloadData()
+                if self.inbox.count == 0 {
+                    User.current?.inboxHistory({ (noti) in
+                        if noti != nil && noti!.count > 0 {
+                            self.inboxTable.beginUpdates()
+                            var indexPaths = [IndexPath]()
+                            for row in (self.inbox.count..<(self.inbox.count + noti!.count)) {
+                                indexPaths.append(IndexPath(row: row, section: 0))
+                            }
+                            self.inbox.append(contentsOf: noti!)
+                            self.inboxTable.insertRows(at: indexPaths, with: .bottom)
+                            self.inboxTable.endUpdates()
+                        }
+                    })
+                }
             }
         })
         // Do any additional setup after loading the view.
@@ -82,6 +96,25 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
         return cellUI
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == inbox.count - 1 {
+            MBProgressHUD.showAdded(to: self.view, animated: true)
+            User.current?.inboxHistory({ (noti) in
+                if noti != nil && noti!.count > 0 {
+                    self.inboxTable.beginUpdates()
+                    var indexPaths = [IndexPath]()
+                    for row in (self.inbox.count..<(self.inbox.count + noti!.count)) {
+                        indexPaths.append(IndexPath(row: row, section: 0))
+                    }
+                    self.inbox.append(contentsOf: noti!)
+                    self.inboxTable.insertRows(at: indexPaths, with: .bottom)
+                    self.inboxTable.endUpdates()
+                }
+                MBProgressHUD.hide(for: self.view, animated: true)
+            })
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
